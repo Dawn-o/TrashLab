@@ -1,1 +1,1 @@
-## TrashLab Frontend Repository
+## TrashLab Repository
