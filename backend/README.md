@@ -1,1 +1,0 @@
-## TrashLab Backend Repository
