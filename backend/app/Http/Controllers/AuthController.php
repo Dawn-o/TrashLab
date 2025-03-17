@@ -38,7 +38,7 @@ class AuthController extends Controller
 
             RateLimiter::clear($key);
 
-            $userData = $user->only(['id', 'name', 'email', 'created_at']);
+            $userData = $user->only(['id', 'name', 'email', 'points', 'created_at']);
 
             return response()->json([
                 'user' => $userData,
