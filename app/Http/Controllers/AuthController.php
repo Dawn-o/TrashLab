@@ -19,10 +19,9 @@ class AuthController extends Controller
                 'password' => 'required|string'
             ]);
 
-            // Implement rate limiting
             $key = Str::lower($request->email) . '|' . request()->ip();
 
-            if (RateLimiter::tooManyAttempts($key, 5)) {
+            if (RateLimiter::tooManyAttempts($key, 3)) {
                 throw ValidationException::withMessages([
                     'email' => ['Too many login attempts. Please try again in ' . RateLimiter::availableIn($key) . ' seconds.'],
                 ]);
@@ -39,7 +38,6 @@ class AuthController extends Controller
 
             RateLimiter::clear($key);
 
-            // Sanitize user data before sending
             $userData = $user->only(['id', 'name', 'email', 'created_at']);
 
             return response()->json([
