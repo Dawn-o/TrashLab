@@ -66,7 +66,7 @@ def run_app():
 thread = threading.Thread(target=run_app, daemon=True)
 thread.start()
 
-ngrok.set_auth_token("2uOGu0Ww4EWrhAAiP2ikzToKtaJ_2dEUdCvihakbGFdmuqy5V")
+ngrok.set_auth_token(""NGROK_AUTH_TOKEN"")
 
 # Buka tunnel ngrok ke port 10000
 public_url = ngrok.connect(3000).public_url
