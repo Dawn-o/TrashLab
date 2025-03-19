@@ -136,7 +136,7 @@ thread = threading.Thread(target=run_app, daemon=True)
 thread.start()
 
 # Setup ngrok
-ngrok.set_auth_token("2uTvtogFG6bMv28wUBstDun0MnA_fHHJjQdAc2atEsDkL4it")
+ngrok.set_auth_token("ngrok_token")
 public_url = ngrok.connect(3000).public_url
 logger.info(f"Aplikasi FastAPI sudah berjalan di {public_url}")
 
