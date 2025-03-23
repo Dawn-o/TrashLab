@@ -6,6 +6,7 @@ use App\Models\TrashPrediction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PredictionController extends Controller
 {
@@ -56,6 +57,9 @@ class PredictionController extends Controller
 
             $image = $request->file('image');
 
+            // Store the image
+            $imagePath = $image->store('trash-images', 'public');
+
             $response = Http::attach(
                 'file',
                 file_get_contents($image),
@@ -87,10 +91,11 @@ class PredictionController extends Controller
                     ->whereDate('created_at', now()->startOfDay())
                     ->count();
 
-                // Record the prediction
+                // Record the prediction with image path
                 TrashPrediction::create([
                     'user_id' => $user->id,
-                    'trash_type' => $type
+                    'trash_type' => $type,
+                    'image_path' => $imagePath
                 ]);
 
                 // Add regular point
@@ -114,9 +119,15 @@ class PredictionController extends Controller
                 'bonus_points' => $bonusPoints,
                 'total_points' => $user ? $user->points : 0,
                 'quest_progress' => $questProgress,
-                'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null
+                'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
+                'image_url' => asset('storage/' . $imagePath)
             ]);
         } catch (\Exception $e) {
+            // If there was an error, delete the uploaded image if it exists
+            if (isset($imagePath) && Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
             return response()->json([
                 'message' => 'Error getting prediction',
