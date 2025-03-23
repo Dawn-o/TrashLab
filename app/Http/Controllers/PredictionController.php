@@ -23,6 +23,7 @@ class PredictionController extends Controller
             ->whereDate('created_at', $today)
             ->count();
 
+        // Only award bonus points exactly at 3 predictions
         if ($predictionsToday === 3) {
             $user->increment('points', 10);
             return true;
@@ -80,6 +81,11 @@ class PredictionController extends Controller
             $questProgress = null;
 
             if ($user = $request->user()) {
+                // Get count before creating new prediction
+                $previousCount = TrashPrediction::where('user_id', $user->id)
+                    ->whereDate('created_at', now()->startOfDay())
+                    ->count();
+
                 // Record the prediction
                 TrashPrediction::create([
                     'user_id' => $user->id,
@@ -90,15 +96,14 @@ class PredictionController extends Controller
                 $user->increment('points', 1);
                 $pointsAdded = 1;
 
-                // Get quest progress
-                $questProgress = $this->getQuestProgress($user);
-                $questCompleted = $questProgress['completed'];
-
-                // Award bonus points if quest completed
-                if ($questCompleted) {
+                // Check if this prediction exactly completes the quest
+                if ($previousCount === 2) {
                     $user->increment('points', 10);
                     $pointsAdded += 10;
+                    $questCompleted = true;
                 }
+
+                $questProgress = $this->getQuestProgress($user);
             }
 
             return response()->json([
