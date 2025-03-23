@@ -78,6 +78,7 @@ class PredictionController extends Controller
             $recommendations = $this->recommendations[$type] ?? [];
             $questCompleted = false;
             $pointsAdded = 0;
+            $bonusPoints = 0;
             $questProgress = null;
 
             if ($user = $request->user()) {
@@ -99,7 +100,7 @@ class PredictionController extends Controller
                 // Check if this prediction exactly completes the quest
                 if ($previousCount === 2) {
                     $user->increment('points', 10);
-                    $pointsAdded += 10;
+                    $bonusPoints = 10;
                     $questCompleted = true;
                 }
 
@@ -110,9 +111,10 @@ class PredictionController extends Controller
                 'type' => "Sampah " . $type,
                 'recommendations' => $recommendations,
                 'points_added' => $pointsAdded,
+                'bonus_points' => $bonusPoints,
                 'total_points' => $user ? $user->points : 0,
                 'quest_progress' => $questProgress,
-                'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 points)' : null
+                'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null
             ]);
         } catch (\Exception $e) {
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
