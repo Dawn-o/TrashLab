@@ -23,7 +23,7 @@ class PredictionController extends Controller
             ]);
 
             $image = $request->file('image');
-            
+
             $response = Http::attach(
                 'file',
                 file_get_contents($image),
@@ -44,8 +44,15 @@ class PredictionController extends Controller
 
             $type = "Sampah " . $responseData['label'];
 
+            if ($user = $request->user()) {
+                $user->increment('points', 1);
+                $user->save();
+            }
+
             return response()->json([
-                'type' => $type
+                'type' => $type,
+                'points_added' => $user ? 1 : 0,
+                'total_points' => $user ? $user->points : 0
             ]);
         } catch (\Exception $e) {
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
