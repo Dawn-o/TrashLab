@@ -28,3 +28,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::post('/predict', [PredictionController::class, 'predict'])
     ->middleware('auth:sanctum');
+    
+    Route::get('/quest-status', [PredictionController::class, 'getQuestStatus'])
+    ->middleware('auth:sanctum');
