@@ -31,6 +31,21 @@ class PredictionController extends Controller
         return false;
     }
 
+    protected function getQuestProgress($user)
+    {
+        $today = now()->startOfDay();
+        $predictionsToday = TrashPrediction::where('user_id', $user->id)
+            ->whereDate('created_at', $today)
+            ->count();
+
+        return [
+            'current' => min($predictionsToday, 3),
+            'required' => 3,
+            'completed' => $predictionsToday >= 3,
+            'progress_text' => "$predictionsToday/3"
+        ];
+    }
+
     public function predict(Request $request)
     {
         try {
@@ -62,6 +77,7 @@ class PredictionController extends Controller
             $recommendations = $this->recommendations[$type] ?? [];
             $questCompleted = false;
             $pointsAdded = 0;
+            $questProgress = null;
 
             if ($user = $request->user()) {
                 // Record the prediction
@@ -74,9 +90,13 @@ class PredictionController extends Controller
                 $user->increment('points', 1);
                 $pointsAdded = 1;
 
-                // Check TrashQuest completion
-                if ($this->checkTrashQuest($user)) {
-                    $questCompleted = true;
+                // Get quest progress
+                $questProgress = $this->getQuestProgress($user);
+                $questCompleted = $questProgress['completed'];
+
+                // Award bonus points if quest completed
+                if ($questCompleted) {
+                    $user->increment('points', 10);
                     $pointsAdded += 10;
                 }
             }
@@ -86,7 +106,7 @@ class PredictionController extends Controller
                 'recommendations' => $recommendations,
                 'points_added' => $pointsAdded,
                 'total_points' => $user ? $user->points : 0,
-                'quest_completed' => $questCompleted,
+                'quest_progress' => $questProgress,
                 'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 points)' : null
             ]);
         } catch (\Exception $e) {
@@ -96,5 +116,18 @@ class PredictionController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getQuestStatus(Request $request)
+    {
+        if ($user = $request->user()) {
+            return response()->json([
+                'quest_progress' => $this->getQuestProgress($user)
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Unauthorized'
+        ], 401);
     }
 }
