@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Http;
 
 class PredictionController extends Controller
 {
+    protected $mlServiceUrl;
+
+    public function __construct()
+    {
+        $this->mlServiceUrl = env('ML_SERVICE_URL', 'http://localhost:8000');
+    }
+
     public function predict(Request $request)
     {
         try {
@@ -21,7 +28,7 @@ class PredictionController extends Controller
                 'file',
                 file_get_contents($image),
                 $image->getClientOriginalName()
-            )->post('https://9d5e-34-73-140-215.ngrok-free.app/predict');
+            )->post($this->mlServiceUrl . '/predict');
 
             if (!$response->successful()) {
                 throw new \Exception('Failed to get prediction from ML service');
