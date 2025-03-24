@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TrashPrediction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class QuestController extends Controller
@@ -23,7 +24,7 @@ class QuestController extends Controller
         return false;
     }
 
-    protected function getQuestProgress($user)
+    public function getQuestProgress(User $user)
     {
         $today = now()->startOfDay();
         $predictionsToday = TrashPrediction::where('user_id', $user->id)
@@ -38,7 +39,7 @@ class QuestController extends Controller
         ];
     }
 
-    public function getStatus(Request $request)
+    public function getQuestStatus(Request $request)
     {
         if ($user = $request->user()) {
             return response()->json([
