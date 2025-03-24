@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PredictionController;
+use App\Http\Controllers\QuestController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +29,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
-Route::post('/predict', [PredictionController::class, 'predict'])
-    ->middleware('auth:sanctum');
-    
-    Route::get('/quest-status', [PredictionController::class, 'getQuestStatus'])
-    ->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/predict', [PredictionController::class, 'predict']);
+    Route::get('/quest/status', [QuestController::class, 'getStatus']);
+    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::get('/profile/history', [ProfileController::class, 'history']);
+});
