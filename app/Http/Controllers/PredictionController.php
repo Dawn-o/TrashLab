@@ -47,7 +47,6 @@ class PredictionController extends Controller
             }
 
             $type = $responseData['label'];
-            $recommendations = $this->recommendations[$type] ?? [];
             $questCompleted = false;
             $pointsAdded = 0;
             $bonusPoints = 0;
@@ -82,7 +81,6 @@ class PredictionController extends Controller
 
             return response()->json([
                 'type' => "Sampah " . $type,
-                'recommendations' => $recommendations,
                 'points_added' => $pointsAdded,
                 'bonus_points' => $bonusPoints,
                 'total_points' => $user ? $user->points : 0,
