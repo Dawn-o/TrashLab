@@ -6,11 +6,9 @@ from fastapi.responses import JSONResponse
 import nest_asyncio
 import uvicorn
 import threading
-from pyngrok import ngrok
 from loguru import logger
 import time
 import psutil
-import requests
 from fastapi.middleware.cors import CORSMiddleware
 from google.colab import drive
 import os
@@ -38,7 +36,7 @@ MODEL_PATH = "/content/drive/MyDrive/saved_model_trashlab"
 
 # Load model dari Google Drive
 try:
-    loaded_model = tf.keras.layers.TFSMLayer(MODEL_PATH, call_endpoint="serving_default")
+    loaded_model = tf.keras.models.load_model(MODEL_PATH, call_endpoint="serving_default")
     logger.info("✅ Model berhasil dimuat dari Google Drive.")
 except Exception as e:
     logger.error(f"❌ Error saat load model: {e}")
@@ -58,25 +56,6 @@ def preprocess_image_bytes(image_bytes: bytes):
     except Exception as e:
         logger.error(f"⚠ Error dalam preprocessing gambar: {e}")
         raise
-
-# Cek status ngrok
-def check_ngrok_status():
-    try:
-        ngrok_tunnels = requests.get("http://127.0.0.1:4040/api/tunnels").json()
-        if ngrok_tunnels.get("tunnels"):
-            logger.info(f"🔗 Ngrok aktif di {ngrok_tunnels['tunnels'][0]['public_url']}")
-        else:
-            logger.warning("⚠ Ngrok tidak berjalan.")
-    except Exception as e:
-        logger.error(f"❌ Error cek status ngrok: {e}")
-
-# Cek Port
-def is_port_in_use(port=8000):
-    """Cek apakah port sudah digunakan"""
-    for conn in psutil.net_connections():
-        if conn.laddr.port == port:
-            return True
-    return False
 
 # Monitoring CPU & Memory
 def log_system_usage():
@@ -130,16 +109,7 @@ nest_asyncio.apply()
 def run_app():
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
-if not is_port_in_use(8000):
-    thread = threading.Thread(target=run_app, daemon=True)
-    thread.start()
-else:
-    logger.info("⚠ Server sudah berjalan di port 8000, tidak perlu start ulang.")
+thread = threading.Thread(target=run_app, daemon=True)
+thread.start()
 
-# Setup ngrok
-ngrok.set_auth_token("YOUR_NGROK_AUTH_TOKEN")  # Ganti dengan token ngrok
-public_url = ngrok.connect(8000).public_url
-logger.info(f"🌍 Aplikasi FastAPI sudah berjalan di {public_url}")
-
-# Tampilkan URL ngrok
-print(f"🌍 API dapat diakses di: {public_url}/docs")
+logger.info("🚀 FastAPI server berjalan di port 8000")
