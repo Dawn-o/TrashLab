@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('Admin123')
         ]);
+
+        $this->call([
+            LeaderboardSeeder::class
+        ]);
     }
 }
