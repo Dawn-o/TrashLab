@@ -11,41 +11,12 @@ use Illuminate\Support\Facades\Storage;
 class PredictionController extends Controller
 {
     protected $mlServiceUrl;
+    protected $questController;
 
-    public function __construct()
+    public function __construct(QuestController $questController)
     {
         $this->mlServiceUrl = env('ML_SERVICE_URL', 'http://localhost:8000');
-    }
-
-    protected function checkTrashQuest($user)
-    {
-        $today = now()->startOfDay();
-        $predictionsToday = TrashPrediction::where('user_id', $user->id)
-            ->whereDate('created_at', $today)
-            ->count();
-
-        // Only award bonus points exactly at 3 predictions
-        if ($predictionsToday === 3) {
-            $user->increment('points', 10);
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function getQuestProgress($user)
-    {
-        $today = now()->startOfDay();
-        $predictionsToday = TrashPrediction::where('user_id', $user->id)
-            ->whereDate('created_at', $today)
-            ->count();
-
-        return [
-            'current' => min($predictionsToday, 3),
-            'required' => 3,
-            'completed' => $predictionsToday >= 3,
-            'progress_text' => "$predictionsToday/3"
-        ];
+        $this->questController = $questController;
     }
 
     public function predict(Request $request)
@@ -56,8 +27,6 @@ class PredictionController extends Controller
             ]);
 
             $image = $request->file('image');
-
-            // Store the image
             $imagePath = $image->store('trash-images', 'public');
 
             $response = Http::attach(
@@ -71,7 +40,6 @@ class PredictionController extends Controller
             }
 
             $responseData = $response->json();
-
             Log::info('ML Service Response:', ['response' => $responseData]);
 
             if (!isset($responseData['label'])) {
@@ -79,7 +47,6 @@ class PredictionController extends Controller
             }
 
             $type = $responseData['label'];
-            $recommendations = $this->recommendations[$type] ?? [];
             $questCompleted = false;
             $pointsAdded = 0;
             $bonusPoints = 0;
@@ -91,7 +58,7 @@ class PredictionController extends Controller
                     ->whereDate('created_at', now()->startOfDay())
                     ->count();
 
-                // Record the prediction with image path
+                // Record prediction
                 TrashPrediction::create([
                     'user_id' => $user->id,
                     'trash_type' => $type,
@@ -102,19 +69,18 @@ class PredictionController extends Controller
                 $user->increment('points', 1);
                 $pointsAdded = 1;
 
-                // Check if this prediction exactly completes the quest
+                // Check quest completion
                 if ($previousCount === 2) {
-                    $user->increment('points', 10);
-                    $bonusPoints = 10;
                     $questCompleted = true;
+                    $bonusPoints = 10;
+                    $user->increment('points', $bonusPoints);
                 }
 
-                $questProgress = $this->getQuestProgress($user);
+                $questProgress = $this->questController->getQuestProgress($user);
             }
 
             return response()->json([
                 'type' => "Sampah " . $type,
-                'recommendations' => $recommendations,
                 'points_added' => $pointsAdded,
                 'bonus_points' => $bonusPoints,
                 'total_points' => $user ? $user->points : 0,
@@ -122,8 +88,8 @@ class PredictionController extends Controller
                 'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
                 'image_url' => asset('storage/' . $imagePath)
             ]);
+
         } catch (\Exception $e) {
-            // If there was an error, delete the uploaded image if it exists
             if (isset($imagePath) && Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
             }
@@ -140,7 +106,7 @@ class PredictionController extends Controller
     {
         if ($user = $request->user()) {
             return response()->json([
-                'quest_progress' => $this->getQuestProgress($user)
+                'quest_progress' => $this->questController->getQuestProgress($user)
             ]);
         }
 
