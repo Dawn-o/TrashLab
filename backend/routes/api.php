@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\LeaderboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,5 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/predict', [PredictionController::class, 'predict']);
     Route::get('/quest/status', [QuestController::class, 'getStatus']);
+    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 });
