@@ -54,13 +54,11 @@ class ProfileController extends Controller
             ->paginate(10);
 
         return response()->json([
-            'predictions' => $predictions->map(function ($prediction) {
-                return [
-                    'type' => "Sampah " . $prediction->trash_type,
-                    'date' => $prediction->created_at->format('Y-m-d H:i:s'),
-                    'image_url' => $prediction->image_path ? asset('storage/' . $prediction->image_path) : null
-                ];
-            }),
+            'predictions' => $predictions->map(fn($prediction) => [
+                'type' => "Sampah {$prediction->trash_type}",
+                'date' => $prediction->created_at->format('Y-m-d H:i:s'),
+                'image_url' => $prediction->image_path ? asset("storage/{$prediction->image_path}") : null
+            ]),
             'pagination' => [
                 'current_page' => $predictions->currentPage(),
                 'total_pages' => $predictions->lastPage(),
