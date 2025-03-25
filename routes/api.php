@@ -5,6 +5,7 @@ use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RewardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/leaderboard', [LeaderboardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/history', [ProfileController::class, 'history']);
+    Route::get('/rewards', [RewardController::class, 'index']);
+    Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem']);
 });
