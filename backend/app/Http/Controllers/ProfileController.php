@@ -15,14 +15,16 @@ class ProfileController extends Controller
         // Get user's rank
         $rank = User::where('points', '>', $user->points)->count() + 1;
 
-        // Get prediction stats
-        $predictions = TrashPrediction::where('user_id', $user->id);
-        $totalPredictions = $predictions->count();
-        $organicCount = $predictions->where('trash_type', 'Organik')->count();
-        $inorganicCount = $predictions->where('trash_type', 'Anorganik')->count();
+        // Get base query
+        $predictionsQuery = TrashPrediction::where('user_id', $user->id);
 
-        // Get today's predictions
-        $todayPredictions = $predictions->whereDate('created_at', now()->startOfDay())->count();
+        // Get stats using cloned queries to prevent query modification
+        $stats = [
+            'total_predictions' => (clone $predictionsQuery)->count(),
+            'organic_predictions' => (clone $predictionsQuery)->where('trash_type', 'Organik')->count(),
+            'inorganic_predictions' => (clone $predictionsQuery)->where('trash_type', 'Anorganik')->count(),
+            'predictions_today' => (clone $predictionsQuery)->whereDate('created_at', now()->startOfDay())->count()
+        ];
 
         return response()->json([
             'profile' => [
@@ -30,18 +32,8 @@ class ProfileController extends Controller
                 'email' => $user->email,
                 'points' => $user->points,
                 'rank' => $rank,
-                'stats' => [
-                    'total_predictions' => $totalPredictions,
-                    'organic_predictions' => $organicCount,
-                    'inorganic_predictions' => $inorganicCount,
-                    'predictions_today' => $todayPredictions
-                ],
-                'quest_progress' => [
-                    'current' => min($todayPredictions, 3),
-                    'required' => 3,
-                    'completed' => $todayPredictions >= 3,
-                    'progress_text' => "$todayPredictions/3"
-                ]
+                'stats' => $stats,
+                'quest_progress' => app(QuestController::class)->getQuestProgress($user)
             ]
         ]);
     }

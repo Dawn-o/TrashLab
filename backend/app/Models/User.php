@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rewards()
+    {
+        return $this->belongsToMany(Reward::class, 'user_rewards')
+            ->withPivot('redeemed_at')
+            ->withTimestamps();
+    }
 }

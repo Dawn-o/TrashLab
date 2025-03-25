@@ -5,6 +5,7 @@ use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RewardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,20 +20,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Auth Routes
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
+// Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
+    // Prediction Routes
     Route::post('/predict', [PredictionController::class, 'predict']);
-    Route::get('/quest/status', [QuestController::class, 'getStatus']);
+
+    // Quest Routes
+    Route::get('/quest/status', [QuestController::class, 'getQuestStatus']);
+
+    // Leaderboard Routes
     Route::get('/leaderboard', [LeaderboardController::class, 'index']);
+
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/history', [ProfileController::class, 'history']);
+
+    // Reward Routes
+    Route::get('/rewards', [RewardController::class, 'index']);
+    Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem']);
+    Route::get('/rewards/history', [RewardController::class, 'history']);
 });
