@@ -12,7 +12,13 @@ class Reward extends Model
         'category',
         'points_cost',
         'image_path',
-        'is_available'
+        'is_available',
+        'one_time'
+    ];
+
+    protected $casts = [
+        'is_available' => 'boolean',
+        'one_time' => 'boolean'
     ];
 
     public function users()
