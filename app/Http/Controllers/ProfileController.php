@@ -8,23 +8,16 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    protected $questController;
-
-    public function __construct(QuestController $questController)
-    {
-        $this->questController = $questController;
-    }
-
     public function show(Request $request)
     {
         $user = $request->user();
-        
+
         // Get user's rank
         $rank = User::where('points', '>', $user->points)->count() + 1;
-    
+
         // Get base query
         $predictionsQuery = TrashPrediction::where('user_id', $user->id);
-    
+
         // Get stats using cloned queries to prevent query modification
         $stats = [
             'total_predictions' => (clone $predictionsQuery)->count(),
@@ -32,7 +25,7 @@ class ProfileController extends Controller
             'inorganic_predictions' => (clone $predictionsQuery)->where('trash_type', 'Anorganik')->count(),
             'predictions_today' => (clone $predictionsQuery)->whereDate('created_at', now()->startOfDay())->count()
         ];
-    
+
         return response()->json([
             'profile' => [
                 'name' => $user->name,
@@ -40,7 +33,7 @@ class ProfileController extends Controller
                 'points' => $user->points,
                 'rank' => $rank,
                 'stats' => $stats,
-                'quest_progress' => $this->questController->getQuestProgress($user)
+                'quest_progress' => app(QuestController::class)->getQuestProgress($user)
             ]
         ]);
     }
