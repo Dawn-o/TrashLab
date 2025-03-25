@@ -53,11 +53,6 @@ class PredictionController extends Controller
             $questProgress = null;
 
             if ($user = $request->user()) {
-                // Get count before creating new prediction
-                $previousCount = TrashPrediction::where('user_id', $user->id)
-                    ->whereDate('created_at', now()->startOfDay())
-                    ->count();
-
                 // Record prediction
                 TrashPrediction::create([
                     'user_id' => $user->id,
@@ -69,12 +64,10 @@ class PredictionController extends Controller
                 $user->increment('points', 1);
                 $pointsAdded = 1;
 
-                // Check quest completion
-                if ($previousCount === 2) {
-                    $questCompleted = true;
-                    $bonusPoints = 10;
-                    $user->increment('points', $bonusPoints);
-                }
+                // Check quest completion using QuestController
+                $questCheck = $this->questController->checkTrashQuest($user);
+                $questCompleted = $questCheck['completed'];
+                $bonusPoints = $questCheck['bonus_points'];
 
                 $questProgress = $this->questController->getQuestProgress($user);
             }
