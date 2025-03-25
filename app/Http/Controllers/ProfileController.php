@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    protected $questController;
+
+    public function __construct(QuestController $questController)
+    {
+        $this->questController = $questController;
+    }
+
     public function show(Request $request)
     {
         $user = $request->user();
@@ -36,12 +43,7 @@ class ProfileController extends Controller
                     'inorganic_predictions' => $inorganicCount,
                     'predictions_today' => $todayPredictions
                 ],
-                'quest_progress' => [
-                    'current' => min($todayPredictions, 3),
-                    'required' => 3,
-                    'completed' => $todayPredictions >= 3,
-                    'progress_text' => "$todayPredictions/3"
-                ]
+                'quest_progress' => $this->questController->getQuestProgress($user)
             ]
         ]);
     }
