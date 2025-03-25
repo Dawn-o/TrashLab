@@ -57,4 +57,34 @@ class RewardController extends Controller
             'remaining_points' => $user->points
         ]);
     }
+
+    public function history(Request $request)
+    {
+        $user = $request->user();
+        
+        $redeemedRewards = $user->rewards()
+            ->withPivot('redeemed_at')
+            ->orderBy('user_rewards.created_at', 'desc')
+            ->paginate(10)
+            ->through(function ($reward) {
+                return [
+                    'id' => $reward->id,
+                    'name' => $reward->name,
+                    'category' => $reward->category,
+                    'points_cost' => $reward->points_cost,
+                    'image_path' => $reward->image_path ? asset('storage/' . $reward->image_path) : null,
+                    'redeemed_at' => $reward->pivot->redeemed_at,
+                ];
+            });
+
+        return response()->json([
+            'history' => $redeemedRewards->items(),
+            'pagination' => [
+                'current_page' => $redeemedRewards->currentPage(),
+                'last_page' => $redeemedRewards->lastPage(),
+                'per_page' => $redeemedRewards->perPage(),
+                'total' => $redeemedRewards->total()
+            ]
+        ]);
+    }
 }
