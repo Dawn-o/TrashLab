@@ -31,7 +31,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/predict', [PredictionController::class, 'predict']);
-    Route::get('/quest/status', [QuestController::class, 'getQuestProgress']);
+    Route::get('/quest/status', [QuestController::class, 'getQuestStatus']);
     Route::get('/leaderboard', [LeaderboardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/history', [ProfileController::class, 'history']);
