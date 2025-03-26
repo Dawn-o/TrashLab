@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\LeaderboardController;
@@ -46,4 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/rewards', [RewardController::class, 'index']);
     Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem']);
     Route::get('/rewards/history', [RewardController::class, 'history']);
+
+    // Badge Routes
+    Route::get('/badges', [BadgeController::class, 'getAvailableBadges']);
+    Route::post('/badges/set-active', [BadgeController::class, 'setActiveBadge']);
 });
