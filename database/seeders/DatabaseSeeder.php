@@ -15,12 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('Admin123')
-        ]);
-
         $this->call([
             LeaderboardSeeder::class,
             RewardSeeder::class
