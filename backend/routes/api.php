@@ -7,7 +7,6 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RewardController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

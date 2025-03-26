@@ -12,6 +12,12 @@ class LeaderboardSeeder extends Seeder
     {
         $users = [
             [
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
+                'points' => 9999999
+            ],
+            [
                 'name' => 'Pro Recycler',
                 'email' => 'pro@example.com',
                 'password' => Hash::make('password123'),
