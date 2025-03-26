@@ -57,13 +57,15 @@ class User extends Authenticatable
         if ($this->active_badge === 'default_badge') {
             return asset('storage/badges/default.png');
         }
-        
-        $reward = $this->rewards()
+
+        $badge = $this->rewards()
             ->where('rewards.id', $this->active_badge)
             ->where('category', 'BADGE')
             ->first();
 
-        return $reward ? asset('storage/' . $reward->image_path) : asset('storage/badges/default.png');
+        return $badge 
+            ? asset('storage/' . $badge->image_path)
+            : asset('storage/badges/default.png');
     }
 
     public function setActiveBadge($badgeId)

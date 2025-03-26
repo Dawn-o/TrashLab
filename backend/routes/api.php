@@ -36,9 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Quest Routes
     Route::get('/quest/status', [QuestController::class, 'getQuestStatus']);
 
-    // Leaderboard Routes
-    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
-
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/history', [ProfileController::class, 'history']);
@@ -52,3 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/badges', [BadgeController::class, 'getAvailableBadges']);
     Route::post('/badges/set-active', [BadgeController::class, 'setActiveBadge']);
 });
+
+// Leaderboard Routes
+Route::get('/leaderboard', [LeaderboardController::class, 'index']);
