@@ -21,6 +21,8 @@ class Reward extends Model
         'one_time' => 'boolean'
     ];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_rewards')

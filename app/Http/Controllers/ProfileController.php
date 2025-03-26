@@ -33,7 +33,8 @@ class ProfileController extends Controller
                 'points' => $user->points,
                 'rank' => $rank,
                 'stats' => $stats,
-                'quest_progress' => app(QuestController::class)->getQuestProgress($user)
+                'quest_progress' => app(QuestController::class)->getQuestProgress($user),
+                'badge_url' => $user->badge_url
             ]
         ]);
     }

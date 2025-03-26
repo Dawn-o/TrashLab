@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RewardController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,9 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Quest Routes
     Route::get('/quest/status', [QuestController::class, 'getQuestStatus']);
 
-    // Leaderboard Routes
-    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
-
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/history', [ProfileController::class, 'history']);
@@ -46,4 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/rewards', [RewardController::class, 'index']);
     Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem']);
     Route::get('/rewards/history', [RewardController::class, 'history']);
+
+    // Badge Routes
+    Route::get('/badges', [BadgeController::class, 'getAvailableBadges']);
+    Route::post('/badges/set-active', [BadgeController::class, 'setActiveBadge']);
 });
+
+// Leaderboard Routes
+Route::get('/leaderboard', [LeaderboardController::class, 'index']);
