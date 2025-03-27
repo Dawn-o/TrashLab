@@ -69,8 +69,10 @@ class AuthController extends Controller
                     'regex:/[a-z]/',
                     'regex:/[A-Z]/',
                     'regex:/[0-9]/',
-                    'regex:/[@$!%*#?&]/'
-                ]
+                    'regex:/[@$!%*#?&]/',
+                    'confirmed'
+                ],
+                'password_confirmation' => 'required'
             ]);
 
             $user = User::create([
