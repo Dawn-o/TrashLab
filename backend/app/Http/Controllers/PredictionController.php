@@ -7,32 +7,53 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Drivers\Gd\Encoders\JpegEncoder;
+use Intervention\Image\Drivers\Gd\Encoders\PngEncoder;
 
 class PredictionController extends Controller
 {
     protected $mlServiceUrl;
     protected $questController;
+    protected $imageManager;
 
     public function __construct(QuestController $questController)
     {
         $this->mlServiceUrl = env('ML_SERVICE_URL', 'http://localhost:8000');
         $this->questController = $questController;
+        $this->imageManager = new ImageManager(new Driver());
     }
 
     public function predict(Request $request)
     {
         try {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240'
             ]);
 
-            $image = $request->file('image');
-            $imagePath = $image->store('trash-images', 'public');
+            $upload = $request->file('image');
+            
+            $encoder = new JpegEncoder(95);
+
+            $image = $this->imageManager->read($upload)
+                ->scale(width: 224)
+                ->sharpen(1.5)
+                ->encode($encoder);
+
+            $filename = Str::random() . '.jpg';
+            $imagePath = "trash-images/{$filename}";
+
+            Storage::disk('public')->put(
+                $imagePath,
+                $image->toString()
+            );
 
             $response = Http::attach(
                 'file',
-                file_get_contents($image),
-                $image->getClientOriginalName()
+                Storage::disk('public')->get($imagePath),
+                $filename
             )->post("{$this->mlServiceUrl}/predict");
 
             if (!$response->successful()) {
@@ -81,7 +102,6 @@ class PredictionController extends Controller
                 'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
                 'image_url' => asset('storage/' . $imagePath)
             ]);
-
         } catch (\Exception $e) {
             if (isset($imagePath) && Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
