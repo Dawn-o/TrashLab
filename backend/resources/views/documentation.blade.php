@@ -23,18 +23,19 @@
 
 <body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
     <!-- Add this button right after body tag -->
-    <button id="sidebar-toggle" 
-        class="fixed top-4 right-4 lg:hidden z-50 p-2 bg-white rounded-md shadow-md hover:bg-gray-50">
-        <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    <button id="sidebar-toggle"
+        class="fixed top-6 right-6 lg:hidden z-50 p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 ring-1 ring-gray-100 transition-all duration-150 hover:shadow-md active:scale-95">
+        <svg class="w-5 h-5 text-gray-700" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
-        <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        <svg class="w-5 h-5 hidden text-gray-700" id="close-icon" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </button>
 
     <!-- Sidebar Navigation -->
-    <aside id="sidebar" 
+    <aside id="sidebar"
         class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 w-64 bg-white shadow-lg lg:shadow-none transition-transform duration-300 ease-in-out lg:bg-transparent z-40">
         <div class="h-full overflow-y-auto p-4">
             <nav class="space-y-1 py-4">
@@ -75,7 +76,7 @@
     </aside>
 
     <!-- Add overlay for mobile -->
-    <div id="sidebar-overlay" 
+    <div id="sidebar-overlay"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 z-30 hidden transition-opacity duration-300 ease-in-out">
     </div>
 
@@ -85,7 +86,7 @@
             <h1 id="trashlab-api-documentation" class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 TrashLab API Documentation</h1>
             <p class="text-gray-600 mb-6">RESTful API documentation for TrashLab waste management system</p>
- 
+
             <div class="py-4">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div class="flex items-center gap-3">
@@ -534,7 +535,7 @@
 
             function toggleSidebar() {
                 isOpen = !isOpen;
-                
+
                 if (isOpen) {
                     sidebar.classList.remove('-translate-x-full');
                     menuIcon.classList.add('hidden');
