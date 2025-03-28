@@ -13,7 +13,7 @@
         @endif
     </div>
     <div class="sm:col-span-2">
-        <span class="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded">{{ $type }}</span>
+        <span class="inline-block px-2 py-1 text-xs font-medium bg-gray-200 text-gray-800 rounded">{{ $type }}</span>
     </div>
     <div class="sm:col-span-7 text-sm text-gray-600">{{ $description }}</div>
 </div>
