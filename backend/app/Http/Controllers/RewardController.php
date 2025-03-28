@@ -48,13 +48,18 @@ class RewardController extends Controller
         }
     }
 
-    public function redeem(Request $request, $id)
+    public function redeem(Request $request)
     {
         try {
+            // Validate request
+            $validated = $request->validate([
+                'reward_id' => 'required|integer|exists:rewards,id'
+            ]);
+
             $user = $request->user();
             
             // Find reward with explicit error handling
-            $reward = Reward::find($id);
+            $reward = Reward::find($validated['reward_id']);
             
             if (!$reward) {
                 return response()->json([
@@ -101,8 +106,8 @@ class RewardController extends Controller
 
         } catch (Exception $e) {
             Log::error('Error redeeming reward:', [
-                'user_id' => $user->id,
-                'reward_id' => $id,
+                'user_id' => $user->id ?? null,
+                'reward_id' => $validated['reward_id'] ?? null,
                 'error' => $e->getMessage()
             ]);
             return response()->json([

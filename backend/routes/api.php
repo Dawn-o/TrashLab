@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Reward Routes
     Route::get('/rewards', [RewardController::class, 'index']);
-    Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem']);
+    Route::post('/rewards/redeem', [RewardController::class, 'redeem'])->middleware('auth:sanctum');
     Route::get('/rewards/history', [RewardController::class, 'history']);
 
     // Badge Routes
