@@ -24,7 +24,7 @@
 <body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
     <!-- Add this button right after body tag -->
     <button id="sidebar-toggle" 
-        class="fixed top-8 right-8 lg:hidden z-50 p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
+        class="fixed top-8 right-8 lg:hidden z-50 p-3 bg-white rounded-full shadow-md hover:bg-gray-50">
         <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
