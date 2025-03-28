@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -21,13 +21,71 @@
     </script>
 </head>
 
-<body class="font-sans text-gray-800 leading-relaxed max-w-6xl mx-auto p-6 bg-gray-50">
+<body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
+    <!-- Add this button right after body tag -->
+    <button id="sidebar-toggle" 
+        class="fixed top-4 right-4 lg:hidden z-50 p-2 bg-white rounded-md shadow-md hover:bg-gray-50">
+        <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
 
-    <body class="font-sans text-gray-800 leading-relaxed max-w-6xl mx-auto p-4 sm:p-6 bg-gray-50">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" 
+        class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 w-64 bg-white shadow-lg lg:shadow-none transition-transform duration-300 ease-in-out lg:bg-transparent z-40">
+        <div class="h-full overflow-y-auto p-4">
+            <nav class="space-y-1 py-4">
+                <a href="#trashlab-api-documentation"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    TrashLab API Documentation
+                </a>
+                <a href="#authentication"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Authentication
+                </a>
+                <a href="#prediction"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Prediction
+                </a>
+                <a href="#quest"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Quest
+                </a>
+                <a href="#profile"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Profile
+                </a>
+                <a href="#reward"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Rewards
+                </a>
+                <a href="#badge"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Badges
+                </a>
+                <a href="#leaderboard"
+                    class="nav-link block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                    Leaderboard
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Add overlay for mobile -->
+    <div id="sidebar-overlay" 
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 z-30 hidden transition-opacity duration-300 ease-in-out">
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 lg:ml-72">
         <header class="mb-6 sm:mb-8 mt-8 sm:mt-16">
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">TrashLab API Documentation</h1>
+            <h1 id="trashlab-api-documentation" class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                TrashLab API Documentation</h1>
             <p class="text-gray-600 mb-6">RESTful API documentation for TrashLab waste management system</p>
-
+ 
             <div class="py-4">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div class="flex items-center gap-3">
@@ -45,19 +103,12 @@
                     </div>
                 </div>
             </div>
-
-            <div id="toast"
-                class="fixed bottom-4 right-4 flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-full opacity-0 transition-all duration-300 max-w-[90vw] sm:max-w-md">
-                <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span class="truncate">Copied to clipboard!</span>
-            </div>
         </header>
 
         {{-- Auth Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-8 mb-4">Authentication Endpoints</h2>
+            <h2 id="authentication" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-8 mb-4">Authentication
+                Endpoints</h2>
 
             <x-docs.endpoint method="POST" path="/register" description="Register a new user account.">
                 <x-docs.request-body>
@@ -105,7 +156,8 @@
 
         {{-- Prediction Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Prediction Endpoint</h2>
+            <h2 id="prediction" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Prediction Endpoint
+            </h2>
 
             <x-docs.endpoint method="POST" path="/predict" description="Get waste type prediction from image."
                 :requiresAuth="true">
@@ -138,7 +190,7 @@
 
         {{-- Quest Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Quest Endpoint</h2>
+            <h2 id="quest" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Quest Endpoint</h2>
 
             <x-docs.endpoint method="GET" path="/quest/status" description="Get current quest status and progress."
                 :requiresAuth="true">
@@ -163,10 +215,11 @@
 
         {{-- Profile Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Profile Endpoints</h2>
+            <h2 id="profile" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Profile Endpoints
+            </h2>
 
-            <x-docs.endpoint method="GET" path="/profile" description="Get authenticated user's profile information."
-                :requiresAuth="true">
+            <x-docs.endpoint method="GET" path="/profile"
+                description="Get authenticated user's profile information." :requiresAuth="true">
                 <x-docs.response :data="[
                     'status' => 'success',
                     'message' => 'Profile retrieved successfully',
@@ -221,7 +274,8 @@
 
         {{-- Reward Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Rewards Endpoints</h2>
+            <h2 id="reward" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Rewards Endpoints
+            </h2>
 
             <x-docs.endpoint method="GET" path="/rewards" description="Get available rewards grouped by category."
                 :requiresAuth="true">
@@ -269,8 +323,8 @@
                 ]" />
             </x-docs.endpoint>
 
-            <x-docs.endpoint method="GET" path="/rewards/history" description="Get user's reward redemption history."
-                :requiresAuth="true">
+            <x-docs.endpoint method="GET" path="/rewards/history"
+                description="Get user's reward redemption history." :requiresAuth="true">
                 <x-docs.response :data="[
                     'status' => 'success',
                     'message' => 'Reward history retrieved successfully',
@@ -301,7 +355,7 @@
 
         {{-- Badge Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Badge Endpoints</h2>
+            <h2 id="badge" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Badge Endpoints</h2>
 
             <x-docs.endpoint method="GET" path="/badges"
                 description="Get available badges and current active badge." :requiresAuth="true">
@@ -358,7 +412,9 @@
 
         {{-- Leaderboard Section --}}
         <section>
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Leaderboard Endpoint</h2>
+            <h2 id="leaderboard" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Leaderboard
+                Endpoint
+            </h2>
 
             <x-docs.endpoint method="GET" path="/leaderboard" description="Get global leaderboard rankings."
                 :requiresAuth="true">
@@ -396,6 +452,132 @@
                 ]" />
             </x-docs.endpoint>
         </section>
-    </body>
+    </main>
+
+    <script>
+        const scrollSpy = () => {
+            const sections = document.querySelectorAll('section, header');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let lastKnownScrollPosition = 0;
+            let ticking = false;
+
+            const activateNavBySection = () => {
+                const scrollPosition = window.scrollY + 100;
+
+                let activeSection = null;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                        activeSection = section;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (activeSection && href === '#' + activeSection.querySelector('h1, h2')?.id) {
+                        link.classList.add('bg-gray-100', 'text-blue-600', 'border-l-2', 'border-blue-600');
+                        link.classList.remove('text-gray-700');
+                    } else {
+                        link.classList.remove('bg-gray-100', 'text-blue-600', 'border-l-2',
+                            'border-blue-600');
+                        link.classList.add('text-gray-700');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', () => {
+                lastKnownScrollPosition = window.scrollY;
+
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        activateNavBySection();
+                        ticking = false;
+                    });
+
+                    ticking = true;
+                }
+            });
+
+            // Initialize on load
+            activateNavBySection();
+
+            // Smooth scroll
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+                    const target = document.querySelector(href);
+
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        };
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', scrollSpy);
+
+        function initSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('sidebar-toggle');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const overlay = document.getElementById('sidebar-overlay');
+            let isOpen = false;
+
+            function toggleSidebar() {
+                isOpen = !isOpen;
+                
+                if (isOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    menuIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    overlay.classList.remove('hidden');
+                    document.body.classList.add('overflow-hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    menuIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    overlay.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            }
+
+            toggle.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+
+            // Close sidebar on navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                } else if (!isOpen) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    </script>
+</body>
 
 </html>
