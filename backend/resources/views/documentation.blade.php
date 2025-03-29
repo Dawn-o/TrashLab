@@ -24,12 +24,9 @@
 <body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
     <!-- Add this button right after body tag -->
     <button id="sidebar-toggle"
-        class="fixed top-8 right-8 lg:hidden z-50 p-3 bg-white rounded-full shadow-md hover:bg-gray-50">
+        class="fixed top-4 left-4 lg:hidden z-50">
         <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </button>
 
@@ -80,7 +77,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto p-4 sm:p-6 lg:ml-72">
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 ml-8 lg:ml-72">
         <header class="mb-6 sm:mb-8 mt-8 sm:mt-16">
             <h1 id="trashlab-api-documentation" class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 TrashLab API Documentation</h1>
@@ -534,7 +531,6 @@
             const sidebar = document.getElementById('sidebar');
             const toggle = document.getElementById('sidebar-toggle');
             const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
             const overlay = document.getElementById('sidebar-overlay');
             let isOpen = false;
 
@@ -544,13 +540,11 @@
                 if (isOpen) {
                     sidebar.classList.remove('-translate-x-full');
                     menuIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
                     overlay.classList.remove('hidden');
                     document.body.classList.add('overflow-hidden');
                 } else {
                     sidebar.classList.add('-translate-x-full');
                     menuIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
                     overlay.classList.add('hidden');
                     document.body.classList.remove('overflow-hidden');
                 }
