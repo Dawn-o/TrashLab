@@ -11,10 +11,15 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Drivers\Gd\Encoders\JpegEncoder;
-use Intervention\Image\Drivers\Gd\Encoders\PngEncoder;
 
 class PredictionController extends Controller
 {
+    private const MAX_FILE_SIZE = 10240; // 10MB
+    private const MAX_TOTAL_SIZE = 20971520; // 20MB
+    private const MAX_FILES = 3;
+    private const IMAGE_WIDTH = 224;
+    private const JPEG_QUALITY = 85;
+
     protected $mlServiceUrl;
     protected $questController;
     protected $imageManager;
@@ -29,90 +34,15 @@ class PredictionController extends Controller
     public function predict(Request $request)
     {
         try {
-            $request->validate([
-                'images.*' => 'required|image|mimes:jpeg,png,jpg|max:10240',
-                'images' => 'required|array|max:3'
-            ]);
-    
-            $totalSize = 0;
-            foreach ($request->file('images') as $file) {
-                $totalSize += $file->getSize();
-            }
-    
-            if ($totalSize > 20971520) { 
-                return response()->json([
-                    'message' => 'Total file size too large',
-                    'error' => 'Combined file size must not exceed 20MB'
-                ], 413);
-            }
+            $this->validateRequest($request);
+            $results = $this->processImages($request);
 
-            $results = [];
-            
-            foreach ($request->file('images') as $upload) {
-                $encoder = new JpegEncoder(85);
+            $user = $request->user();
+            $questProgress = null;
+            $questCompleted = false;
 
-                $image = $this->imageManager->read($upload)
-                    ->scale(width: 224)
-                    ->sharpen(1.5)
-                    ->encode($encoder);
-
-                $filename = Str::random() . '.jpg';
-                $imagePath = "trash-images/{$filename}";
-
-                Storage::disk('public')->put(
-                    $imagePath,
-                    $image->toString()
-                );
-
-                $response = Http::attach(
-                    'file',
-                    Storage::disk('public')->get($imagePath),
-                    $filename
-                )->post("{$this->mlServiceUrl}/predict");
-
-                if (!$response->successful()) {
-                    throw new \Exception('Failed to get prediction from ML service');
-                }
-
-                $responseData = $response->json();
-                Log::info('ML Service Response:', ['response' => $responseData]);
-
-                if (!isset($responseData['label'])) {
-                    throw new \Exception('Invalid response format from ML service');
-                }
-
-                $type = $responseData['label'];
-                $questCompleted = false;
-                $pointsAdded = 0;
-                $bonusPoints = 0;
-                $questProgress = null;
-
-                if ($user = $request->user()) {
-                    // Record prediction
-                    TrashPrediction::create([
-                        'user_id' => $user->id,
-                        'trash_type' => $type,
-                        'image_path' => $imagePath
-                    ]);
-
-                    // Add regular point
-                    $user->increment('points', 1);
-                    $pointsAdded = 1;
-
-                    // Check quest completion using QuestController
-                    $questCheck = $this->questController->checkTrashQuest($user);
-                    $questCompleted = $questCheck['completed'];
-                    $bonusPoints = $questCheck['bonus_points'];
-
-                    $questProgress = $this->questController->getQuestProgress($user);
-                }
-
-                $results[] = [
-                    'type' => "Sampah " . $type,
-                    'points_added' => $pointsAdded,
-                    'bonus_points' => $bonusPoints,
-                    'image_url' => asset('storage/' . $imagePath)
-                ];
+            if ($user) {
+                $questProgress = $this->questController->getQuestProgress($user);
             }
 
             return response()->json([
@@ -123,10 +53,6 @@ class PredictionController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            if (isset($imagePath) && Storage::disk('public')->exists($imagePath)) {
-                Storage::disk('public')->delete($imagePath);
-            }
-
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
             return response()->json([
                 'message' => 'Error getting prediction',
@@ -135,16 +61,115 @@ class PredictionController extends Controller
         }
     }
 
+    private function validateRequest(Request $request)
+    {
+        $request->validate([
+            'images.*' => 'required|image|mimes:jpeg,png,jpg|max:' . self::MAX_FILE_SIZE,
+            'images' => 'required|array|max:' . self::MAX_FILES
+        ]);
+
+        $totalSize = collect($request->file('images'))->sum(fn($file) => $file->getSize());
+
+        if ($totalSize > self::MAX_TOTAL_SIZE) {
+            throw new \Exception('Combined file size must not exceed 20MB');
+        }
+    }
+
+    private function processImages(Request $request)
+    {
+        $results = [];
+        $encoder = new JpegEncoder(self::JPEG_QUALITY);
+
+        foreach ($request->file('images') as $upload) {
+            $processedImage = $this->processImage($upload, $encoder);
+            $prediction = $this->getPrediction($processedImage['path']);
+            $results[] = $this->handlePredictionResult($prediction, $processedImage['path'], $request->user());
+        }
+
+        return $results;
+    }
+
+    private function processImage($upload, JpegEncoder $encoder)
+    {
+        $image = $this->imageManager->read($upload)
+            ->scale(width: self::IMAGE_WIDTH)
+            ->sharpen(1.5)
+            ->encode($encoder);
+
+        $filename = Str::random() . '.jpg';
+        $imagePath = "trash-images/{$filename}";
+
+        Storage::disk('public')->put(
+            $imagePath,
+            $image->toString()
+        );
+
+        return ['path' => $imagePath, 'filename' => $filename];
+    }
+
+    private function getPrediction(string $imagePath)
+    {
+        $response = Http::attach(
+            'file',
+            Storage::disk('public')->get($imagePath),
+            basename($imagePath)
+        )->post("{$this->mlServiceUrl}/predict");
+
+        if (!$response->successful()) {
+            Storage::disk('public')->delete($imagePath);
+            throw new \Exception('Failed to get prediction from ML service');
+        }
+
+        $responseData = $response->json();
+        
+        if (!isset($responseData['label'])) {
+            Storage::disk('public')->delete($imagePath);
+            throw new \Exception('Invalid response format from ML service');
+        }
+
+        return $responseData;
+    }
+
+    private function handlePredictionResult(array $prediction, string $imagePath, $user)
+    {
+        $type = $prediction['label'];
+        $pointsAdded = 0;
+        $bonusPoints = 0;
+        $questCompleted = false;
+
+        if ($user) {
+            TrashPrediction::create([
+                'user_id' => $user->id,
+                'trash_type' => $type,
+                'image_path' => $imagePath
+            ]);
+
+            $user->increment('points', 1);
+            $pointsAdded = 1;
+
+            $questCheck = $this->questController->checkTrashQuest($user);
+            $questCompleted = $questCheck['completed'];
+            $bonusPoints = $questCheck['bonus_points'];
+        }
+
+        return [
+            'type' => "Sampah " . $type,
+            'points_added' => $pointsAdded,
+            'bonus_points' => $bonusPoints,
+            'image_url' => asset('storage/' . $imagePath)
+        ];
+    }
+
     public function getQuestStatus(Request $request)
     {
-        if ($user = $request->user()) {
-            return response()->json([
-                'quest_progress' => $this->questController->getQuestProgress($user)
-            ]);
+        $user = $request->user();
+        
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         return response()->json([
-            'message' => 'Unauthorized'
-        ], 401);
+            'quest_progress' => $this->questController->getQuestProgress($user)
+        ]);
     }
 }
