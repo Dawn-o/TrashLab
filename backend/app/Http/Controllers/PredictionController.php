@@ -51,7 +51,6 @@ class PredictionController extends Controller
                 'quest_progress' => $questProgress,
                 'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
             ]);
-
         } catch (\Exception $e) {
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
             return response()->json([
@@ -121,7 +120,7 @@ class PredictionController extends Controller
         }
 
         $responseData = $response->json();
-        
+
         if (!isset($responseData['label'])) {
             Storage::disk('public')->delete($imagePath);
             throw new \Exception('Invalid response format from ML service');
@@ -156,14 +155,14 @@ class PredictionController extends Controller
             'type' => "Sampah " . $type,
             'points_added' => $pointsAdded,
             'bonus_points' => $bonusPoints,
-            'image_url' => asset('storage/' . $imagePath)
+            'image_url' => asset("storage/{$imagePath}")
         ];
     }
 
     public function getQuestStatus(Request $request)
     {
         $user = $request->user();
-        
+
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
