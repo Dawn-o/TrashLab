@@ -30,78 +30,98 @@ class PredictionController extends Controller
     {
         try {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240'
+                'images.*' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+                'images' => 'required|array|max:3'
             ]);
+    
+            $totalSize = 0;
+            foreach ($request->file('images') as $file) {
+                $totalSize += $file->getSize();
+            }
+    
+            if ($totalSize > 20971520) { 
+                return response()->json([
+                    'message' => 'Total file size too large',
+                    'error' => 'Combined file size must not exceed 20MB'
+                ], 413);
+            }
 
-            $upload = $request->file('image');
+            $results = [];
             
-            $encoder = new JpegEncoder(95);
+            foreach ($request->file('images') as $upload) {
+                $encoder = new JpegEncoder(85);
 
-            $image = $this->imageManager->read($upload)
-                ->scale(width: 224)
-                ->sharpen(1.5)
-                ->encode($encoder);
+                $image = $this->imageManager->read($upload)
+                    ->scale(width: 224)
+                    ->sharpen(1.5)
+                    ->encode($encoder);
 
-            $filename = Str::random() . '.jpg';
-            $imagePath = "trash-images/{$filename}";
+                $filename = Str::random() . '.jpg';
+                $imagePath = "trash-images/{$filename}";
 
-            Storage::disk('public')->put(
-                $imagePath,
-                $image->toString()
-            );
+                Storage::disk('public')->put(
+                    $imagePath,
+                    $image->toString()
+                );
 
-            $response = Http::attach(
-                'file',
-                Storage::disk('public')->get($imagePath),
-                $filename
-            )->post("{$this->mlServiceUrl}/predict");
+                $response = Http::attach(
+                    'file',
+                    Storage::disk('public')->get($imagePath),
+                    $filename
+                )->post("{$this->mlServiceUrl}/predict");
 
-            if (!$response->successful()) {
-                throw new \Exception('Failed to get prediction from ML service');
-            }
+                if (!$response->successful()) {
+                    throw new \Exception('Failed to get prediction from ML service');
+                }
 
-            $responseData = $response->json();
-            Log::info('ML Service Response:', ['response' => $responseData]);
+                $responseData = $response->json();
+                Log::info('ML Service Response:', ['response' => $responseData]);
 
-            if (!isset($responseData['label'])) {
-                throw new \Exception('Invalid response format from ML service');
-            }
+                if (!isset($responseData['label'])) {
+                    throw new \Exception('Invalid response format from ML service');
+                }
 
-            $type = $responseData['label'];
-            $questCompleted = false;
-            $pointsAdded = 0;
-            $bonusPoints = 0;
-            $questProgress = null;
+                $type = $responseData['label'];
+                $questCompleted = false;
+                $pointsAdded = 0;
+                $bonusPoints = 0;
+                $questProgress = null;
 
-            if ($user = $request->user()) {
-                // Record prediction
-                TrashPrediction::create([
-                    'user_id' => $user->id,
-                    'trash_type' => $type,
-                    'image_path' => $imagePath
-                ]);
+                if ($user = $request->user()) {
+                    // Record prediction
+                    TrashPrediction::create([
+                        'user_id' => $user->id,
+                        'trash_type' => $type,
+                        'image_path' => $imagePath
+                    ]);
 
-                // Add regular point
-                $user->increment('points', 1);
-                $pointsAdded = 1;
+                    // Add regular point
+                    $user->increment('points', 1);
+                    $pointsAdded = 1;
 
-                // Check quest completion using QuestController
-                $questCheck = $this->questController->checkTrashQuest($user);
-                $questCompleted = $questCheck['completed'];
-                $bonusPoints = $questCheck['bonus_points'];
+                    // Check quest completion using QuestController
+                    $questCheck = $this->questController->checkTrashQuest($user);
+                    $questCompleted = $questCheck['completed'];
+                    $bonusPoints = $questCheck['bonus_points'];
 
-                $questProgress = $this->questController->getQuestProgress($user);
+                    $questProgress = $this->questController->getQuestProgress($user);
+                }
+
+                $results[] = [
+                    'type' => "Sampah " . $type,
+                    'points_added' => $pointsAdded,
+                    'bonus_points' => $bonusPoints,
+                    'image_url' => asset('storage/' . $imagePath)
+                ];
             }
 
             return response()->json([
-                'type' => "Sampah " . $type,
-                'points_added' => $pointsAdded,
-                'bonus_points' => $bonusPoints,
+                'results' => $results,
                 'total_points' => $user ? $user->points : 0,
                 'quest_progress' => $questProgress,
                 'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
-                'image_url' => asset('storage/' . $imagePath)
             ]);
+
         } catch (\Exception $e) {
             if (isset($imagePath) && Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
