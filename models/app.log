@@ -1,0 +1,130 @@
+2025-03-29 08:50:38.398 | INFO     | __main__:<cell line: 0>:7 - ✅ Model berhasil dimuat dari Google Drive.
+2025-03-29 08:53:26.456 | INFO     | __main__:<cell line: 0>:12 - ⚠ Server sudah berjalan di port 8000, tidak perlu start ulang.
+2025-03-29 08:53:26.805 | INFO     | __main__:<cell line: 0>:17 - 🌍 Aplikasi FastAPI sudah berjalan di https://21c6-34-59-255-38.ngrok-free.app
+2025-03-29 09:33:39.080 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: pexels-fotios-photos-1933386.jpg
+2025-03-29 09:33:40.534 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8981, Waktu Response: 1.4533 detik
+2025-03-29 09:33:40.535 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 11.3%, Memory Usage: 15.3%
+2025-03-29 09:34:13.132 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: pngwing.com (5).png
+2025-03-29 09:34:13.201 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8949, Waktu Response: 0.0683 detik
+2025-03-29 09:34:13.202 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 15.5%, Memory Usage: 15.3%
+2025-03-29 09:34:18.229 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: pngwing.com (5).png
+2025-03-29 09:34:18.286 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8949, Waktu Response: 0.0577 detik
+2025-03-29 09:34:18.288 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 4.4%, Memory Usage: 15.3%
+2025-03-29 09:34:48.726 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: limbah 2.jpg
+2025-03-29 09:34:48.788 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.6505, Waktu Response: 0.0626 detik
+2025-03-29 09:34:48.790 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 16.6%, Memory Usage: 15.6%
+2025-03-29 09:35:10.834 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: organik.jpg
+2025-03-29 09:35:10.938 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.1038 detik
+2025-03-29 09:35:10.940 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 12.1%, Memory Usage: 15.6%
+2025-03-29 09:35:54.773 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: jas-min-5Wfttm2CjeI-unsplash.jpg
+2025-03-29 09:35:55.188 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8302, Waktu Response: 0.4147 detik
+2025-03-29 09:35:55.189 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 14.2%, Memory Usage: 15.5%
+2025-03-29 09:44:02.051 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: jas-min-5Wfttm2CjeI-unsplash.jpg
+2025-03-29 09:44:02.429 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8302, Waktu Response: 0.3777 detik
+2025-03-29 09:44:02.430 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.5%, Memory Usage: 15.5%
+2025-03-29 09:44:26.610 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: limabh 3.jpg
+2025-03-29 09:44:26.666 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9149, Waktu Response: 0.0555 detik
+2025-03-29 09:44:26.667 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 14.2%, Memory Usage: 15.8%
+2025-03-29 09:45:08.712 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: organik.jpg
+2025-03-29 09:45:08.767 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.0549 detik
+2025-03-29 09:45:08.769 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 12.3%, Memory Usage: 15.6%
+2025-03-29 09:47:11.084 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: Ktf1cnhQlLzJv19i.jpg
+2025-03-29 09:47:11.129 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8886, Waktu Response: 0.0444 detik
+2025-03-29 09:47:11.130 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.7%, Memory Usage: 15.6%
+2025-03-29 09:50:05.362 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: u7rJpV84JkH4YkFI.jpg
+2025-03-29 09:50:05.405 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.0435 detik
+2025-03-29 09:50:05.407 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.5%, Memory Usage: 15.8%
+2025-03-29 09:51:18.071 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: 7ykh7amqgBiELrPx.jpg
+2025-03-29 09:51:18.112 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.0412 detik
+2025-03-29 09:51:18.113 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 14.1%, Memory Usage: 15.9%
+2025-03-29 09:55:41.677 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: 1dnibZ2qRejct3PB.jpg
+2025-03-29 09:55:41.720 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9845, Waktu Response: 0.0435 detik
+2025-03-29 09:55:41.722 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.6%, Memory Usage: 15.7%
+2025-03-29 09:55:42.356 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: 5CyxB8pQoMDeyvLN.jpg
+2025-03-29 09:55:42.400 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9496, Waktu Response: 0.0435 detik
+2025-03-29 09:55:42.401 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 10.3%, Memory Usage: 15.7%
+2025-03-29 09:55:43.077 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: mAhppRFIT1hMu8x1.jpg
+2025-03-29 09:55:43.121 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.0443 detik
+2025-03-29 09:55:43.123 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 10.5%, Memory Usage: 15.7%
+2025-03-29 10:11:18.124 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: ZH5DMzyLOMujtpSU.jpg
+2025-03-29 10:11:18.178 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8886, Waktu Response: 0.0538 detik
+2025-03-29 10:11:18.181 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 15.2%, Memory Usage: 15.7%
+2025-03-29 10:14:29.407 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: jBa922xS9fTub3uS.jpg
+2025-03-29 10:14:29.450 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0434 detik
+2025-03-29 10:14:29.451 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.6%, Memory Usage: 15.6%
+2025-03-29 10:17:16.176 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: j2P6cl0EnNUsshDe.jpg
+2025-03-29 10:17:16.219 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9845, Waktu Response: 0.0429 detik
+2025-03-29 10:17:16.220 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 14.1%, Memory Usage: 15.8%
+2025-03-29 10:17:16.928 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: NFso89peRU9Vcuow.jpg
+2025-03-29 10:17:16.971 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9496, Waktu Response: 0.0423 detik
+2025-03-29 10:17:16.972 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 8.7%, Memory Usage: 15.8%
+2025-03-29 10:17:17.662 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: nuAHhIUSDU75rzBd.jpg
+2025-03-29 10:17:17.711 | INFO     | __main__:predict:30 - ✅ Prediksi: Organik, Confidence: 1.0000, Waktu Response: 0.0487 detik
+2025-03-29 10:17:17.714 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 8.8%, Memory Usage: 15.8%
+2025-03-29 11:48:31.921 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: YAUzHw62ov5iiKaS.jpg
+2025-03-29 11:48:31.967 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9771, Waktu Response: 0.0457 detik
+2025-03-29 11:48:31.968 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.7%, Memory Usage: 15.9%
+2025-03-29 11:48:35.036 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: VRrLSTkoLlKoYti1.jpg
+2025-03-29 11:48:35.103 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9771, Waktu Response: 0.0671 detik
+2025-03-29 11:48:35.104 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.9%, Memory Usage: 15.8%
+2025-03-29 11:48:37.702 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: haObSQlqt6b0WDrz.jpg
+2025-03-29 11:48:37.743 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8599, Waktu Response: 0.0413 detik
+2025-03-29 11:48:37.745 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 46.5%, Memory Usage: 15.8%
+2025-03-29 11:56:20.893 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: zhkyTvOWrXkIOuw9.jpg
+2025-03-29 11:56:20.966 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0731 detik
+2025-03-29 11:56:20.971 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.7%, Memory Usage: 15.9%
+2025-03-29 11:56:22.233 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: HUcfC6ZLZG5BK3vs.jpg
+2025-03-29 11:56:22.275 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0420 detik
+2025-03-29 11:56:22.276 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 15.1%, Memory Usage: 15.7%
+2025-03-29 11:56:23.336 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: yxSUCVWRDuGeudxC.jpg
+2025-03-29 11:56:23.381 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.8611, Waktu Response: 0.0446 detik
+2025-03-29 11:56:23.382 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 7.7%, Memory Usage: 15.7%
+2025-03-29 12:19:32.803 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: pSnNZBWIw45ClKOi.jpg
+2025-03-29 12:19:32.848 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0443 detik
+2025-03-29 12:19:32.849 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.8%, Memory Usage: 15.6%
+2025-03-29 12:19:37.877 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: 21EIzqD0dBmIwwpV.jpg
+2025-03-29 12:19:37.918 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.7842, Waktu Response: 0.0418 detik
+2025-03-29 12:19:37.920 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 31.4%, Memory Usage: 15.7%
+2025-03-29 12:19:40.990 | INFO     | __main__:predict:4 - 📥 Request dari 103.141.47.104 - Upload file: efxcSZ2WbU8S2Xqk.jpg
+2025-03-29 12:19:41.033 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0430 detik
+2025-03-29 12:19:41.035 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 3.7%, Memory Usage: 15.7%
+2025-03-29 12:31:19.394 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: HOjisfC0d8d9kaQC.jpg
+2025-03-29 12:31:19.462 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0684 detik
+2025-03-29 12:31:19.464 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 14.0%, Memory Usage: 15.9%
+2025-03-29 12:31:20.972 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: JXWn9eBpGk8nlGeM.jpg
+2025-03-29 12:31:21.015 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.7840, Waktu Response: 0.0428 detik
+2025-03-29 12:31:21.016 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 10.0%, Memory Usage: 15.9%
+2025-03-29 12:31:22.548 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: 14J3ez6pNdlVlYEs.jpg
+2025-03-29 12:31:22.604 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0566 detik
+2025-03-29 12:31:22.606 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 6.0%, Memory Usage: 15.9%
+2025-03-29 12:33:23.471 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: B1ZUjH12KsvjSukR.jpg
+2025-03-29 12:33:23.542 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0713 detik
+2025-03-29 12:33:23.546 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.6%, Memory Usage: 15.8%
+2025-03-29 12:33:25.146 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: SldYGFxwukLLREXX.jpg
+2025-03-29 12:33:25.212 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.7840, Waktu Response: 0.0654 detik
+2025-03-29 12:33:25.217 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 57.8%, Memory Usage: 15.7%
+2025-03-29 12:33:26.751 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: WKVyQMpdVWdNPPJW.jpg
+2025-03-29 12:33:26.794 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9995, Waktu Response: 0.0429 detik
+2025-03-29 12:33:26.795 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 19.8%, Memory Usage: 15.9%
+2025-03-29 14:14:50.412 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: SklgKQSPqfx4Swr5.jpg
+2025-03-29 14:14:50.454 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0425 detik
+2025-03-29 14:14:50.456 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.5%, Memory Usage: 15.9%
+2025-03-29 14:16:08.775 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: 25N0fghcnl3bpcn7.jpg
+2025-03-29 14:16:08.817 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0420 detik
+2025-03-29 14:16:08.818 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 12.7%, Memory Usage: 15.9%
+2025-03-29 14:16:16.472 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: cQRno7CLrcgpWzHz.jpg
+2025-03-29 14:16:16.511 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0390 detik
+2025-03-29 14:16:16.512 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 20.6%, Memory Usage: 15.8%
+2025-03-29 14:47:10.642 | INFO     | __main__:predict:4 - 📥 Request dari 103.247.8.218 - Upload file: zvtZQgoc7ZlCjL0d.jpg
+2025-03-29 14:47:10.684 | INFO     | __main__:predict:30 - ✅ Prediksi: Anorganik, Confidence: 0.9772, Waktu Response: 0.0416 detik
+2025-03-29 14:47:10.685 | INFO     | __main__:log_system_usage:5 - 💾 CPU Usage: 13.1%, Memory Usage: 15.9%
+2025-03-29 15:30:05.274 | INFO     | __main__:<cell line: 0>:7 - ✅ Model berhasil dimuat dari Google Drive.
+2025-03-29 15:30:06.002 | INFO     | __main__:<cell line: 0>:17 - 🌍 Aplikasi FastAPI sudah berjalan di https://42e9-34-59-255-38.ngrok-free.app
+2025-03-29 22:35:57 INFO ✅ Log sudah menggunakan zona waktu Jakarta (WIB)
+2025-03-29 22:36:28 INFO ✅ Model berhasil dimuat dari Google Drive.
+2025-03-29 22:39:22 INFO ✅ Log sudah menggunakan zona waktu Jakarta (WIB)
+2025-03-29 22:39:41 INFO ✅ Model berhasil dimuat dari Google Drive.
+2025-03-29 22:39:55 INFO 🌍 Aplikasi FastAPI sudah berjalan di https://3abc-34-59-255-38.ngrok-free.app
+2025-03-29 22:41:27 INFO 📥 Request dari 182.1.64.58 - Upload file: jas-min-5Wfttm2CjeI-unsplash.jpg
+2025-03-29 22:41:29 INFO ✅ Prediksi: Anorganik, Confidence: 0.9636, Waktu Response: 1.4724 detik
+2025-03-29 22:41:29 INFO 💾 CPU Usage: 28.5%, Memory Usage: 17.7%
