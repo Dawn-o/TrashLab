@@ -23,8 +23,7 @@
 
 <body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
     <!-- Add this button right after body tag -->
-    <button id="sidebar-toggle"
-        class="fixed top-4 left-4 lg:hidden z-50">
+    <button id="sidebar-toggle" class="fixed top-4 left-4 lg:hidden z-50">
         <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -167,24 +166,24 @@
                         [
                             'type' => 'Sampah Anorganik',
                             'points_added' => 1,
-                            'bonus_points' => 0,
+                            'bonus_points' => 25,
                             'image_url' => '/storage/trash-images/25N0fghcnl3bpcn7.jpg',
                         ],
                         [
                             'type' => 'Sampah Organik',
                             'points_added' => 1,
-                            'bonus_points' => 0,
+                            'bonus_points' => 25,
                             'image_url' => '/storage/trash-images/cQRno7CLrcgpWzHz.jpg',
                         ],
                     ],
                     'total_points' => 102,
                     'quest_progress' => [
                         'current' => 2,
-                        'required' => 3,
+                        'required' => 10,
                         'completed' => false,
-                        'progress_text' => '2/3',
-                        'remaining' => 1,
-                        'bonus_points' => 10,
+                        'progress_text' => '2/10',
+                        'remaining' => 8,
+                        'bonus_points' => 25,
                     ],
                     'quest_message' => null,
                 ]" />
@@ -203,11 +202,11 @@
                     'data' => [
                         'quest_progress' => [
                             'current' => 1,
-                            'required' => 3,
+                            'required' => 10,
                             'completed' => false,
-                            'progress_text' => '1/3',
-                            'remaining' => 2,
-                            'bonus_points' => 10,
+                            'progress_text' => '1/10',
+                            'remaining' => 9,
+                            'bonus_points' => 25,
                         ],
                         'next_reset' => '2025-03-28 23:59:59',
                         'time_remaining' => '13 hours from now',
@@ -240,11 +239,11 @@
                             ],
                             'quest_progress' => [
                                 'current' => 1,
-                                'required' => 3,
+                                'required' => 10,
                                 'completed' => false,
-                                'progress_text' => '1/3',
-                                'remaining' => 2,
-                                'bonus_points' => 10,
+                                'progress_text' => '1/10',
+                                'remaining' => 9,
+                                'bonus_points' => 25,
                             ],
                             'badge_url' => '/storage/badges/default.png',
                         ],
@@ -321,7 +320,7 @@
                             'name' => 'Master Recycler Badge',
                             'points_cost' => 100,
                         ],
-                        'remaining_points' => 9999899,
+                        'remaining_points' => 0,
                     ],
                 ]" />
             </x-docs.endpoint>
