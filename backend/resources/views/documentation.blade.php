@@ -23,18 +23,14 @@
 
 <body class="font-sans text-gray-800 leading-relaxed bg-gray-50">
     <!-- Add this button right after body tag -->
-    <button id="sidebar-toggle" 
-        class="fixed top-8 right-8 lg:hidden z-50 p-3 bg-white rounded-full shadow-md hover:bg-gray-50">
+    <button id="sidebar-toggle" class="fixed top-4 left-4 lg:hidden z-50">
         <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-        <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
 
     <!-- Sidebar Navigation -->
-    <aside id="sidebar" 
+    <aside id="sidebar"
         class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 w-64 bg-white shadow-lg lg:shadow-none transition-transform duration-300 ease-in-out lg:bg-transparent z-40">
         <div class="h-full overflow-y-auto p-4">
             <nav class="space-y-1 py-4">
@@ -75,17 +71,17 @@
     </aside>
 
     <!-- Add overlay for mobile -->
-    <div id="sidebar-overlay" 
+    <div id="sidebar-overlay"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 z-30 hidden transition-opacity duration-300 ease-in-out">
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto p-4 sm:p-6 lg:ml-72">
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 ml-8 lg:ml-72">
         <header class="mb-6 sm:mb-8 mt-8 sm:mt-16">
             <h1 id="trashlab-api-documentation" class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 TrashLab API Documentation</h1>
             <p class="text-gray-600 mb-6">RESTful API documentation for TrashLab waste management system</p>
- 
+
             <div class="py-4">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div class="flex items-center gap-3">
@@ -159,31 +155,37 @@
             <h2 id="prediction" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Prediction Endpoint
             </h2>
 
-            <x-docs.endpoint method="POST" path="/predict" description="Get waste type prediction from image."
-                :requiresAuth="true">
+            <x-docs.endpoint method="POST" path="/predict"
+                description="Get waste type predictions from multiple images." :requiresAuth="true">
                 <x-docs.request-body>
-                    <x-docs.param name="image" type="file"
-                        description="Image file (max: 2MB, allowed types: jpg, jpeg, png)" />
+                    <x-docs.param name="images[]" type="file"
+                        description="Image files (max: 3 files, max size per file: 10MB, total max: 20MB, allowed types: jpg, jpeg, png)" />
                 </x-docs.request-body>
                 <x-docs.response :data="[
-                    'status' => 'success',
-                    'message' => 'Prediction successful',
-                    'data' => [
-                        'type' => 'Sampah Anorganik',
-                        'points_added' => 1,
-                        'bonus_points' => 0,
-                        'total_points' => 100,
-                        'quest_progress' => [
-                            'current' => 1,
-                            'required' => 3,
-                            'completed' => false,
-                            'progress_text' => '1/3',
-                            'remaining' => 2,
-                            'bonus_points' => 10,
+                    'results' => [
+                        [
+                            'type' => 'Sampah Anorganik',
+                            'points_added' => 1,
+                            'bonus_points' => 25,
+                            'image_url' => '/storage/trash-images/25N0fghcnl3bpcn7.jpg',
                         ],
-                        'quest_message' => null,
-                        'image_url' => '/storage/trash-images/8ir7np6mqiZG4WHx9N9A9HKj0habxf6zWYwTvjPF.png',
+                        [
+                            'type' => 'Sampah Organik',
+                            'points_added' => 1,
+                            'bonus_points' => 25,
+                            'image_url' => '/storage/trash-images/cQRno7CLrcgpWzHz.jpg',
+                        ],
                     ],
+                    'total_points' => 102,
+                    'quest_progress' => [
+                        'current' => 2,
+                        'required' => 10,
+                        'completed' => false,
+                        'progress_text' => '2/10',
+                        'remaining' => 8,
+                        'bonus_points' => 25,
+                    ],
+                    'quest_message' => null,
                 ]" />
             </x-docs.endpoint>
         </section>
@@ -200,11 +202,11 @@
                     'data' => [
                         'quest_progress' => [
                             'current' => 1,
-                            'required' => 3,
+                            'required' => 10,
                             'completed' => false,
-                            'progress_text' => '1/3',
-                            'remaining' => 2,
-                            'bonus_points' => 10,
+                            'progress_text' => '1/10',
+                            'remaining' => 9,
+                            'bonus_points' => 25,
                         ],
                         'next_reset' => '2025-03-28 23:59:59',
                         'time_remaining' => '13 hours from now',
@@ -237,11 +239,11 @@
                             ],
                             'quest_progress' => [
                                 'current' => 1,
-                                'required' => 3,
+                                'required' => 10,
                                 'completed' => false,
-                                'progress_text' => '1/3',
-                                'remaining' => 2,
-                                'bonus_points' => 10,
+                                'progress_text' => '1/10',
+                                'remaining' => 9,
+                                'bonus_points' => 25,
                             ],
                             'badge_url' => '/storage/badges/default.png',
                         ],
@@ -318,7 +320,7 @@
                             'name' => 'Master Recycler Badge',
                             'points_cost' => 100,
                         ],
-                        'remaining_points' => 9999899,
+                        'remaining_points' => 0,
                     ],
                 ]" />
             </x-docs.endpoint>
@@ -528,23 +530,20 @@
             const sidebar = document.getElementById('sidebar');
             const toggle = document.getElementById('sidebar-toggle');
             const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
             const overlay = document.getElementById('sidebar-overlay');
             let isOpen = false;
 
             function toggleSidebar() {
                 isOpen = !isOpen;
-                
+
                 if (isOpen) {
                     sidebar.classList.remove('-translate-x-full');
                     menuIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
                     overlay.classList.remove('hidden');
                     document.body.classList.add('overflow-hidden');
                 } else {
                     sidebar.classList.add('-translate-x-full');
                     menuIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
                     overlay.classList.add('hidden');
                     document.body.classList.remove('overflow-hidden');
                 }
