@@ -7,7 +7,7 @@
 
 <div class="p-4 sm:p-6 mb-6">
     <div class="flex flex-col sm:flex-row sm:items-start gap-3">
-        <span class="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold
+        <span class="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold self-start
             {{ $method === 'GET' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
             {{ $method }}
         </span>
