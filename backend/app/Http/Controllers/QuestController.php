@@ -10,8 +10,8 @@ use Exception;
 
 class QuestController extends Controller
 {
-    protected const DAILY_QUEST_TARGET = 3;
-    protected const QUEST_BONUS_POINTS = 10;
+    protected const DAILY_QUEST_TARGET = 10;
+    protected const QUEST_BONUS_POINTS = 25;
 
     public function checkTrashQuest(User $user)
     {
