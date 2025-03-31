@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, sans-serif;
+  --color-primary: #68a36f;
+  --color-secondary: #89c791;
+  --color-tertiary: #f8f8f8;
+  --color-blue: #0b69e8;
+  --color-green: #27ae60;
+  --color-yellow: #ffd600;
+  --color-red: #c81313;
+  --color-black-dark: #040207;
+  --color-black-medium: #1a1a20;
+  --color-black-light: #282828;
+  --color-white: #ffffff;
+  --color-grey-900: #333333;
+  --color-grey-700: #4f4f4f;
+  --color-grey-500: #828282;
+  --color-grey-300: #bdbdbd;
+  --color-grey-100: #e0e0e0;
+  --text-base: 12px;                /* Text */
+  --text-base--line-height: 22px;   /* Text Line Height */
+  --text-lg: 20px;                  /* Heading 6 */
+  --text-lg--line-height: 22px;     /* Heading 6 Line height */
+  --text-xl: 24px;                  /* Heading 5 */
+  --text-lg--line-height: 26.4px;   /* Heading 5 Line height */
+  --text-2xl: 32px;                 /* Heading 4 */
+  --text-lg--line-height: 35.2px;   /* Heading 4 Line height */
+  --text-3xl: 40px;                 /* Heading 3 */
+  --text-lg--line-height: 44px;     /* Heading 3 Line height */
+  --text-4xl: 48px;                 /* Heading 2 */
+  --text-lg--line-height: 52.8px;   /* Heading 2 Line height */
+  --text-5xl: 56px;                 /* Heading 1 */
+  --text-lg--line-height: 61.6px;   /* Heading 1 Line height */
+}
