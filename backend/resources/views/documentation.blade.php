@@ -113,7 +113,6 @@
                         description="Valid email address (max: 255 characters, must be unique)" />
                     <x-docs.param name="password" type="string"
                         description="Password must contain at least 8 characters, including uppercase, lowercase, number, and special character (@$!%*#?&)" />
-                    <x-docs.param name="password_confirmation" type="string" description="Must match password field" />
                 </x-docs.request-body>
                 <x-docs.response :data="[
                     'user' => [
