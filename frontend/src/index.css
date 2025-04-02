@@ -33,3 +33,7 @@
   --text-5xl: 56px;                 /* Heading 1 */
   --text-lg--line-height: 61.6px;   /* Heading 1 Line height */
 }
+
+body {
+  background-color: var(--color-tertiary);
+}
