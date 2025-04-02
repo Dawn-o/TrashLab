@@ -67,7 +67,7 @@ function Register() {
           <div className="flex gap-2 text-base font-medium items-center justify-center mt-4">
             <p>Already have an account?</p>
             <a
-              href="/register"
+              href="/login"
               className="text-primary text-base font-medium no-underline"
             >
               Click here
