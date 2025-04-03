@@ -151,8 +151,24 @@
 
         {{-- Prediction Section --}}
         <section>
-            <h2 id="prediction" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Prediction Endpoint
+            <h2 id="prediction" class="text-xl sm:text-2xl font-semibold text-gray-800 mt-12 mb-4">Prediction Endpoints
             </h2>
+
+            <x-docs.endpoint method="POST" path="/temp-predict"
+                description="Get waste type prediction from a single image. No authentication required.">
+                <x-docs.request-body>
+                    <x-docs.param name="image" type="file"
+                        description="Single image file (max size: 5MB, allowed types: jpg, jpeg, png)" />
+                </x-docs.request-body>
+                <x-docs.response :data="[
+                    'results' => [
+                        [
+                            'type' => 'Sampah Anorganik',
+                            'image_url' => '/storage/trash-images/temp/25N0fghcnl3bpcn7.jpg',
+                        ],
+                    ],
+                ]" />
+            </x-docs.endpoint>
 
             <x-docs.endpoint method="POST" path="/predict"
                 description="Get waste type predictions from multiple images." :requiresAuth="true">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Route::get('/api', function () {
     return view('documentation');
 });
+
+Route::get('/settings', [SettingsController::class, 'showSettingsForm'])->name('settings');
+Route::post('/settings', [SettingsController::class, 'updateMlServiceUrl'])->name('settings.update');
