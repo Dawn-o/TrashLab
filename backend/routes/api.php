@@ -27,6 +27,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
+// Public Routes
+
+// Temporary Prediction Routes
+Route::post('/temp-predict', [PredictionController::class, 'tempPredict']);
+
+// Leaderboard Routes
+Route::get('/leaderboard', [LeaderboardController::class, 'index']);
+
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
     // Prediction Routes
@@ -48,6 +56,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/badges', [BadgeController::class, 'getAvailableBadges']);
     Route::post('/badges/set-active', [BadgeController::class, 'setActiveBadge']);
 });
-
-// Leaderboard Routes
-Route::get('/leaderboard', [LeaderboardController::class, 'index']);

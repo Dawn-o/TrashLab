@@ -60,6 +60,37 @@ class PredictionController extends Controller
         }
     }
 
+    public function tempPredict(Request $request)
+    {
+        try {
+            // Fixed validation rules
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // 5MB 
+            ]);
+
+            $upload = $request->file('image');
+            $encoder = new JpegEncoder(self::JPEG_QUALITY);
+
+            $processedImage = $this->processImage($upload, $encoder);
+            $prediction = $this->getPrediction($processedImage['path']);
+
+            $result = [
+                'type' => "Sampah " . $prediction['label'],
+                'image_url' => asset("storage/{$processedImage['path']}")
+            ];
+
+            return response()->json([
+                'results' => [$result]
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Temporary prediction error:', ['error' => $e->getMessage()]);
+            return response()->json([
+                'message' => 'Error getting prediction',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     private function validateRequest(Request $request)
     {
         $request->validate([
