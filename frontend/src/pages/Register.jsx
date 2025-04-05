@@ -1,3 +1,4 @@
+import Back from "../assets/svg/back.svg";
 import User from "../assets/svg/user.svg";
 import Mail from "../assets/svg/mail.svg";
 import Lock from "../assets/svg/lock.svg";
@@ -5,11 +6,14 @@ import Lock2 from "../assets/svg/lock-waves.svg";
 
 function Register() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center relative">
+      <a href="/" className="absolute top-4 left-2 cursor-pointer">
+        <img src={Back} alt="back" />
+      </a>{" "}
       <div className="flex flex-col w-full mx-10 lg:mx-0 lg:w-96">
         <p className="text-2xl font-semibold">Sign Up</p>
         <p className="text-base font-medium">Please sign up to continue</p>
-        <form action="" className="flex flex-col gap-4 mt-8">
+        <form action="" className="flex flex-col gap-2 mt-6">
           <div className="relative">
             <img
               src={User}
