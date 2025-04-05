@@ -2,7 +2,7 @@ import Back from "../assets/svg/back.svg";
 import Mail from "../assets/svg/mail.svg";
 import Lock from "../assets/svg/lock.svg";
 
-function Login() {
+const Login = () => {
   return (
     <div className="flex min-h-screen items-center justify-center relative">
       <a href="/" className="absolute top-4 left-2 cursor-pointer">
@@ -55,6 +55,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;
