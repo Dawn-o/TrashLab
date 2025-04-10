@@ -1,10 +1,10 @@
 import Back from "../assets/svg/back.svg";
 import Mail from "../assets/svg/mail.svg";
 import Lock from "../assets/svg/lock.svg";
-import axios from '../api/AxiosInstance.jsx';
+import axios from "../api/AxiosInstance.jsx";
 import { useState } from "react";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -13,24 +13,24 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/login",{
+      const response = await axios.post("/login", {
         email,
-        password
+        password,
       });
 
       const token = response.data.token;
-      localStorage.setItem('authToken', token);
+      localStorage.setItem("authToken", token);
 
-      console.log('Login berhasil! Token: ', token);
-      window.location.href = '/home';
+      console.log("Login berhasil! Token: ", token);
+      window.location.href = "/home";
     } catch (error) {
       if (error.response) {
         setErrorMsg(error.response.data.message);
       } else {
-        setErrorMsg('Server mati apa gimana nih? 😅');
+        setErrorMsg("Server mati apa gimana nih? 😅");
       }
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center relative">
@@ -40,7 +40,11 @@ function Login() {
       <div className="flex flex-col w-full mx-10 lg:mx-0 lg:w-96">
         <p className="text-2xl font-semibold">Sign In</p>
         <p className="text-base font-medium">Please sign in to continue</p>
-        <form action="" onSubmit={handleLogin} className="flex flex-col gap-2 mt-6">
+        <form
+          action=""
+          onSubmit={handleLogin}
+          className="flex flex-col gap-2 mt-6"
+        >
           <div className="relative">
             <img
               src={Mail}
