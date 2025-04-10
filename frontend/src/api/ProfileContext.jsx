@@ -11,7 +11,7 @@ export const ProfileProvider = ({ children }) => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get('/profile');
-        setProfile(res.data.data.profile);
+        setProfile(res.data.profile);
       } catch (err) {
         console.error("Token rusak atau expired 🚨", err.message);
         localStorage.removeItem("authToken");

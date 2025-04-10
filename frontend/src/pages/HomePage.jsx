@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import Organic from "../assets/image/iconoir_organic-food.png";
+import Anorganic from "../assets/image/solar_bottle-line-duotone.png";
+import Avatar from "../assets/image/Avatar.png";
+import TrashCamIcon from "../assets/image/mage_camera-2.png";
+import DropDownIcon from "../assets/image/tabler_drag-drop.png";
+import TrashQuestIcon from "../assets/image/TrashQuest.png";
 import axios from 'axios';
 
 const HomePage = () => {
