@@ -4,7 +4,7 @@ import Mail from "../assets/svg/mail.svg";
 import Lock from "../assets/svg/lock.svg";
 import Lock2 from "../assets/svg/lock-waves.svg";
 
-function Register() {
+const Register = () => {
   return (
     <div className="flex min-h-screen items-center justify-center relative">
       <a href="/" className="absolute top-4 left-2 cursor-pointer">
