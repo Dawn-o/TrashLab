@@ -19,7 +19,10 @@ function Login() {
       });
 
       const token = response.data.token;
+      const user = response.data.user;
+
       localStorage.setItem('authToken', token);
+      localStorage.setItem("user", JSON.stringify(user));
 
       console.log('Login berhasil! Token: ', token);
       window.location.href = '/home';
