@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./routes/ProtectedRoutes";
+import ExchangePage from "./pages/ExchangePage";
+import ScanPage from "./pages/ScanPage";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -16,6 +19,24 @@ function App() {
         element={
           <ProtectedRoute>
             <HomePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/exchange" 
+        element={
+          <ProtectedRoute>
+            <ExchangePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/scan" 
+        element={
+          <ProtectedRoute>
+            <ScanPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/history" 
+        element={
+          <ProtectedRoute>
+            <HistoryPage />
           </ProtectedRoute>
         } />
       </Routes>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "../api/axiosInstance";
+import MainLayout from "../layouts/MainLayout";
 
 const ProtectedRoute = ({ children }) => {
     const [auth, setAuth] = useState(null); // null = loading, true/false = udah dicek
@@ -31,8 +32,8 @@ const ProtectedRoute = ({ children }) => {
         verifyToken();
     }, []);
 
-    if (auth === null) return <div className="flex h-screen w-screen justify-center items-center">Loading... 🚦</div>; // lagi ngecek token
-    if (!auth) return <Navigate to="/login" />; // token invalid → tendang
+    if (auth === null) return <MainLayout><div className="fixed top-[50%] left-[50%]">Loading...</div></MainLayout>; 
+    if (!auth) return <Navigate to="/login" />;
 
     return children; // token valid → masukin
 };
