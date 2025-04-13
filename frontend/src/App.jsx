@@ -11,7 +11,7 @@ import OrganikPage from "./pages/OrganikPage";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />

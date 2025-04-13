@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from './AxiosInstance';
+import axios from './AxiosInstance.jsx';
 
 const ProfileContext = createContext();
 

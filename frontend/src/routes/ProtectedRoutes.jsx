@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import axios from "../api/axiosInstance";
-import MainLayout from "../layouts/MainLayout";
+import axios from "../api/AxiosInstance.jsx";
+import MainLayout from "../layouts/MainLayout.jsx";
 
 const ProtectedRoute = ({ children }) => {
     const [auth, setAuth] = useState(null); // null = loading, true/false = udah dicek
