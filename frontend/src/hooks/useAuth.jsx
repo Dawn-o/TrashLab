@@ -1,6 +1,6 @@
 // src/hooks/useAuth.js
 import { useEffect, useState } from 'react';
-import axios from '../api/axiosInstance';
+import axios from '../api/axiosInstance.jsx';
 
 const useAuth = () => {
   const [authStatus, setAuthStatus] = useState({

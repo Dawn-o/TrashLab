@@ -99,7 +99,7 @@ const Notification = ({ notif }) => {
     if (!selectedNotif || !show) return null;
 
     const icon = selectedNotif.type === "success" ? successIcon : dangerIcon;
-    const bgColor = selectedNotif.type === "success" ? "bg-green-500 border-green-700" : "bg-red-600 border-red-800";
+    const bgColor = selectedNotif.type === "success" ? "bg-secondary border-primary" : "bg-red-600 border-red-800";
     const transitionClass = isVisible
     ? "translate-x-0 opacity-100"
     : "translate-x-full opacity-0";
