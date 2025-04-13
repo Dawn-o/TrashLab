@@ -11,46 +11,71 @@ use Exception;
 class QuestController extends Controller
 {
     protected const DAILY_QUEST_TARGET = 10;
+    protected const ORGANIC_QUEST_TARGET = 5;
+    protected const INORGANIC_QUEST_TARGET = 5;
     protected const QUEST_BONUS_POINTS = 25;
 
     public function checkTrashQuest(User $user)
     {
         try {
             $today = now()->startOfDay();
-            $predictionsToday = TrashPrediction::where('user_id', $user->id)
+            $predictions = TrashPrediction::where('user_id', $user->id)
                 ->whereDate('created_at', $today)
-                ->count();
+                ->get();
 
-            // Only award bonus points exactly at target predictions
-            if ($predictionsToday === self::DAILY_QUEST_TARGET) {
-                $user->increment('points', self::QUEST_BONUS_POINTS);
+            $totalPredictions = $predictions->count();
+            $organicPredictions = $predictions->where('trash_type', 'Organik')->count();
+            $inorganicPredictions = $predictions->where('trash_type', 'Anorganik')->count();
 
-                Log::info('Daily quest completed', [
-                    'user_id' => $user->id,
-                    'points_awarded' => self::QUEST_BONUS_POINTS,
-                    'predictions_count' => $predictionsToday
-                ]);
+            $completedQuests = [];
 
-                return [
+            // Check daily total quest
+            if ($totalPredictions === self::DAILY_QUEST_TARGET) {
+                $completedQuests['total'] = [
+                    'name' => 'Scan 10 Sampah',
                     'completed' => true,
                     'bonus_points' => self::QUEST_BONUS_POINTS
                 ];
             }
 
-            return [
-                'completed' => false,
-                'bonus_points' => 0
-            ];
+            // Check organic quest
+            if ($organicPredictions === self::ORGANIC_QUEST_TARGET) {
+                $completedQuests['organic'] = [
+                    'name' => 'Scan 5 Sampah Organik',
+                    'completed' => true,
+                    'bonus_points' => self::QUEST_BONUS_POINTS
+                ];
+            }
+
+            // Check inorganic quest
+            if ($inorganicPredictions === self::INORGANIC_QUEST_TARGET) {
+                $completedQuests['inorganic'] = [
+                    'name' => 'Scan 5 Sampah Anorganik',
+                    'completed' => true,
+                    'bonus_points' => self::QUEST_BONUS_POINTS
+                ];
+            }
+
+            // Award points for completed quests
+            foreach ($completedQuests as $quest) {
+                $user->increment('points', $quest['bonus_points']);
+            }
+
+            Log::info('Daily quests progress', [
+                'user_id' => $user->id,
+                'completed_quests' => $completedQuests,
+                'total_predictions' => $totalPredictions,
+                'organic_predictions' => $organicPredictions,
+                'inorganic_predictions' => $inorganicPredictions
+            ]);
+
+            return $completedQuests;
         } catch (Exception $e) {
             Log::error('Error checking trash quest:', [
                 'user_id' => $user->id,
                 'error' => $e->getMessage()
             ]);
-            return [
-                'completed' => false,
-                'bonus_points' => 0,
-                'error' => $e->getMessage()
-            ];
+            return [];
         }
     }
 
@@ -58,17 +83,44 @@ class QuestController extends Controller
     {
         try {
             $today = now()->startOfDay();
-            $predictionsToday = TrashPrediction::where('user_id', $user->id)
+            $predictions = TrashPrediction::where('user_id', $user->id)
                 ->whereDate('created_at', $today)
-                ->count();
+                ->get();
+
+            $totalPredictions = $predictions->count();
+            $organicPredictions = $predictions->where('trash_type', 'Organik')->count();
+            $inorganicPredictions = $predictions->where('trash_type', 'Anorganik')->count();
 
             return [
-                'current' => min($predictionsToday, self::DAILY_QUEST_TARGET),
-                'required' => self::DAILY_QUEST_TARGET,
-                'completed' => $predictionsToday >= self::DAILY_QUEST_TARGET,
-                'progress_text' => "{$predictionsToday}/" . self::DAILY_QUEST_TARGET,
-                'remaining' => max(0, self::DAILY_QUEST_TARGET - $predictionsToday),
-                'bonus_points' => self::QUEST_BONUS_POINTS
+                'quests' => [
+                    'total' => [
+                        'name' => 'Scan 10 Sampah',
+                        'current' => min($totalPredictions, self::DAILY_QUEST_TARGET),
+                        'required' => self::DAILY_QUEST_TARGET,
+                        'completed' => $totalPredictions >= self::DAILY_QUEST_TARGET,
+                        'progress_text' => "{$totalPredictions}/" . self::DAILY_QUEST_TARGET,
+                        'remaining' => max(0, self::DAILY_QUEST_TARGET - $totalPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ],
+                    'organic' => [
+                        'name' => 'Scan 5 Sampah Organik',
+                        'current' => min($organicPredictions, self::ORGANIC_QUEST_TARGET),
+                        'required' => self::ORGANIC_QUEST_TARGET,
+                        'completed' => $organicPredictions >= self::ORGANIC_QUEST_TARGET,
+                        'progress_text' => "{$organicPredictions}/" . self::ORGANIC_QUEST_TARGET,
+                        'remaining' => max(0, self::ORGANIC_QUEST_TARGET - $organicPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ],
+                    'inorganic' => [
+                        'name' => 'Scan 5 Sampah Anorganik',
+                        'current' => min($inorganicPredictions, self::INORGANIC_QUEST_TARGET),
+                        'required' => self::INORGANIC_QUEST_TARGET,
+                        'completed' => $inorganicPredictions >= self::INORGANIC_QUEST_TARGET,
+                        'progress_text' => "{$inorganicPredictions}/" . self::INORGANIC_QUEST_TARGET,
+                        'remaining' => max(0, self::INORGANIC_QUEST_TARGET - $inorganicPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ]
+                ]
             ];
         } catch (Exception $e) {
             Log::error('Error getting quest progress:', [
@@ -77,44 +129,12 @@ class QuestController extends Controller
             ]);
 
             return [
-                'current' => 0,
-                'required' => self::DAILY_QUEST_TARGET,
-                'completed' => false,
-                'progress_text' => "0/" . self::DAILY_QUEST_TARGET,
-                'remaining' => self::DAILY_QUEST_TARGET,
-                'bonus_points' => self::QUEST_BONUS_POINTS,
-                'error' => 'Failed to fetch quest progress'
+                'quests' => [
+                    'total' => [
+                        'error' => 'Failed to fetch quest progress'
+                    ]
+                ]
             ];
-        }
-    }
-
-    public function getQuestStatus(Request $request)
-    {
-        try {
-            if (!$user = $request->user()) {
-                return response()->json([
-                    'message' => 'Unauthorized'
-                ], 401);
-            }
-
-            $progress = $this->getQuestProgress($user);
-            $nextReset = now()->endOfDay()->format('Y-m-d H:i:s');
-
-            return response()->json([
-                'quest_progress' => $progress,
-                'next_reset' => $nextReset,
-                'time_remaining' => now()->endOfDay()->diffForHumans()
-            ]);
-        } catch (Exception $e) {
-            Log::error('Error getting quest status:', [
-                'user_id' => $user->id ?? null,
-                'error' => $e->getMessage()
-            ]);
-
-            return response()->json([
-                'message' => 'Error fetching quest status',
-                'error' => $e->getMessage()
-            ], 500);
         }
     }
 }

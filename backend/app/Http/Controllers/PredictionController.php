@@ -39,17 +39,20 @@ class PredictionController extends Controller
 
             $user = $request->user();
             $questProgress = null;
-            $questCompleted = false;
 
             if ($user) {
                 $questProgress = $this->questController->getQuestProgress($user);
             }
 
+            // Get completed quests from the last prediction result
+            $lastResult = end($results);
+            $completedQuests = $lastResult['completed_quests'] ?? [];
+
             return response()->json([
                 'results' => $results,
                 'total_points' => $user ? $user->points : 0,
                 'quest_progress' => $questProgress,
-                'quest_message' => $questCompleted ? 'Congratulations! You\'ve completed today\'s TrashQuest! (+10 bonus points)' : null,
+                'completed_quests' => $completedQuests
             ]);
         } catch (\Exception $e) {
             Log::error('Prediction error:', ['error' => $e->getMessage()]);
@@ -165,27 +168,32 @@ class PredictionController extends Controller
         $type = $prediction['label'];
         $pointsAdded = 0;
         $bonusPoints = 0;
-        $questCompleted = false;
+        $completedQuests = [];
 
         if ($user) {
+            // Create TrashPrediction without "Sampah " prefix in type
             TrashPrediction::create([
                 'user_id' => $user->id,
-                'trash_type' => $type,
+                'trash_type' => $type, // Remove "Sampah " prefix here
                 'image_path' => $imagePath
             ]);
 
+            // Add base point for prediction
             $user->increment('points', 1);
             $pointsAdded = 1;
 
-            $questCheck = $this->questController->checkTrashQuest($user);
-            $questCompleted = $questCheck['completed'];
-            $bonusPoints = $questCheck['bonus_points'];
+            // Check quest completion and get completed quests
+            $completedQuests = $this->questController->checkTrashQuest($user);
+
+            // Calculate total bonus points from all completed quests
+            $bonusPoints = collect($completedQuests)->sum('bonus_points');
         }
 
         return [
-            'type' => "Sampah " . $type,
+            'type' => "Sampah " . $type, // Keep "Sampah " prefix only in response
             'points_added' => $pointsAdded,
             'bonus_points' => $bonusPoints,
+            'completed_quests' => $completedQuests,
             'image_url' => asset("storage/{$imagePath}")
         ];
     }
