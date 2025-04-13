@@ -1,32 +1,44 @@
 import { useEffect, useState } from 'react';
-import OrganicIcon from "../assets/images/iconoir_organic-food.png";
-import AnorganicIcon from "../assets/images/solar_bottle-line-duotone.png";
-import Avatar from "../assets/images/Avatar.png";
-import TrashCamIcon from "../assets/images/mage_camera-2.png";
-import DropDownIcon from "../assets/images/tabler_drag-drop.png";
-import CoinIcon from "../assets/images/mingcute_copper-coin-line.png";
+import { useLocation, useNavigate } from 'react-router-dom';
+import OrganicIcon from "../assets/svg/iconoir_organic-food.svg";
+import AnorganicIcon from "../assets/svg/solar_bottle-line-duotone.svg";
+import TrashCamIcon from "../assets/svg/mage_camera-2.svg";
+import DropDownIcon from "../assets/svg/tabler_drag-drop.svg";
+import CoinIcon from "../assets/svg/mingcute_copper-coin-line.svg";
 import MainLayout from '../layouts/MainLayout.jsx';
+import { getUserProfile} from '../services/apiServices.jsx';
 
 const HomePage = () => {
-    const [tabContent, setContent] = useState(() => {
-        const storedValue = localStorage.getItem('tabContent');
-        return storedValue ? JSON.parse(storedValue) : 0;
-    });
     const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        localStorage.setItem('tabContent', tabContent);
-    }, [tabContent]);
+    const [notifSlug, setNotifSlug] = useState(null);
+  
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Ambil data user dari localStorage
         const userData = JSON.parse(localStorage.getItem("user"));
         setUser(userData);
-    }, []);
+    
+        // Ambil query param notif
+        const params = new URLSearchParams(location.search);
+        const notif = params.get("notif");
+        if (notif) {
+          setNotifSlug(notif);
+    
+          // Hapus query param biar gak muncul pas reload
+          params.delete("notif");
+          navigate({
+            pathname: location.pathname,
+            search: params.toString()
+          }, { replace: true });
+        }
+      }, []);
+    
 
 
     return (
-        <MainLayout>
+        <MainLayout notifSlug={notifSlug}>
             <div className='bg-[#f8f8f8]'>
 
                 <main className='flex flex-col items-center justify-start px-6'>
@@ -98,11 +110,11 @@ const HomePage = () => {
 
                                     <div className='flex w-full gap-6 max-md:gap-2 border-b border-[#E8E8E8] max-md:text-base'>
                                         <div className='flex flex-col justify-center w-full gap-3 max-md:gap-1'>
-                                            <p>Scan 10 Sampah</p>
+                                            <p>Scan 3 jenis organik Sampah</p>
                                         </div>
                                         <div className='flex flex-col w-full items-end justify-center gap-2 pb-6 max-md:pb-2'>
                                             <p className='text-grey-300'>12 April</p>
-                                            <div className='outline-[#ECECEC] outline-2 p-1 max-md:py-0.5 px-2 rounded-[8px] max-md:rounded-[6px] max-md:text-[8px] text-grey-500'>2/10</div>
+                                            <div className='outline-[#ECECEC] outline-2 p-1 max-md:py-0.5 px-2 rounded-[8px] max-md:rounded-[6px] max-md:text-[8px] text-grey-500'>2/3</div>
                                         </div>
                                     </div>
                                 </div>

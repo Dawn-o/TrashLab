@@ -7,6 +7,7 @@ import ProtectedRoute from "./routes/ProtectedRoutes";
 import ExchangePage from "./pages/ExchangePage";
 import ScanPage from "./pages/ScanPage";
 import HistoryPage from "./pages/HistoryPage";
+import OrganikPage from "./pages/OrganikPage";
 
 function App() {
   return (
@@ -17,14 +18,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" 
         element={
-          <ProtectedRoute>
             <HomePage />
-          </ProtectedRoute>
         } />
         <Route path="/exchange" 
         element={
           <ProtectedRoute>
-            <ExchangePage />
+            <OrganikPage />
           </ProtectedRoute>
         } />
         <Route path="/scan" 

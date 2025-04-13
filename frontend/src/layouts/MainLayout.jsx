@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header.jsx';
-import HomePage from '../pages/HomePage.jsx';
-import ExchangePage from '../pages/ExchangePage.jsx';
-import ScanPage from '../pages/ScanPage.jsx';
-import HistoryPage from '../pages/HistoryPage.jsx';
+import Notification from '../components/Notification.jsx';
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, notifSlug}) => {
     const pageTab = ["/home", "/exchange", "/scan", "/history"];
     const activeTab = pageTab.indexOf(window.location.pathname);
     const [user, setUser] = useState(null);
@@ -31,6 +28,7 @@ const MainLayout = ({ children }) => {
             <main>
                 {children}
             </main>
+            <Notification notif={notifSlug} />
         </div>
     );
 }
