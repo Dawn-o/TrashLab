@@ -6,6 +6,31 @@ import Arrow from '../assets/svg/arrow-right.svg';
 import Check from '../assets/svg/check-round.svg';
 
 const OrganikPage = () => {
+    const guides = {
+        do: [
+            {
+                id: 1,
+                title: 'Buat kompos',
+                desc: 'Ubah sampah organik menjadi untuk tanaman. Gunakan sisa makanan, daun kering, dan kulit buah. Campur dengan tanah, lalu biarkan membusuk secara alami dalam wadah terbuka',
+            },
+            {
+                id: 2,
+                title: 'Pakan Ternak',
+                desc: 'Beberapa sisa makanan seperti nasi, sayuran, dan roti basi bisa dijadikan pakan untuk ayam atau ikan.',
+            },
+            {
+                id: 3,
+                title: 'Eco Enzyme',
+                desc: 'Fermentasi kulit buah menjadi cairan serbaguna yang bisa digunakan sebagai pupuk cair atau pembersih alami rumah tangga',
+            },
+            {
+                id: 4,
+                title: 'Biogas',
+                desc: 'Dalam skala besar, sampah organik bisa difermentasi untuk menghasilkan gas (biogas) sebagai sumber energi alternatif',
+            }
+        ],
+        dont: []
+    }
     return (
         <MainLayout>
             <div className='h-[calc(100vh - 200px)] flex flex-col justify-start items-center bg-secondary py-10 max-md:gap-4 '>

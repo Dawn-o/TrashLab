@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import HomePage from "./pages/HomePage";
-import ProtectedRoute from "./routes/ProtectedRoutes";
-import ExchangePage from "./pages/ExchangePage";
-import ScanPage from "./pages/ScanPage";
-import HistoryPage from "./pages/HistoryPage";
-import OrganikPage from "./pages/OrganikPage";
+import LandingPage from "./pages/LandingPage.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ProtectedRoute from "./routes/ProtectedRoutes.jsx";
+import ExchangePage from "./pages/ExchangePage.jsx";
+import ScanPage from "./pages/ScanPage.jsx";
+import HistoryPage from "./pages/HistoryPage.jsx";
+import OrganikPage from "./pages/OrganikPage.jsx";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/organic" element={<OrganikPage />} />
         <Route path="/home" 
         element={
             <HomePage />
@@ -23,7 +24,7 @@ function App() {
         <Route path="/exchange" 
         element={
           <ProtectedRoute>
-            <OrganikPage />
+            <ExchangePage />
           </ProtectedRoute>
         } />
         <Route path="/scan" 
