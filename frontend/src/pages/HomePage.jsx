@@ -70,12 +70,12 @@ const HomePage = () => {
                                 <div className='min-w-full flex gap-10 max-lg:gap-8 max-md:gap-6'>
 
                                     <a href='#' className='flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'>
-                                        <img src={TrashCamIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="" />
-                                        <p className='max-md:text-base'>TrashCam</p>
+                                        <img src={TrashCamIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="TrashCam Icon" />
+                                        <p className='max-md:text-base'>Ambil Photo</p>
                                     </a>
                                     <a href='#' className='flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'>
-                                        <img src={DropDownIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="" />
-                                        <p className='max-md:text-base'>TrashDrop</p>
+                                        <img src={DropDownIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="TrashDrop Icon" />
+                                        <p className='max-md:text-base'>Unggah Photo</p>
                                     </a>
 
                                 </div>
