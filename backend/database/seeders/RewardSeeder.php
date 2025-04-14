@@ -16,7 +16,7 @@ class RewardSeeder extends Seeder
                 'description' => 'Show off your recycling expertise with this exclusive badge',
                 'category' => 'BADGE',
                 'points_cost' => 100,
-                'image_path' => 'rewards/badges/master-recycler.png',
+                'image_path' => 'rewards/badges/master-recycler.svg',
                 'one_time' => true
             ],
             [
@@ -24,7 +24,7 @@ class RewardSeeder extends Seeder
                 'description' => 'A badge for true environmental champions',
                 'category' => 'BADGE',
                 'points_cost' => 200,
-                'image_path' => 'rewards/badges/eco-warrior.png',
+                'image_path' => 'rewards/badges/eco-warior.svg',
                 'one_time' => true
             ],
             [
@@ -32,7 +32,7 @@ class RewardSeeder extends Seeder
                 'description' => 'Prove your dedication to environmental protection',
                 'category' => 'BADGE',
                 'points_cost' => 300,
-                'image_path' => 'rewards/badges/green-guardian.png',
+                'image_path' => 'rewards/badges/green-guardian.svg',
                 'one_time' => true
             ],
 
