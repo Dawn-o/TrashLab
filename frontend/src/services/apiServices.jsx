@@ -2,7 +2,6 @@ import axios from '../api/AxiosInstance.jsx';
 
 export const getUserProfile = async () => {
     const res = await axios.get('/profile');
-    
     return res.data;
 };
 

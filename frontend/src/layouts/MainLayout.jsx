@@ -5,27 +5,14 @@ import Notification from '../components/Notification.jsx';
 const MainLayout = ({ children, notifSlug}) => {
     const pageTab = ["/home", "/exchange", "/scan", "/history"];
     const activeTab = pageTab.indexOf(window.location.pathname);
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        try {
-            const userData = JSON.parse(localStorage.getItem("user"));
-            if (userData) setUser(userData);
-        } catch (err) {
-            console.error("User data corrupted 🫠:", err);
-        }
-    }, []);
-
-    const points = user?.points;
 
     return (
         <div>
             <Header
                 activeTab={activeTab}
                 avatar="/avatar.png"
-                points={points}
             />
-            <main>
+            <main className='relative pt-[80px] max-md:pt-[60px]'>
                 {children}
             </main>
             <Notification notif={notifSlug} />
