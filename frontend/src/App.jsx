@@ -8,6 +8,7 @@ import ExchangePage from "./pages/ExchangePage.jsx";
 import ScanPage from "./pages/ScanPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import OrganikPage from "./pages/OrganikPage.jsx";
+import GuestPage from "./pages/GuestPage.jsx";
 
 function App() {
   return (
@@ -16,29 +17,33 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/guest" element={<GuestPage />} />
         <Route path="/organic" element={<OrganikPage />} />
-        <Route path="/home" 
-        element={
-            <HomePage />
-        } />
-        <Route path="/exchange" 
-        element={
-          <ProtectedRoute>
-            <ExchangePage />
-          </ProtectedRoute>
-        } />
-        <Route path="/scan" 
-        element={
-          <ProtectedRoute>
-            <ScanPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/history" 
-        element={
-          <ProtectedRoute>
-            <HistoryPage />
-          </ProtectedRoute>
-        } />
+        <Route path="/home" element={<HomePage />} />
+        <Route
+          path="/exchange"
+          element={
+            <ProtectedRoute>
+              <ExchangePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/scan"
+          element={
+            <ProtectedRoute>
+              <ScanPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <HistoryPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
