@@ -9,6 +9,7 @@ import ExchangePage from "./pages/ExchangePage.jsx";
 import ScanPage from "./pages/ScanPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import OrganikPage from "./pages/OrganikPage.jsx";
+import GuestPage from "./pages/GuestPage.jsx";
 
 function App() {
   return (
