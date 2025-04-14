@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Quest from "../components/Quest";
 import OrganicIcon from "../assets/svg/iconoir_organic-food.svg";
 import AnorganicIcon from "../assets/svg/solar_bottle-line-duotone.svg";
 import TrashCamIcon from "../assets/svg/mage_camera-2.svg";

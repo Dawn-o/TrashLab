@@ -3,7 +3,7 @@ import MainLayout from '../layouts/MainLayout';
 import CoinIcon from "../assets/svg/mingcute_copper-coin-line.svg";
 import GreenGuardianBadge from "../assets/svg/green-guardian-badge.svg";
 import EcoWariorBadge from "../assets/svg/eco-warior-badge.svg";
-import MasterRecyclcerBadge from "../assets/svg/master-recycler-badge.svg";
+import MasterRecyclerBadge from "../assets/svg/master-recycler-badge.svg";
 import QuestionIcon from "../assets/svg/question.svg";
 
 const ExchangePage = () => {
@@ -45,7 +45,7 @@ const ExchangePage = () => {
             id: 3,
             name: "Master Recycler",
             status: "redeemed",
-            image: MasterRecyclcerBadge,
+            image: MasterRecyclerBadge,
             points: 300,
             popup: "organic"
         },

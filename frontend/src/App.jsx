@@ -8,37 +8,53 @@ import ExchangePage from "./pages/ExchangePage.jsx";
 import ScanPage from "./pages/ScanPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import OrganikPage from "./pages/OrganikPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/organic" element={<OrganikPage />} />
-        <Route path="/home" 
-        element={
-            <HomePage />
-        } />
-        <Route path="/exchange" 
-        element={
+        <Route path="/profile" element={
           <ProtectedRoute>
-            <ExchangePage />
+            <ProfilePage />
           </ProtectedRoute>
         } />
-        <Route path="/scan" 
-        element={
-          <ProtectedRoute>
-            <ScanPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/history" 
-        element={
-          <ProtectedRoute>
-            <HistoryPage />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/exchange"
+          element={
+            <ProtectedRoute>
+              <ExchangePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/scan"
+          element={
+            <ProtectedRoute>
+              <ScanPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <HistoryPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

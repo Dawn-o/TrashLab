@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import HomeIcon from "../assets/svg/home.svg";
 import HomeIconActive from "../assets/svg/home-white.svg";
 import ExchangeIcon from "../assets/svg/card-exchange.svg";
@@ -24,7 +24,7 @@ const Header = ({ activeTab, avatar }) => {
             try {
                 const res = await getUserProfile();
                 setUser(res.profile);
-                setPoints(res.profile.points); // langsung ambil dari hasil API
+                setPoints(res.profile.points);
             } catch (error) {
                 console.error("Gagal ambil profile:", error);
             }
@@ -33,11 +33,11 @@ const Header = ({ activeTab, avatar }) => {
         fetchData();
     }, []);
 
-    const handleDirectLogin = () => {
-        if (!user) {
-            window.location.href = "/login";
-        }
-    };
+  const handleDirectLogin = () => {
+    if (!user) {
+      window.location.href = "/login";
+    }
+  };
 
     const handleLogout = async () => {
         try {
@@ -75,7 +75,7 @@ const Header = ({ activeTab, avatar }) => {
                         <svg className='md:h-[30px] md:w-[30px]' width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1.75C10.9519 1.75 13.75 4.54813 13.75 8C13.75 11.4519 10.9519 14.25 7.5 14.25C4.04813 14.25 1.25 11.4519 1.25 8C1.25 4.54813 4.04813 1.75 7.5 1.75ZM7.5 3C6.17392 3 4.90215 3.52678 3.96447 4.46447C3.02678 5.40215 2.5 6.67392 2.5 8C2.5 9.32608 3.02678 10.5979 3.96447 11.5355C4.90215 12.4732 6.17392 13 7.5 13C8.82608 13 10.0979 12.4732 11.0355 11.5355C11.9732 10.5979 12.5 9.32608 12.5 8C12.5 6.67392 11.9732 5.40215 11.0355 4.46447C10.0979 3.52678 8.82608 3 7.5 3ZM6.61625 5.34812C6.83752 5.127 7.13367 4.99687 7.44621 4.98345C7.75875 4.97003 8.06496 5.07428 8.30437 5.27562L8.38375 5.34812L10.1519 7.11625C10.373 7.33752 10.5031 7.63367 10.5165 7.94621C10.53 8.25875 10.4257 8.56496 10.2244 8.80437L10.1519 8.88375L8.38375 10.6519C8.16248 10.873 7.86633 11.0031 7.55379 11.0165C7.24125 11.03 6.93504 10.9257 6.69563 10.7244L6.61625 10.6519L4.84812 8.88375C4.627 8.66248 4.49687 8.36633 4.48345 8.05379C4.47003 7.74125 4.57428 7.43504 4.77562 7.19563L4.84812 7.11625L6.61625 5.34812ZM7.5 6.2325L5.7325 8L7.5 9.7675L9.2675 8L7.5 6.2325Z" fill="#68A36F" />
                         </svg>
-                        {points ? (<p>Anda memiliki <span className='font-bold max-md:text-[11px] text-[20px]'>{points}</span> Poin</p>) : (<p>Anda memiliki ... poin</p>)}
+                        {points ? (<p>Anda memiliki <span className='font-bold max-md:text-[11px] text-[20px]'>{points}</span> Poin</p>) : (<p>Anda memiliki 0 poin</p>)}
                     </div>
                     <div className="relative group">
                         {/* Avatar */}
@@ -95,6 +95,7 @@ const Header = ({ activeTab, avatar }) => {
                             ) : (
                                 <>
                                     <button
+                                        onClick={() => window.location.href = "/profile"}
                                         className="rounded-t-[8px] w-full cursor-pointer text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                     >
                                         Profile saya

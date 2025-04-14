@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import Header from '../components/Header.jsx';
-import Notification from '../components/Notification.jsx';
+import { useEffect, useState } from "react";
+import Header from "../components/Header.jsx";
+import Notification from "../components/Notification.jsx";
+import axios from "../api/AxiosInstance.jsx";
 
 const MainLayout = ({ children, notifSlug}) => {
     const pageTab = ["/home", "/exchange", "/scan", "/history"];
@@ -12,7 +13,7 @@ const MainLayout = ({ children, notifSlug}) => {
                 activeTab={activeTab}
                 avatar="/avatar.png"
             />
-            <main className='relative pt-[80px] max-md:pt-[60px]'>
+            <main className='relative pt-[80px] max-md:pt-[60px] bg-tertiary'>
                 {children}
             </main>
             <Notification notif={notifSlug} />
