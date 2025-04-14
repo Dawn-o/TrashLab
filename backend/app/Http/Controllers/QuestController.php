@@ -137,4 +137,66 @@ class QuestController extends Controller
             ];
         }
     }
+
+    public function getQuestStatus(Request $request)
+    {
+        try {
+            $user = $request->user();
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+
+            $today = now()->startOfDay();
+            $predictions = TrashPrediction::where('user_id', $user->id)
+                ->whereDate('created_at', $today)
+                ->get();
+
+            $totalPredictions = $predictions->count();
+            $organicPredictions = $predictions->where('trash_type', 'Organik')->count();
+            $inorganicPredictions = $predictions->where('trash_type', 'Anorganik')->count();
+
+            return response()->json([
+                'quests' => [
+                    'total' => [
+                        'name' => 'Scan 10 Sampah',
+                        'current' => min($totalPredictions, self::DAILY_QUEST_TARGET),
+                        'required' => self::DAILY_QUEST_TARGET,
+                        'completed' => $totalPredictions >= self::DAILY_QUEST_TARGET,
+                        'progress_text' => "{$totalPredictions}/" . self::DAILY_QUEST_TARGET,
+                        'remaining' => max(0, self::DAILY_QUEST_TARGET - $totalPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ],
+                    'organic' => [
+                        'name' => 'Scan 5 Sampah Organik',
+                        'current' => min($organicPredictions, self::ORGANIC_QUEST_TARGET),
+                        'required' => self::ORGANIC_QUEST_TARGET,
+                        'completed' => $organicPredictions >= self::ORGANIC_QUEST_TARGET,
+                        'progress_text' => "{$organicPredictions}/" . self::ORGANIC_QUEST_TARGET,
+                        'remaining' => max(0, self::ORGANIC_QUEST_TARGET - $organicPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ],
+                    'inorganic' => [
+                        'name' => 'Scan 5 Sampah Anorganik',
+                        'current' => min($inorganicPredictions, self::INORGANIC_QUEST_TARGET),
+                        'required' => self::INORGANIC_QUEST_TARGET,
+                        'completed' => $inorganicPredictions >= self::INORGANIC_QUEST_TARGET,
+                        'progress_text' => "{$inorganicPredictions}/" . self::INORGANIC_QUEST_TARGET,
+                        'remaining' => max(0, self::INORGANIC_QUEST_TARGET - $inorganicPredictions),
+                        'bonus_points' => self::QUEST_BONUS_POINTS
+                    ]
+                ]
+            ]);
+        } catch (Exception $e) {
+            Log::error('Error getting quest status:', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'message' => 'Error fetching quest status'
+            ], 500);
+        }
+    }
 }

@@ -197,17 +197,4 @@ class PredictionController extends Controller
             'image_url' => asset("storage/{$imagePath}")
         ];
     }
-
-    public function getQuestStatus(Request $request)
-    {
-        $user = $request->user();
-
-        if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-        return response()->json([
-            'quest_progress' => $this->questController->getQuestProgress($user)
-        ]);
-    }
 }

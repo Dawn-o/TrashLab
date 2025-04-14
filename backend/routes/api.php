@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/predict', [PredictionController::class, 'predict']);
 
     // Quest Routes
-    Route::get('/quest/status', [QuestController::class, 'getQuestProgress']);
+    Route::get('/quest/status', [QuestController::class, 'getQuestStatus']);
 
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'show']);
