@@ -1,36 +1,51 @@
-import { useEffect, useState } from 'react';
-import Header from '../components/Header.jsx';
-import Notification from '../components/Notification.jsx';
+import { useEffect, useState } from "react";
+import Header from "../components/Header.jsx";
+import Notification from "../components/Notification.jsx";
+import axios from "../api/AxiosInstance.jsx";
 
-const MainLayout = ({ children, notifSlug}) => {
-    const pageTab = ["/home", "/exchange", "/scan", "/history"];
-    const activeTab = pageTab.indexOf(window.location.pathname);
-    const [user, setUser] = useState(null);
+const MainLayout = ({ children, notifSlug }) => {
+  const pageTab = ["/home", "/exchange", "/scan", "/history"];
+  const activeTab = pageTab.indexOf(window.location.pathname);
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
 
-    useEffect(() => {
-        try {
-            const userData = JSON.parse(localStorage.getItem("user"));
-            if (userData) setUser(userData);
-        } catch (err) {
-            console.error("User data corrupted 🫠:", err);
-        }
-    }, []);
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      if (userData) setUser(userData);
+    } catch (err) {
+      console.error("User data corrupted 🫠:", err);
+    }
+  }, []);
 
-    const points = user?.points;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get("/profile");
+        setProfile(response.data.profile);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
 
-    return (
-        <div>
-            <Header
-                activeTab={activeTab}
-                avatar="/avatar.png"
-                points={points}
-            />
-            <main>
-                {children}
-            </main>
-            <Notification notif={notifSlug} />
-        </div>
-    );
-}
+    if (user) {
+      fetchProfile();
+    }
+  }, [user]);
+
+  const points = profile?.points ?? 0;
+
+  return (
+    <div>
+      <Header
+        activeTab={activeTab}
+        avatar="/avatar.png"
+        points={points}
+      />
+      <main>{children}</main>
+      <Notification notif={notifSlug} />
+    </div>
+  );
+};
 
 export default MainLayout;

@@ -17,28 +17,38 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/organic" element={<OrganikPage />} />
-        <Route path="/home" 
-        element={
-            <HomePage />
-        } />
-        <Route path="/exchange" 
-        element={
-          <ProtectedRoute>
-            <ExchangePage />
-          </ProtectedRoute>
-        } />
-        <Route path="/scan" 
-        element={
-          <ProtectedRoute>
-            <ScanPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/history" 
-        element={
-          <ProtectedRoute>
-            <HistoryPage />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/exchange"
+          element={
+            <ProtectedRoute>
+              <ExchangePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/scan"
+          element={
+            <ProtectedRoute>
+              <ScanPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <HistoryPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
