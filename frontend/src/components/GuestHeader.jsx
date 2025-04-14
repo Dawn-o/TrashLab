@@ -57,7 +57,10 @@ const GuestHeader = () => {
     <header className="fixed top-0 left-0 right-0 z-50 h-[130px] bg-white flex items-center justify-between px-[45px] shadow-sm">
       {/* Left side - Logo */}
       <div>
-        <img src={TrashLabLogo} alt="TrashLab Logo" className="h-[40px]" />
+        <a href="/">
+          {" "}
+          <img src={TrashLabLogo} alt="TrashLab Logo" className="h-[40px]" />
+        </a>
       </div>
 
       {/* Right side - Navigation */}
