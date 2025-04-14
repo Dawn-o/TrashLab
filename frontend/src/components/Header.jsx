@@ -11,7 +11,7 @@ import { logoutUser } from "../services/apiServices.jsx";
 
 const Header = ({ activeTab, points, avatar }) => {
   const navItems = ["Beranda", "Tukar Poin", "Pindai Sampah", "Riwayat Pindai"];
-  const paths = ["/home", "/exchange", "/scan", "/history"];
+  const paths = ["/dashboard", "/exchange", "/scan", "/history"];
   const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
   const activeIcons = [
     HomeIconActive,
@@ -54,11 +54,11 @@ const Header = ({ activeTab, points, avatar }) => {
         localStorage.clear();
         window.location.href = "/login?notif=success-sign-out";
       } else if (error.response) {
-        window.location.href = "/home?notif=failed-sign-out";
+        window.location.href = "/dashboard?notif=failed-sign-out";
       } else if (error.request) {
-        window.location.href = "/home?notif=failed-server";
+        window.location.href = "/dashboard?notif=failed-server";
       } else {
-        window.location.href = "/home?notif=failed-unknown";
+        window.location.href = "/dashboard?notif=failed-unknown";
       }
     }
   };

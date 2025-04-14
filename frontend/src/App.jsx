@@ -32,9 +32,10 @@ function App() {
             </PublicRoute>
           }
         />
+                <Route path="/guest" element={<GuestPage />} />
         <Route path="/organic" element={<OrganikPage />} />
         <Route
-          path="/home"
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <HomePage />

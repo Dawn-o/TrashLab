@@ -50,7 +50,7 @@ function Login() {
         })
       );
 
-      window.location.href = "/home?notif=success-sign-in";
+      window.location.href = "/dashboard?notif=success-sign-in";
     } catch (error) {
       if (error.response) {
         setErrorMsg(error.response.data.message);

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import LandingPageIcon from "../assets/svg/landing-page.svg";
 import Check from "../assets/svg/check-round.svg";
 import Brain from "../assets/svg/brain.svg";
@@ -8,7 +10,7 @@ import Magnifyer from "../assets/svg/magnifyer.svg";
 import Leaf from "../assets/svg/leaf.svg";
 import Hat from "../assets/svg/hat.svg";
 import Plus from "../assets/svg/plus-round.svg";
-import MainLayout from "../layouts/MainLayout.jsx";
+import GuestLayout from "../layouts/GuestLayout.jsx";
 
 const cardData = [
   {
@@ -34,8 +36,30 @@ const cardData = [
 ];
 
 function LandingPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check for scroll target in navigation state
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        // Add small delay to ensure DOM is ready
+        setTimeout(() => {
+          const headerHeight = 130;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
-    <MainLayout>
+    <GuestLayout>
       <div className="">
         <div className="bg-[#DAE9D8] h-screen flex justify-center items-center">
           <div className="flex flex-col  md:flex-row items-center gap-10 text-center md:text-left">
@@ -50,7 +74,7 @@ function LandingPage() {
                 membantumu memisahkan sampah dengan benar
               </p>
               <button className="text-white bg-primary px-5 py-3 rounded-[10px] mb-4 w-52 mt-5">
-                Coba Sekarang!
+                <a href="/guest">Coba sekarang!</a>
               </button>
             </div>
 
@@ -60,7 +84,7 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="bg-white h-screen flex items-center justify-center">
+        <div id="about" className="bg-white h-screen flex items-center justify-center">
           <div className="flex flex-col md:flex-row gap-10 max-w-4xl">
             <div className="max-w-xl">
               <h2 className="text-3xl font-bold text-primary mb-2">
@@ -173,7 +197,7 @@ function LandingPage() {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </GuestLayout>
   );
 }
 

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
 import Notification from "../components/Notification.jsx";
+import Footer from "../components/Footer.jsx";
 import axios from "../api/AxiosInstance.jsx";
 
 const MainLayout = ({ children, notifSlug }) => {
-  const pageTab = ["/home", "/exchange", "/scan", "/history"];
+  const pageTab = ["/dashboard", "/exchange", "/scan", "/history"];
   const activeTab = pageTab.indexOf(window.location.pathname);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -37,13 +38,10 @@ const MainLayout = ({ children, notifSlug }) => {
 
   return (
     <div>
-      <Header
-        activeTab={activeTab}
-        avatar="/avatar.png"
-        points={points}
-      />
+      <Header activeTab={activeTab} avatar="/avatar.png" points={points} />
       <main>{children}</main>
       <Notification notif={notifSlug} />
+      <Footer />
     </div>
   );
 };
