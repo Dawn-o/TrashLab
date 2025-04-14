@@ -39,7 +39,7 @@ const MainLayout = ({ children, notifSlug }) => {
   return (
     <div>
       <Header activeTab={activeTab} avatar="/avatar.png" points={points} />
-      <main>{children}</main>
+      <main className="pt-[70px]">{children}</main>
       <Notification notif={notifSlug} />
       <Footer />
     </div>

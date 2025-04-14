@@ -1,13 +1,10 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
+import Avatar from "../assets/images/avatar.png";
 
 const ScanPage = () => {
     return (
         <MainLayout>
-            <div>
-                <h1>Scan Page</h1>
-                <p>This is the scan page where you can scan QR codes.</p>
-            </div>
         </MainLayout>
     );
 }
