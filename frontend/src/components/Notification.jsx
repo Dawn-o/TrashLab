@@ -20,7 +20,7 @@ const Notification = ({ notif }) => {
             slug: "warning-sign-in",
             type: "warning",
             title: "Peringatan",
-            message: "Mohon lakukan log in ter lebih dahulu!",
+            message: "Mohon lakukan sign in ter lebih dahulu!",
         },
         {
             id: 3,

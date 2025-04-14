@@ -45,7 +45,7 @@ function App() {
           path="/scan"
           element={
             <ProtectedRoute>
-              <ScanPage />
+              <GuestPage />
             </ProtectedRoute>
           }
         />
