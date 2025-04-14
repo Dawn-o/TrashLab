@@ -7,7 +7,7 @@ import ScanIcon from "../assets/svg/scan.svg";
 import ScanIconActive from "../assets/svg/scan-white.svg";
 import HistoryIcon from "../assets/svg/history.svg";
 import HistoryIconActive from "../assets/svg/history-white.svg";
-import { logoutUser } from "../services/apiServices";
+import { logoutUser } from "../services/apiServices.jsx";
 
 const Header = ({ activeTab, points, avatar }) => {
   const navItems = ["Beranda", "Tukar Poin", "Pindai Sampah", "Riwayat Pindai"];
@@ -41,17 +41,24 @@ const Header = ({ activeTab, points, avatar }) => {
 
   const handleLogout = async () => {
     try {
-      const data = await logoutUser();
-      if (data.status === 200) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("authToken");
+      const response = await logoutUser();
+
+      if (response.status === 200) {
+        localStorage.clear();
         window.location.href = "/login?notif=success-sign-out";
       }
     } catch (error) {
-      if (error.data) {
+      console.error("Logout failed:", error);
+
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        window.location.href = "/login?notif=success-sign-out";
+      } else if (error.response) {
         window.location.href = "/home?notif=failed-sign-out";
-      } else {
+      } else if (error.request) {
         window.location.href = "/home?notif=failed-server";
+      } else {
+        window.location.href = "/home?notif=failed-unknown";
       }
     }
   };

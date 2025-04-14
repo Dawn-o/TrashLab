@@ -4,7 +4,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import ProtectedRoute from "./routes/ProtectedRoutes.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import ExchangePage from "./pages/ExchangePage.jsx";
 import ScanPage from "./pages/ScanPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";

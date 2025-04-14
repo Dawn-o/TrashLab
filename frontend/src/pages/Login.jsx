@@ -38,8 +38,10 @@ function Login() {
 
     try {
       const data = await loginUser(email, password);
+      const token = data.token;
       const { name, email: userEmail } = data.user;
 
+      localStorage.setItem("authToken", token);
       localStorage.setItem(
         "user",
         JSON.stringify({
