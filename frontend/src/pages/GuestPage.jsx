@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import GuestIcon from "../assets/svg/GuestIcon.svg";
 import MainLayout from "../layouts/MainLayout.jsx";
 
 const GuestPage = () => {
   const [imagePreview, setImagePreview] = useState(null);
+  const [use, setUse] = useState(null);
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
@@ -13,12 +15,36 @@ const GuestPage = () => {
     }
   };
 
-  const triggerUpload = (id) => {
-    document.getElementById(id).click();
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const useParam = params.get("use");
+    const triggerUpload = (id) => {
+      document.getElementById(id).click();
+    };
+    
+    if (useParam) {
+      setUse(useParam);
+      
+      // Trigger fungsi sesuai value dari query
+      if (useParam === "camera") {
+        const triggerUpload = (id) => {
+          document.getElementById(id).click();
+        };
+        triggerUpload("cameraInput");
+      } else if (useParam === "upload") {
+        triggerUpload("uploadInput");
+      }
+  
+      // Bersihin param dari URL
+      params.delete("use");
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, []);
+
 
   return (
-    <MainLayout>
+    <MainLayout >
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl space-y-10 md:space-y-0 md:space-x-10">
           {!imagePreview && (

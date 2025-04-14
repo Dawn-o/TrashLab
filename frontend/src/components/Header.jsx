@@ -83,7 +83,7 @@ const Header = ({ activeTab, avatar }) => {
                         </div>
     
                         {/* Dropdown menu */}
-                        <div className="flex flex-col w-[150px] text-[#1E1E1E] font-medium absolute top-16 right-0 shadow-lg z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-[700ms] ease-out">
+                        <div className="flex flex-col w-[150px] text-[#1E1E1E] font-medium absolute top-16 right-0 shadow-lg z-10 invisible opacity-0 group-hover:visible group-focus:visible group-hover:opacity-100 group-focus:opacity-100 transition-all duration-[700ms] ease-out">
                             {!user ? (
                                 <button
                                     onClick={handleDirectLogin}
