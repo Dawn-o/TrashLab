@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeIcon from "../assets/svg/home.svg";
 import HomeIconActive from "../assets/svg/home-white.svg";
 import ExchangeIcon from "../assets/svg/card-exchange.svg";
@@ -33,6 +34,11 @@ const Header = ({ activeTab, avatar }) => {
         fetchData();
     }, []);
 
+  const handleDirectLogin = () => {
+    if (!user) {
+      window.location.href = "/login";
+    }
+  };
   const handleDirectLogin = () => {
     if (!user) {
       window.location.href = "/login";
