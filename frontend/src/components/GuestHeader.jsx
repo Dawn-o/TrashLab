@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { isAuthenticated } from "../utils/auth"; // Make sure this path is correct
+import { isAuthenticated } from "../utils/auth.js"; // Make sure this path is correct
 import TrashLabLogo from "../assets/images/trashlab.png";
 import ArrowDown from "../assets/svg/arrow-down.svg";
 
@@ -54,7 +54,7 @@ const GuestHeader = () => {
   }, [showGuide]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[130px] bg-white flex items-center justify-between px-[45px] shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[120px] bg-white flex items-center justify-between px-[45px] shadow-sm">
       {/* Left side - Logo */}
       <div>
         <a href="/">
