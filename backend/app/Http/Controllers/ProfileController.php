@@ -5,27 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\TrashPrediction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-    private function calculateUserRank(User $user)
-    {
-        return DB::table('users')
-            ->where('points', '>', $user->points)
-            ->orWhere(function ($query) use ($user) {
-                $query->where('points', '=', $user->points)
-                    ->where('created_at', '<', $user->created_at);
-            })
-            ->count() + 1;
-    }
-
     public function show(Request $request)
     {
         $user = $request->user();
 
-        // Get user's rank using the new method
-        $rank = $this->calculateUserRank($user);
+        // Get user's rank
+        $rank = User::where('points', '>', $user->points)->count() + 1;
 
         // Get base query
         $predictionsQuery = TrashPrediction::where('user_id', $user->id);
@@ -43,7 +31,7 @@ class ProfileController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'points' => $user->points,
-                'rank' => $rank,
+                'rank' => $rank + 1,
                 'stats' => $stats,
                 'quest_progress' => app(QuestController::class)->getQuestProgress($user),
                 'badge_url' => $user->badge_url
