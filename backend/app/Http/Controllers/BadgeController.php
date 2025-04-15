@@ -120,8 +120,7 @@ class BadgeController extends Controller
             
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
+                'message' => $e->errors(),
             ], 422);
             
         } catch (\Exception $e) {
