@@ -25,7 +25,7 @@ const GuestPage = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const useParam = params.get("use");
-    
+
     if (useParam) {
       // Trigger function based on query value
       if (useParam === "camera") {
@@ -33,17 +33,19 @@ const GuestPage = () => {
       } else if (useParam === "upload") {
         triggerUpload("uploadInput");
       }
-  
+
       // Clean URL parameters
       params.delete("use");
-      const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
+      const newUrl = `${window.location.pathname}${
+        params.toString() ? `?${params.toString()}` : ""
+      }`;
       window.history.replaceState({}, "", newUrl);
     }
   }, [location]);
 
   return (
     <GuestLayout>
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 pt-8">
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl space-y-10 md:space-y-0 md:space-x-10">
           {!imagePreview && (
             <div className="flex flex-col items-center space-y-4 w-full md:w-1/2 text-center">
@@ -133,8 +135,8 @@ const GuestPage = () => {
 
           {/* PREVIEW */}
           {imagePreview && (
-            <div className="flex flex-col items-center justify-center min-h-screen w-full">
-              <div className="flex flex-col items-center space-y-6">
+            <div className="absolute flex items-center justify-center pt-8">
+              <div className="flex flex-col items-center space-y-6 px-4">
                 <img
                   src={imagePreview}
                   alt="Preview"
