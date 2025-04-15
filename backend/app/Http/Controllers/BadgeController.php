@@ -12,7 +12,7 @@ class BadgeController extends Controller
         'id' => 'default_badge',
         'name' => 'Default Badge',
         'description' => 'The default user badge',
-        'image_path' => 'badges/default.png'
+        'image_path' => 'badges/default.svg'
     ];
 
     public function getAvailableBadges(Request $request)
