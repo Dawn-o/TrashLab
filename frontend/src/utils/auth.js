@@ -3,7 +3,7 @@ export const isAuthenticated = () => {
     const token = localStorage.getItem('authToken');
     const user = JSON.parse(localStorage.getItem('user'));
     return !!(token && user && user.name);
-  } catch (error) {
+  } catch {
     return false;
   }
 };
