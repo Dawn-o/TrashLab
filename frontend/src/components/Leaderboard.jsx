@@ -2,8 +2,17 @@ import FirstPlace from "../assets/svg/first-place.svg";
 import SecondPlace from "../assets/svg/second-place.svg";
 import ThirdPlace from "../assets/svg/third-place.svg";
 import CoinIcon from "../assets/svg/mingcute_copper-coin-line.svg";
+import Loading from "../components/Loading.jsx";
 
-const Leaderboard = ({ leaderboard, currentUser }) => {
+const Leaderboard = ({ leaderboard, currentUser, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-[560px]">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col justify-start items-start w-full gap-2">
       <h3 className="text-[16px] font-semibold">Leaderboard</h3>

@@ -11,8 +11,10 @@ import { getUserProfile, logoutUser } from "../services/apiServices";
 import HamburgerIcon from "../assets/svg/hamburger.svg";
 import TrashLabLogo from "../assets/images/trashlab-2.png";
 import LogoutIcon from "../assets/svg/logout.svg";
+import Loading from "../components/Loading.jsx";
 
-const Header = ({ activeTab }) => {
+const Header = ({ activeTab, isLoading }) => {
+
   const navItems = ["Beranda", "Penukaran", "Pindai Sampah", "Riwayat Pindai"];
   const paths = ["/dashboard", "/exchange", "/scan", "/history"];
   const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
@@ -83,6 +85,8 @@ const Header = ({ activeTab }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+
+
   return (
     <>
       {/* Sidebar Overlay */}
@@ -108,11 +112,10 @@ const Header = ({ activeTab }) => {
               key={index}
               href={paths[index]}
               className={`flex items-center px-6 py-4 gap-3 hover:bg-gray-50
-                                ${
-                                  activeTab === index
-                                    ? "text-white bg-primary rounded-md mx-2"
-                                    : "text-black"
-                                }
+                                ${activeTab === index
+                  ? "text-white bg-primary rounded-md mx-2"
+                  : "text-black"
+                }
                             `}
             >
               <img
@@ -149,9 +152,8 @@ const Header = ({ activeTab }) => {
               {navItems.map((item, index) => (
                 <li
                   key={index}
-                  className={`font-medium text-[18px] px-2 py-4 rounded-[8px] ${
-                    activeTab === index ? "text-white bg-primary" : "text-black"
-                  }`}
+                  className={`font-medium text-[18px] px-2 py-4 rounded-[8px] ${activeTab === index ? "text-white bg-primary" : "text-black"
+                    }`}
                 >
                   <a
                     className="flex flex-row gap-2 justify-start items-center"
@@ -174,35 +176,34 @@ const Header = ({ activeTab }) => {
           <div className="flex gap-12 max-md:gap-8 max-sm:gap-4 items-center">
             <div
               onClick={handleDirectLogin}
-              className={`font-medium max-md:text-[9px] flex justify-center items-center ${
-                !user ? "cursor-pointer" : ""
-              } max-md:gap-1 gap-2 outline-2 max-md:outline-1 outline-[#EBEBEB] rounded-[8px] max-md:rounded-[5px] py-2 px-4 max-md:p-2`}
+              className={`font-medium max-md:text-[9px] flex justify-center items-center ${!user ? "cursor-pointer" : ""
+                } max-md:gap-1 gap-2 outline-2 max-md:outline-1 outline-[#EBEBEB] rounded-[8px] max-md:rounded-[5px] py-2 px-4 max-md:p-2`}
             >
-              <svg
-                className="md:h-[30px] md:w-[30px]"
-                width="15"
-                height="16"
-                viewBox="0 0 15 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M7.5 1.75C10.9519 1.75 13.75 4.54813 13.75 8C13.75 11.4519 10.9519 14.25 7.5 14.25C4.04813 14.25 1.25 11.4519 1.25 8C1.25 4.54813 4.04813 1.75 7.5 1.75ZM7.5 3C6.17392 3 4.90215 3.52678 3.96447 4.46447C3.02678 5.40215 2.5 6.67392 2.5 8C2.5 9.32608 3.02678 10.5979 3.96447 11.5355C4.90215 12.4732 6.17392 13 7.5 13C8.82608 13 10.0979 12.4732 11.0355 11.5355C11.9732 10.5979 12.5 9.32608 12.5 8C12.5 6.67392 11.9732 5.40215 11.0355 4.46447C10.0979 3.52678 8.82608 3 7.5 3ZM6.61625 5.34812C6.83752 5.127 7.13367 4.99687 7.44621 4.98345C7.75875 4.97003 8.06496 5.07428 8.30437 5.27562L8.38375 5.34812L10.1519 7.11625C10.373 7.33752 10.5031 7.63367 10.5165 7.94621C10.53 8.25875 10.4257 8.56496 10.2244 8.80437L10.1519 8.88375L8.38375 10.6519C8.16248 10.873 7.86633 11.0031 7.55379 11.0165C7.24125 11.03 6.93504 10.9257 6.69563 10.7244L6.61625 10.6519L4.84812 8.88375C4.627 8.66248 4.49687 8.36633 4.48345 8.05379C4.47003 7.74125 4.57428 7.43504 4.77562 7.19563L4.84812 7.11625L6.61625 5.34812ZM7.5 6.2325L5.7325 8L7.5 9.7675L9.2675 8L7.5 6.2325Z"
-                  fill="#68A36F"
-                />
-              </svg>
-              {points ? (
+              {!isLoading ? (<>
+                <svg
+                  className="md:h-[30px] md:w-[30px]"
+                  width="15"
+                  height="16"
+                  viewBox="0 0 15 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M7.5 1.75C10.9519 1.75 13.75 4.54813 13.75 8C13.75 11.4519 10.9519 14.25 7.5 14.25C4.04813 14.25 1.25 11.4519 1.25 8C1.25 4.54813 4.04813 1.75 7.5 1.75ZM7.5 3C6.17392 3 4.90215 3.52678 3.96447 4.46447C3.02678 5.40215 2.5 6.67392 2.5 8C2.5 9.32608 3.02678 10.5979 3.96447 11.5355C4.90215 12.4732 6.17392 13 7.5 13C8.82608 13 10.0979 12.4732 11.0355 11.5355C11.9732 10.5979 12.5 9.32608 12.5 8C12.5 6.67392 11.9732 5.40215 11.0355 4.46447C10.0979 3.52678 8.82608 3 7.5 3ZM6.61625 5.34812C6.83752 5.127 7.13367 4.99687 7.44621 4.98345C7.75875 4.97003 8.06496 5.07428 8.30437 5.27562L8.38375 5.34812L10.1519 7.11625C10.373 7.33752 10.5031 7.63367 10.5165 7.94621C10.53 8.25875 10.4257 8.56496 10.2244 8.80437L10.1519 8.88375L8.38375 10.6519C8.16248 10.873 7.86633 11.0031 7.55379 11.0165C7.24125 11.03 6.93504 10.9257 6.69563 10.7244L6.61625 10.6519L4.84812 8.88375C4.627 8.66248 4.49687 8.36633 4.48345 8.05379C4.47003 7.74125 4.57428 7.43504 4.77562 7.19563L4.84812 7.11625L6.61625 5.34812ZM7.5 6.2325L5.7325 8L7.5 9.7675L9.2675 8L7.5 6.2325Z"
+                    fill="#68A36F"
+                  />
+                </svg>
                 <p>
                   Anda memiliki{" "}
                   <span className="font-bold max-md:text-[11px] text-[20px]">
                     {points}
                   </span>{" "}
                   Poin
-                </p>
+                </p></>
               ) : (
-                <p>Anda memiliki 0 poin</p>
+                <Loading />
               )}
             </div>
             <div className="relative avatar-dropdown">
@@ -219,11 +220,10 @@ const Header = ({ activeTab }) => {
                 className={`
                                 flex flex-col w-[150px] text-[#1E1E1E] font-medium absolute top-16 right-0 shadow-lg z-10
                                 transition-all duration-300 ease-out
-                                ${
-                                  isDropdownOpen
-                                    ? "visible opacity-100"
-                                    : "invisible opacity-0"
-                                }
+                                ${isDropdownOpen
+                    ? "visible opacity-100"
+                    : "invisible opacity-0"
+                  }
                             `}
               >
                 {!user ? (

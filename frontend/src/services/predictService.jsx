@@ -1,20 +1,29 @@
 import axios from '../api/AxiosInstance';
+import { getUserProfile } from './apiServices';
 
 const TRIAL_KEY = 'prediction_trial_used';
 
 export const predictTrash = async (imageFile) => {
   if (!imageFile) throw new Error('No image file provided');
-  
+
   // Check if trial was already used
-  const trialUsed = localStorage.getItem(TRIAL_KEY);
-  if (trialUsed) {
-    throw new Error('Please login to continue using this feature');
+  const userProfile = await getUserProfile();
+  if (userProfile) {
+    const trialUsed = null;
+    if (trialUsed) {
+      throw new Error('Failed to predict image, please login to continue using this feature');
+    }
+  } else {
+    const trialUsed = localStorage.getItem(TRIAL_KEY);
+    if (trialUsed) {
+      throw new Error('Please login to continue using this feature');
+    }
   }
 
   // Validate file size and type
   const maxSize = 5 * 1024 * 1024; // 5MB
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-  
+
   if (imageFile.size > maxSize) {
     throw new Error('File size exceeds 5MB limit');
   }
@@ -31,10 +40,10 @@ export const predictTrash = async (imageFile) => {
         'Content-Type': 'multipart/form-data',
       }
     });
-    
+
     // Mark trial as used after successful prediction
     localStorage.setItem(TRIAL_KEY, 'true');
-    
+
     return response.data.results[0];
   } catch (error) {
     if (error.response?.status === 401) {
