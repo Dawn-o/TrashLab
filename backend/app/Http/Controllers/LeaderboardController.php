@@ -116,6 +116,6 @@ class LeaderboardController extends Controller
 
         return $badge
             ? asset('storage/' . $badge->image_path)
-            : asset('storage/badges/default.png');
+            : asset('storage/badges/default.svg');
     }
 }
