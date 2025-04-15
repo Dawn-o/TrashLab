@@ -10,7 +10,7 @@ import HistoryIconActive from "../assets/svg/history-white.svg";
 import { getUserProfile, logoutUser } from '../services/apiServices';
 
 
-const Header = ({ activeTab, avatar }) => {
+const Header = ({ activeTab }) => {
     const navItems = ["Beranda", "Penukaran", "Pindai Sampah", "Riwayat Pindai"];
     const paths = ["/dashboard", "/exchange", "/scan", "/history"];
     const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
@@ -18,6 +18,7 @@ const Header = ({ activeTab, avatar }) => {
 
     const [user, setUser] = useState(null);
     const [points, setPoints] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,6 +33,7 @@ const Header = ({ activeTab, avatar }) => {
 
         fetchData();
     }, []);
+
     const handleDirectLogin = () => {
         if (!user) {
             window.location.href = "/login";
@@ -47,8 +49,28 @@ const Header = ({ activeTab, avatar }) => {
             console.error("Logout gagal:", err);
             window.location.href = "/dashboard?notif=failed-sign-out";
         }
-    
-    }
+    };
+
+    const getInitials = () => {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if (!userData || !userData.name) return '?';
+        return userData.name.charAt(0).toUpperCase();
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.avatar-dropdown')) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
     
     return (
         <header className='flex fixed top-0 left-0 right-0 z-50 justify-center p-3 max-md:py-2 bg-white text-[#1e1e1e] outline-1 outline-[#E8F0EB]'>
@@ -76,32 +98,39 @@ const Header = ({ activeTab, avatar }) => {
                         </svg>
                         {points ? (<p>Anda memiliki <span className='font-bold max-md:text-[11px] text-[20px]'>{points}</span> Poin</p>) : (<p>Anda memiliki 0 poin</p>)}
                     </div>
-                    <div className="relative group">
-                        {/* Avatar */}
-                        <div className="rounded-full w-[45px] h-[45px] cursor-pointer overflow-hidden">
-                            <img src={avatar ? avatar : "/Avatar.png"} alt="Avatar" />
+                    <div className="relative avatar-dropdown">
+                        {/* Avatar Circle with Initial */}
+                        <div 
+                            onClick={toggleDropdown}
+                            className="rounded-full w-[45px] h-[45px] cursor-pointer bg-secondary text-white flex items-center justify-center font-semibold text-xl"
+                        >
+                            {getInitials()}
                         </div>
     
                         {/* Dropdown menu */}
-                        <div className="flex flex-col w-[150px] text-[#1E1E1E] font-medium absolute top-16 right-0 shadow-lg z-10 invisible opacity-0 group-hover:visible group-focus:visible group-hover:opacity-100 group-focus:opacity-100 transition-all duration-[700ms] ease-out">
+                        <div className={`
+                            flex flex-col w-[150px] text-[#1E1E1E] font-medium absolute top-16 right-0 shadow-lg z-10
+                            transition-all duration-300 ease-out
+                            ${isDropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'}
+                        `}>
                             {!user ? (
                                 <button
                                     onClick={handleDirectLogin}
-                                    className="rounded-[8px] cursor-pointer w-full text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                    className="rounded-[8px] cursor-pointer w-full text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                 >
                                     Sign in
                                 </button>
                             ) : (
                                 <>
                                     <button
-                                     onClick={() => window.location.href = "/profile"}
-                                        className="rounded-t-[8px] w-full cursor-pointer text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                        onClick={() => window.location.href = "/profile"}
+                                        className="rounded-t-[8px] w-full cursor-pointer text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                     >
                                         Profile saya
                                     </button>
                                     <button
                                         onClick={handleLogout}
-                                        className="rounded-b-[8px] w-full cursor-pointer text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                        className="rounded-b-[8px] w-full cursor-pointer text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                     >
                                         Sign out
                                     </button>
@@ -117,3 +146,4 @@ const Header = ({ activeTab, avatar }) => {
 
 
 export default Header;
+
