@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import GuestIcon from "../assets/svg/GuestIcon.svg";
 import UploadIcon from "../assets/svg/upload-icon.svg";
 import GuestLayout from "../layouts/GuestLayout.jsx";
 
 const GuestPage = () => {
+  const location = useLocation();
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const triggerUpload = (id) => {
+    document.getElementById(id)?.click();
+  };
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
@@ -16,9 +22,24 @@ const GuestPage = () => {
     }
   };
 
-  const triggerUpload = (id) => {
-    document.getElementById(id).click();
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const useParam = params.get("use");
+    
+    if (useParam) {
+      // Trigger function based on query value
+      if (useParam === "camera") {
+        triggerUpload("cameraInput");
+      } else if (useParam === "upload") {
+        triggerUpload("uploadInput");
+      }
+  
+      // Clean URL parameters
+      params.delete("use");
+      const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, [location]);
 
   return (
     <GuestLayout>
@@ -44,14 +65,14 @@ const GuestPage = () => {
               <input
                 type="file"
                 accept="image/*"
-                capture="environment" // ini penting: membuka kamera!
+                capture="environment"
                 onChange={handleImageUpload}
                 className="hidden"
                 id="cameraInput"
               />
 
               <button
-                onClick={() => document.getElementById("cameraInput").click()}
+                onClick={() => triggerUpload("cameraInput")}
                 className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
               >
                 Ambil Photo
@@ -90,7 +111,7 @@ const GuestPage = () => {
                   <input
                     id="desktopUpload"
                     type="file"
-                    accept=".png, .jpg, .jpeg"
+                    accept="image/*"
                     onChange={handleImageUpload}
                     className="hidden"
                   />
@@ -110,8 +131,7 @@ const GuestPage = () => {
             )}
           </div>
 
-        
-        </div>  {/* PREVIEW */}
+          {/* PREVIEW */}
           {imagePreview && (
             <div className="flex flex-col items-center justify-center min-h-screen w-full">
               <div className="flex flex-col items-center space-y-6">
@@ -133,6 +153,7 @@ const GuestPage = () => {
               </div>
             </div>
           )}
+        </div>
       </div>
     </GuestLayout>
   );

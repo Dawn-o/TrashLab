@@ -100,11 +100,11 @@ const ExchangePage = () => {
                         <div className='flex flex-col justify-between items-start w-full gap-4'>
                             <h3 className='max-md:text-[20px] text-[26px] font-semibold'>TrashGuide</h3>
                             <p className='max-md:text-base text-[16px]'>Tukar poin yang anda miliki dengan berbagai badge keren!</p>
-                            <div className='w-full xl:flex max-xl:grid max-xl:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 xl:flex-wrap justify-start gap-4 max-lg:gap-8 max-md:gap-6'>
+                            <div className='w-full grid grid-cols-4 max-xl:grid-cols-3 max-sm:grid-cols-2 xl:flex-wrap justify-center gap-4 max-lg:gap-8 max-md:gap-6'>
                                 {badges.map((badge) => (
                                     <div
                                         key={badge.id}
-                                        className='flex flex-col text-center max-w-[300px] max-sm:max-w-[160px] max-md:max-w-[210px] items-center justify-center gap-2 outline-1 w-full py-8 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'
+                                        className='flex flex-col text-center max-w-[300px] max-sm:max-w-[240px] max-md:max-w-[270px] items-center justify-center gap-2 outline-1 w-full py-8 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'
                                     >
                                         {badge.comingSoon ? (
                                             <p className='text-grey-500'>Coming Soon</p>

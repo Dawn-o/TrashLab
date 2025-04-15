@@ -8,6 +8,11 @@ import StastisticIcon from "../assets/svg/iconoir_organic-food.svg";
 import Arrow from "../assets/svg/arrow-right.svg";
 
 const ProfilePage = () => {
+    const [isOpenSelection, setIsOpenSelection] = useState(false); // Buat toggle
+
+    const toggleSelection = () => {
+        setIsOpenSelection(prev => !prev);
+    };
     const badges = [
         {
             id: 1,
@@ -81,15 +86,45 @@ const ProfilePage = () => {
                             <p>johndoe@gmail.com</p>
                             <p className='text-[12px]'>Rank <span className='text-primary'>#293</span></p>
                         </div>
-                        <div className='flex flex-col justify-between items-start w-full gap-4'>
+                        <div className='flex flex-col relative justify-between items-start w-full gap-4'>
                             <h3 className='max-md:text-[20px] text-[26px] font-semibold capitalize'>Badge Aktif</h3>
-                            <button className='flex w-full justify-between items-center outline-1 outline-[#C9C9C9] rounded-[10px] bg-white hover:bg-grey-100 px-6 py-2'>
+                            {/* Tombol buat toggle */}
+                            <button
+                                onClick={toggleSelection}
+                                className='flex w-full justify-between cursor-pointer items-center outline-1 outline-[#C9C9C9] rounded-[10px] bg-white hover:bg-grey-100 px-6 py-2'>
                                 <div className='flex justify-start items-center gap-4 max-md:gap-2'>
                                     <img src={MasterRecyclerBadge} className='w-[40px] h-[40px]' alt="" />
                                     <h4>Master Recycler</h4>
                                 </div>
-                                <img src={Arrow} className='w-[20px] h-[20px] rotate-90' alt="" />
+                                <img
+                                    src={Arrow}
+                                    className={`w-[20px] h-[20px] transition-transform duration-200 ${isOpenSelection ? 'rotate-270' : 'rotate-90'}`}
+                                    alt="arrow"
+                                />
                             </button>
+
+                            <div className='w-full relative h-0'>
+                            {/* Dropdown-nya */}
+                            {isOpenSelection && (
+                                    <div className='flex flex-col justify-start absolute items-center w-full outline-1 outline-[#C9C9C9] rounded-[10px] gap-0'>
+                                        {badges.map((badge) => {
+                                            if (badge.comingSoon) return null;
+
+                                            return (
+                                                <button
+                                                    key={badge.id}
+                                                    className="flex w-full justify-between items-center bg-white hover:bg-grey-100 px-6 py-2"
+                                                >
+                                                    <div className="flex justify-start items-center gap-4 max-md:gap-2">
+                                                        <img src={badge.image} className="w-[40px] h-[40px]" alt={badge.name} />
+                                                        <h4>{badge.name}</h4>
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                            )}
+                            </div>
                         </div>
                         <div className='flex flex-col justify-between items-start w-full gap-4'>
                             <h3 className='max-md:text-[20px] text-[26px] font-semibold capitalize'>Statistik</h3>
