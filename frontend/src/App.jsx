@@ -19,13 +19,16 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/guest" element={<GuestPage />} />
+        <Route path="/pindai" element={<GuestPage />} />
         <Route path="/organic" element={<OrganikPage />} />
-        <Route path="/profile" element={
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/login"
           element={
@@ -42,8 +45,6 @@ function App() {
             </PublicRoute>
           }
         />
-                <Route path="/guest" element={<GuestPage />} />
-        <Route path="/organic" element={<OrganikPage />} />
         <Route
           path="/dashboard"
           element={

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import LandingPageIcon from "../assets/svg/landing-page.svg";
 import Check from "../assets/svg/check-round.svg";
 import Brain from "../assets/svg/brain.svg";
@@ -47,11 +47,12 @@ function LandingPage() {
         setTimeout(() => {
           const headerHeight = 130;
           const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - headerHeight;
 
           window.scrollTo({
             top: offsetPosition,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }, 100);
       }
@@ -74,7 +75,7 @@ function LandingPage() {
                 membantumu memisahkan sampah dengan benar
               </p>
               <button className="text-white bg-primary px-5 py-3 rounded-[10px] mb-4 w-52 mt-5">
-                <a href="/guest">Coba sekarang!</a>
+                <a href="/pindai">Coba sekarang!</a>
               </button>
             </div>
 
@@ -84,7 +85,10 @@ function LandingPage() {
           </div>
         </div>
 
-        <div id="about" className="bg-white h-screen flex items-center justify-center">
+        <div
+          id="about"
+          className="bg-white h-screen flex items-center justify-center"
+        >
           <div className="flex flex-col md:flex-row gap-10 max-w-4xl">
             <div className="max-w-xl">
               <h2 className="text-3xl font-bold text-primary mb-2">
@@ -154,7 +158,7 @@ function LandingPage() {
               sebagai tamu!
             </p>
             <button className="text-white bg-primary px-8 py-4 rounded-[10px] mb-4 w-full">
-              Coba Sekarang
+              <a href="/pindai">Coba sekarang!</a>
             </button>
             <p className="text-lg text-left text-black font-medium leading-tight">
               Setelah 1x percobaan, kamu perlu login/daftar untuk melanjutkan
