@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import LandingPageIcon from "../assets/svg/landing-page.svg";
 import Check from "../assets/svg/check-round.svg";
 import Brain from "../assets/svg/brain.svg";
@@ -8,7 +10,7 @@ import Magnifyer from "../assets/svg/magnifyer.svg";
 import Leaf from "../assets/svg/leaf.svg";
 import Hat from "../assets/svg/hat.svg";
 import Plus from "../assets/svg/plus-round.svg";
-import MainLayout from "../layouts/MainLayout.jsx";
+import GuestLayout from "../layouts/GuestLayout.jsx";
 
 const cardData = [
   {
@@ -34,13 +36,36 @@ const cardData = [
 ];
 
 function LandingPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check for scroll target in navigation state
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        // Add small delay to ensure DOM is ready
+        setTimeout(() => {
+          const headerHeight = 130;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
-    <MainLayout>
-      <div className="flex flex-col justify-start items-center">
-        <div className="bg-[#DAE9D8] px-4 h-screen w-full flex justify-center items-center">
-          <div className="flex max-md:flex-col flex-row items-center gap-32 justify-center text-left w-full">
-            <div className="">
-              <p className="text-3xl max-md:text-[40px] text-primary font-semibold">
+    <GuestLayout>
+      <div className="">
+        <div className="bg-[#DAE9D8] h-screen flex justify-center items-center">
+          <div className="flex flex-col  md:flex-row items-center gap-10 text-center md:text-left">
+            <div className="mr-20">
+              <p className="text-3xl text-primary font-semibold">
                 Identifikasi Sampah <br /> Dalam Sekejap
               </p>
               <br />
@@ -50,7 +75,7 @@ function LandingPage() {
                 membantumu memisahkan sampah dengan benar
               </p>
               <button className="text-white bg-primary px-8 py-4 rounded-[10px] mb-4 w-52 mt-5 max-md:text-[12px]">
-                Coba Sekarang!
+                <a href="/pindai">Coba sekarang!</a>
               </button>
             </div>
 
@@ -60,7 +85,10 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="bg-white w-full h-screen px-6 flex items-center justify-center">
+        <div
+          id="about"
+          className="bg-white w-full h-screen px-6 flex items-center justify-center"
+        >
           <div className="flex max-w-7xl flex-col md:flex-row gap-10 ">
             <div className="max-w-xl">
               <h2 className="text-3xl max-md:text-[24px] font-bold text-primary mb-2">
@@ -130,7 +158,7 @@ function LandingPage() {
               sebagai tamu!
             </p>
             <button className="text-white bg-primary px-8 py-4 max-md:text-[12px] rounded-[10px] mb-4 w-full">
-              Coba Sekarang
+              <a href="/pindai">Coba sekarang!</a>
             </button>
             <p className="text-lg text-left text-black font-medium leading-tight max-md:text-center max-md:text-[12px]">
               Setelah 1x percobaan, kamu perlu login/daftar untuk melanjutkan
@@ -173,7 +201,7 @@ function LandingPage() {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </GuestLayout>
   );
 }
 

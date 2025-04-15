@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import Avatar from "../assets/images/avatar.png";
+import Avatar from "../assets/images/Avatar.png";
 import GreenGuardianBadge from "../assets/svg/green-guardian-badge.svg";
 import EcoWariorBadge from "../assets/svg/eco-warior-badge.svg";
 import MasterRecyclerBadge from "../assets/svg/master-recycler-badge.svg";

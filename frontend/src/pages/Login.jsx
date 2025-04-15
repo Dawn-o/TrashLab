@@ -38,8 +38,10 @@ function Login() {
 
     try {
       const data = await loginUser(email, password);
+      const token = data.token;
       const { name, email: userEmail } = data.user;
-      localStorage.setItem("authToken", data.token);
+
+      localStorage.setItem("authToken", token);
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -48,7 +50,7 @@ function Login() {
         })
       );
 
-      window.location.href = "/home?notif=success-sign-in";
+      window.location.href = "/dashboard?notif=success-sign-in";
     } catch (error) {
       if (error.response) {
         setErrorMsg(error.response.data.message);

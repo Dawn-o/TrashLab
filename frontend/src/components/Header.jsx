@@ -12,7 +12,7 @@ import { getUserProfile, logoutUser } from '../services/apiServices';
 
 const Header = ({ activeTab, avatar }) => {
     const navItems = ["Beranda", "Penukaran", "Pindai Sampah", "Riwayat Pindai"];
-    const paths = ["/home", "/exchange", "/scan", "/history"];
+    const paths = ["/dashboard", "/exchange", "/scan", "/history"];
     const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
     const activeIcons = [HomeIconActive, ExchangeIconActive, ScanIconActive, HistoryIconActive];
 
@@ -45,7 +45,7 @@ const Header = ({ activeTab, avatar }) => {
             window.location.href = "/login?notif=success-sign-out";
         } catch (err) {
             console.error("Logout gagal:", err);
-            window.location.href = "/home?notif=failed-sign-out";
+            window.location.href = "/dashboard?notif=failed-sign-out";
         }
     
     }
@@ -79,7 +79,7 @@ const Header = ({ activeTab, avatar }) => {
                     <div className="relative group">
                         {/* Avatar */}
                         <div className="rounded-full w-[45px] h-[45px] cursor-pointer overflow-hidden">
-                            <img src={avatar ? avatar : "/avatar.png"} alt="Avatar" />
+                            <img src={avatar ? avatar : "/Avatar.png"} alt="Avatar" />
                         </div>
     
                         {/* Dropdown menu */}
