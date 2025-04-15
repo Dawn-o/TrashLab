@@ -37,9 +37,10 @@ const MainLayout = ({ children, notifSlug }) => {
   const points = profile?.points ?? 0;
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header activeTab={activeTab} avatar="/avatar.png" points={points} />
-      <main className="pt-[70px]">{children}</main>
+      <main className="flex-grow pt-[70px]">
+        {children}</main>
       <Notification notif={notifSlug} />
       <Footer />
     </div>
