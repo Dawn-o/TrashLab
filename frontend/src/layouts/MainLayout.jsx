@@ -38,7 +38,7 @@ const MainLayout = ({ children, notifSlug }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header activeTab={activeTab} avatar="/avatar.png" points={points} />
+      <Header activeTab={activeTab} avatar="/Avatar.png" points={points} />
       <main className="flex-grow pt-[70px]">
         {children}</main>
       <Notification notif={notifSlug} />

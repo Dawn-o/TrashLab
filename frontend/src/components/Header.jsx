@@ -79,7 +79,7 @@ const Header = ({ activeTab, avatar }) => {
                     <div className="relative group">
                         {/* Avatar */}
                         <div className="rounded-full w-[45px] h-[45px] cursor-pointer overflow-hidden">
-                            <img src={avatar ? avatar : "/avatar.png"} alt="Avatar" />
+                            <img src={avatar ? avatar : "/Avatar.png"} alt="Avatar" />
                         </div>
     
                         {/* Dropdown menu */}
