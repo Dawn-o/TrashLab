@@ -9,6 +9,7 @@ const GuestHeader = () => {
   const [showGuide, setShowGuide] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showMobileGuide, setShowMobileGuide] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -189,30 +190,36 @@ const GuestHeader = () => {
           <div className="flex flex-col">
             <button
               className="text-left text-[16px] font-medium py-4 w-full flex items-center justify-between"
-              onClick={() => setShowGuide(!showGuide)}
+              onClick={() => setShowMobileGuide(!showMobileGuide)}
             >
               <span>Panduan</span>
               <img
                 src={ArrowDown}
                 alt="Dropdown"
                 className={`w-4 h-4 transition-transform duration-200 ${
-                  showGuide ? "rotate-180" : ""
+                  showMobileGuide ? "rotate-180" : ""
                 }`}
               />
             </button>
-            {showGuide && (
-              <div className="bg-gray-50">
+            {showMobileGuide && (
+              <div>
                 <a
                   href="/panduan?sampah=organik"
                   className="block px-4 py-4 text-[16px]"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    setShowMobileGuide(false);
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   Sampah Organik
                 </a>
                 <a
                   href="/panduan?sampah=anorganik"
                   className="block px-4 py-4 text-[16px]"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    setShowMobileGuide(false);
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   Sampah Anorganik
                 </a>
