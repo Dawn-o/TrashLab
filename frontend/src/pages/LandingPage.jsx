@@ -62,9 +62,9 @@ function LandingPage() {
   return (
     <GuestLayout>
       <div className="">
-        <div className="bg-[#DAE9D8] h-screen flex justify-center items-center">
-          <div className="flex flex-col  md:flex-row items-center gap-10 text-center md:text-left">
-            <div className="mr-20">
+        <div className="bg-[#DAE9D8] h-screen flex justify-center items-center px-4">
+          <div className="flex flex-col  md:flex-row items-center gap-10 text-left">
+            <div className="">
               <p className="text-3xl text-primary font-semibold">
                 Identifikasi Sampah <br /> Dalam Sekejap
               </p>

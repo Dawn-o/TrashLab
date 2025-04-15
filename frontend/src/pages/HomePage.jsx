@@ -123,7 +123,7 @@ const HomePage = () => {
                                 <h3 className="text-[16px] font-semibold">Pindai Sampah</h3>
                                 <div className="min-w-full flex gap-10 max-lg:gap-8 max-md:gap-6">
                                     <a
-                                        href="#"
+                                        href="/scan"
                                         className="flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6"
                                     >
                                         <img
@@ -134,7 +134,7 @@ const HomePage = () => {
                                         <p className="max-md:text-base">Ambil Photo</p>
                                     </a>
                                     <a
-                                        href="#"
+                                        href="/upload"
                                         className="flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6"
                                     >
                                         <img
