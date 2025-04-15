@@ -54,7 +54,7 @@ const GuestHeader = () => {
   }, [showGuide]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[120px] bg-white flex items-center justify-between px-[45px] shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[130px] bg-white flex items-center justify-between px-[45px] shadow-sm">
       {/* Left side - Logo */}
       <div>
         <a href="/">
