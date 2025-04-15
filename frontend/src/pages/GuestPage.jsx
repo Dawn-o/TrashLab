@@ -94,7 +94,7 @@ const GuestPage = () => {
           <button
             onClick={handlePrediction}
             disabled={!selectedFile || loading}
-            className={`w-full max-w-lg text-white px-6 py-2 rounded-lg transition 
+            className={`w-full max-w-lg text-white px-6 py-2 rounded-lg transition cursor-pointer
               ${
                 selectedFile && !loading
                   ? "bg-primary hover:bg-primary/90"
@@ -120,7 +120,11 @@ const GuestPage = () => {
           />
           {prediction && (
             <>
-              <span className="w-[155px] h-[39px] flex items-center justify-center bg-[#FFD600] text-white font-medium rounded-[30px]">
+              <span 
+                className={`w-[155px] h-[39px] flex items-center justify-center text-white font-medium rounded-[30px] ${
+                  prediction.type.includes("Organik") ? "bg-primary" : "bg-yellow-400"
+                }`}
+              >
                 {prediction.type}
               </span>
               <p className="text-sm text-center">
@@ -145,7 +149,7 @@ const GuestPage = () => {
             <button
               onClick={handlePrediction}
               disabled={loading}
-              className={`w-[155px] text-white px-6 py-2 rounded-[30px] transition
+              className={`w-[155px] text-white px-6 py-2 rounded-[30px] transition cursor-pointer
                 ${loading ? "bg-[#A2A2A2]" : "bg-primary hover:bg-primary/90"}`}
             >
               {loading ? "Memindai..." : "Pindai"}

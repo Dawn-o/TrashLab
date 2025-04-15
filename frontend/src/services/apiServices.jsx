@@ -27,3 +27,4 @@ export const redeemPoints = async (id) => {
     const res = await axios.post(`/exchange/${id}`);
     return res.data;
 };
+

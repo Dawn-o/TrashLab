@@ -14,7 +14,7 @@ import LogoutIcon from "../assets/svg/logout.svg";
 
 const Header = ({ activeTab }) => {
   const navItems = ["Beranda", "Penukaran", "Pindai Sampah", "Riwayat Pindai"];
-  const paths = ["/dashboard", "/exchange", "/scan", "/history"];
+  const paths = ["/dashboard", "/exchange", "/dashboard/pindai", "/history"];
   const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
   const activeIcons = [
     HomeIconActive,
@@ -31,6 +31,7 @@ const Header = ({ activeTab }) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,6 +75,10 @@ const Header = ({ activeTab }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Check if sidebar is open and click is outside
+      if (isSidebarOpen && !event.target.closest(".sidebar") && !event.target.closest(".hamburger-button")) {
+        setIsSidebarOpen(false);
+      }
       if (!event.target.closest(".avatar-dropdown")) {
         setIsDropdownOpen(false);
       }
@@ -81,7 +86,7 @@ const Header = ({ activeTab }) => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isSidebarOpen]);
 
   return (
     <>
@@ -92,7 +97,7 @@ const Header = ({ activeTab }) => {
       <div
         className={`
                 md:hidden fixed top-0 left-0 h-full w-[194px] bg-white z-50 border-r border-gray-200
-                transform transition-transform duration-300 flex flex-col
+                transform transition-transform duration-300 flex flex-col sidebar
                 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
             `}
       >
@@ -139,7 +144,7 @@ const Header = ({ activeTab }) => {
       <header className="flex fixed top-0 left-0 right-0 z-30 justify-center p-3 max-md:py-2 bg-white text-[#1e1e1e] outline-1 outline-[#E8F0EB]">
         <div className="flex justify-between items-center max-w-7xl w-full px-2">
           {/* Hamburger Menu - Mobile Only */}
-          <button className="md:hidden p-2" onClick={toggleSidebar}>
+          <button className="md:hidden p-2 hamburger-button" onClick={toggleSidebar}>
             <img src={HamburgerIcon} alt="Menu" className="w-6 h-6" />
           </button>
 

@@ -85,7 +85,7 @@ function App() {
           }
         />
         <Route
-          path="/scan"
+          path="/dashboard/pindai"
           element={
             <ProtectedRoute>
               <ScanPage />
