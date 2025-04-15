@@ -209,7 +209,7 @@ const Header = ({ activeTab }) => {
               {/* Avatar Circle with Initial */}
               <div
                 onClick={toggleDropdown}
-                className="rounded-full w-[45px] h-[45px] cursor-pointer bg-secondary text-white flex items-center justify-center font-semibold text-xl"
+                className="rounded-full md:w-[45px] md:h-[45px] w-[30px] h-[30px] cursor-pointer bg-secondary text-white flex items-center justify-center font-semibold text-base md:text-xl"
               >
                 {getInitials()}
               </div>
