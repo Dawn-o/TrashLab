@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { isAuthenticated } from "../utils/auth"; // Make sure this path is correct
-import TrashLabLogo from "../assets/images/Trashlab.png";
+import TrashLabLogo from "../assets/images/trashlab.png";
 import ArrowDown from "../assets/svg/arrow-down.svg";
 
 const GuestHeader = () => {
