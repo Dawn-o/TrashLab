@@ -116,7 +116,7 @@ const Header = ({ activeTab }) => {
                             {!user ? (
                                 <button
                                     onClick={handleDirectLogin}
-                                    className="rounded-[8px] cursor-pointer w-full text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                    className="rounded-[8px] cursor-pointer w-full text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                 >
                                     Sign in
                                 </button>
@@ -124,13 +124,13 @@ const Header = ({ activeTab }) => {
                                 <>
                                     <button
                                         onClick={() => window.location.href = "/profile"}
-                                        className="rounded-t-[8px] w-full cursor-pointer text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                        className="rounded-t-[8px] w-full cursor-pointer text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                     >
                                         Profile saya
                                     </button>
                                     <button
                                         onClick={handleLogout}
-                                        className="rounded-b-[8px] w-full cursor-pointer text-center py-4 px-6 outline-2 outline-[#ECECEC] bg-white hover:bg-gray-100"
+                                        className="rounded-b-[8px] w-full cursor-pointer text-center py-4 px-6 outline-1 outline-[#ECECEC] bg-white hover:bg-gray-100"
                                     >
                                         Sign out
                                     </button>
@@ -146,3 +146,4 @@ const Header = ({ activeTab }) => {
 
 
 export default Header;
+
