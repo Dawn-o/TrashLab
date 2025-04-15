@@ -96,9 +96,9 @@ const GuestHeader = () => {
 
             {/* Dropdown Menu */}
             {showGuide && (
-              <div className="absolute top-full mt-2 bg-white rounded-md shadow-md py-2 w-[364px]">
+              <div className="absolute top-full mt-2 bg-white rounded-md shadow-md py-2 w-[264px]">
                 <a
-                  href="/guide/organic"
+                  href="/panduan?sampah=organik"
                   className="block px-4 py-5 text-[16px] font-medium hover:text-primary"
                 >
                   Sampah Organik
@@ -106,7 +106,7 @@ const GuestHeader = () => {
                 <div className="border-b border-[#E8E8E8]"></div>
 
                 <a
-                  href="/guide/inorganic"
+                  href="/panduan?sampah=anorganik"
                   className="block px-4 py-5 text-[16px] font-medium hover:text-primary"
                 >
                   Sampah Anorganik
