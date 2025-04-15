@@ -87,7 +87,7 @@ function LandingPage() {
 
         <div
           id="about"
-          className="bg-white w-full h-screen px-6 flex items-center justify-center"
+          className=" w-full h-screen px-4 flex items-center justify-center"
         >
           <div className="flex max-w-7xl flex-col md:flex-row gap-10 ">
             <div className="max-w-xl">
@@ -123,8 +123,8 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="bg-white min-h-screen w-full flex flex-col px-6  items-center mx-auto pb-6">
-          <div className="w-full">
+        <div className=" min-h-screen w-full flex flex-col px-6 justify-start items-center mx-auto pb-6">
+          <div className="w-full max-w-7xl">
             <p className="text-3xl w-full max-md:text-[24px] max-md:text-start font-semibold text-primary mb-2">Fitur Utama</p>
           </div>
           <div className="grid max-w-7xl items-center justify-center grid-cols-4 max-md:grid-cols-2 max-xl:grid-cols-3 gap-6 px-4 py-2 w-full">
@@ -146,7 +146,7 @@ function LandingPage() {
             ))}
           </div>
         </div>
-        <div className="pb-32 bg-white flex justify-center items-center gap-10 px-6 flex-col sm:flex-row">
+        <div className="pb-32  flex justify-center items-center gap-10 px-4 flex-col sm:flex-row">
           <div className="bg-[#DAE9D8] w-full max-w-[600px] p-7 py-14 rounded-[10px] flex flex-col items-start">
             <div className="mb-5 flex items-center w-full">
               <p className="font-semibold text-primary text-2xl max-md:text-[24px] text-start w-full">
@@ -192,7 +192,7 @@ function LandingPage() {
                     alt="Icon"
                     className="w-10 h-10 sm:w-10 sm:h-10 md:w-[30px] md:h-[30px]"
                   />
-                  <p className=" leading-tight text-black text-lg  font-normal text-center sm:text-left">
+                  <p className=" leading-tight text-black text-lg  font-normal text-left">
                     {item.text}
                   </p>
                 </div>

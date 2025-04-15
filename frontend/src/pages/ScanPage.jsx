@@ -18,29 +18,23 @@ const ScanPage = () => {
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const useParam = params.get("use");
-        const triggerUpload = (id) => {
-            document.getElementById(id).click();
-        };
 
         if (useParam) {
             setUse(useParam);
 
-            // Trigger fungsi sesuai value dari query
-            if (useParam === "camera") {
-                const triggerUpload = (id) => {
-                    document.getElementById(id).click();
-                };
-                triggerUpload("cameraInput");
-            } else if (useParam === "upload") {
-                triggerUpload("uploadInput");
-            }
-
-            // Bersihin param dari URL
+            // Bersihkan param dari URL
             params.delete("use");
             const newUrl = `${window.location.pathname}?${params.toString()}`;
             window.history.replaceState({}, "", newUrl);
         }
     }, []);
+
+    const handleTriggerUpload = (id) => {
+        const inputElement = document.getElementById(id);
+        if (inputElement) {
+            inputElement.click();
+        }
+    };
     return (
         <MainLayout >
             <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -65,27 +59,11 @@ const ScanPage = () => {
                             <input
                                 type="file"
                                 accept="image/*"
-                                capture="environment" // ini penting: membuka kamera!
+                                capture="environment"
                                 onChange={handleImageUpload}
                                 className="hidden"
                                 id="cameraInput"
                             />
-
-                            <button
-                                onClick={() => document.getElementById("cameraInput").click()}
-                                className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
-                            >
-                                Ambil Photo
-                            </button>
-
-                            <p className="text-sm text-gray-500">atau</p>
-
-                            <button
-                                className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-2"
-                                onClick={() => triggerUpload("uploadInput")}
-                            >
-                                <span>Unggah Photo</span>
-                            </button>
                             <input
                                 id="uploadInput"
                                 type="file"
@@ -93,6 +71,57 @@ const ScanPage = () => {
                                 onChange={handleImageUpload}
                                 className="hidden"
                             />
+
+                            {use === "camera" && (
+                                <button
+                                    onClick={() => handleTriggerUpload("cameraInput")}
+                                    className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                                >
+                                    Ambil Photo
+                                </button>
+                            )}
+
+                            {use === "upload" && (
+                                <>
+                                    <label className="w-full max-w-sm h-56 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-green-500">
+                                        <p className="text-gray-500">Click to upload Image</p>
+                                        <p className="text-sm text-gray-400 mt-2">
+                                            PNG, JPG, JPEG (max: 1 file)
+                                        </p>
+                                        <input
+                                            id="desktopUpload"
+                                            type="file"
+                                            accept=".png, .jpg, .jpeg"
+                                            onChange={handleImageUpload}
+                                            className="hidden"
+                                        />
+                                    </label>
+                                    <button
+                                        onClick={() => handleTriggerUpload("uploadInput")}
+                                        className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                                    >
+                                        Unggah Photo
+                                    </button>
+                                </>
+                            )}
+
+                            {!use && (
+                                <>
+                                    <button
+                                        onClick={() => handleTriggerUpload("cameraInput")}
+                                        className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                                    >
+                                        Ambil Photo
+                                    </button>
+                                    <p className="text-sm text-gray-500">atau</p>
+                                    <button
+                                        onClick={() => handleTriggerUpload("uploadInput")}
+                                        className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-2"
+                                    >
+                                        <span>Unggah Photo</span>
+                                    </button>
+                                </>
+                            )}
                         </div>
                     )}
 

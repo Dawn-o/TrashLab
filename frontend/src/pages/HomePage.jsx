@@ -88,6 +88,24 @@ const HomePage = () => {
         fetchLeaderboard();
     }, []);
 
+    const [imagePreview, setImagePreview] = useState(null);
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files?.[0];
+        if (file && file.type.startsWith("image/")) {
+            const imageUrl = URL.createObjectURL(file);
+            setImagePreview(imageUrl);
+        }
+    };
+
+
+    const handleTriggerUpload = (id) => {
+        const inputElement = document.getElementById(id);
+        if (inputElement) {
+            inputElement.click();
+        }
+    };
+
     return (
         <MainLayout notifSlug={notifSlug}>
             <div className='bg-[#f8f8f8]'>
@@ -102,15 +120,15 @@ const HomePage = () => {
                             <div className='flex flex-col max-w-[560px] justify-start items-start w-full gap-4'>
                                 <h3 className='text-[16px] font-semibold'>TrashGuide</h3>
                                 <div className='min-w-full flex gap-10 max-lg:gap-8 max-md:gap-6'>
-                                    <button 
-                                        onClick={() => navigate('/dashboard/panduan/sampah_organik')} 
+                                    <button
+                                        onClick={() => navigate('/dashboard/panduan/sampah_organik')}
                                         className='flex cursor-pointer flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'
                                     >
                                         <img src={OrganicIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="" />
                                         <p className='max-md:text-base'>Organik</p>
                                     </button>
-                                    <button 
-                                        onClick={() => navigate('/dashboard/panduan/sampah_anorganik')} 
+                                    <button
+                                        onClick={() => navigate('/dashboard/panduan/sampah_anorganik')}
                                         className='flex cursor-pointer flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6'
                                     >
                                         <img src={AnorganicIcon} className='h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]' alt="" />
@@ -122,8 +140,16 @@ const HomePage = () => {
                             <div className="flex flex-col max-w-[560px] justify-start items-start w-full gap-4">
                                 <h3 className="text-[16px] font-semibold">Pindai Sampah</h3>
                                 <div className="min-w-full flex gap-10 max-lg:gap-8 max-md:gap-6">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        capture="environment"
+                                        onChange={handleImageUpload}
+                                        className="hidden"
+                                        id="cameraInput"
+                                    />
                                     <a
-                                        href="/scan"
+                                        onClick={() => handleTriggerUpload("cameraInput")}
                                         className="flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6"
                                     >
                                         <img
@@ -131,10 +157,14 @@ const HomePage = () => {
                                             className="h-[45px] w-[45px] max-md:w-[30px] max-md:h-[30px]"
                                             alt="TrashCam Icon"
                                         />
-                                        <p className="max-md:text-base">Ambil Photo</p>
+                                        <p className="max-md:text-base">Ambil Photos</p>
                                     </a>
                                     <a
-                                        href="/upload"
+                                        href="/scan?use=upload"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.location.href = "/scan?use=upload";
+                                        }}
                                         className="flex flex-col items-center justify-center gap-2 outline-1 w-full py-6 max-md:py-4 outline-[#EBEBEB] rounded-[20px] bg-white p-6"
                                     >
                                         <img
@@ -158,6 +188,38 @@ const HomePage = () => {
                     </container>
                 </main>
             </div>
+
+            {/* PREVIEW */}
+            {imagePreview && (
+                <div className="fixed flex-col inset-0 z-50 flex items-center justify-center bg-tertiary bg-opacity-50">
+                    <div className="bg-white rounded-lg shadow-lg p-6 relative">
+                        <button
+                            onClick={() => setImagePreview(null)}
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                        >
+                            ✕
+                        </button>
+                        <div className="flex flex-col items-center space-y-4">
+                            <img
+                                src={imagePreview}
+                                alt="Preview"
+                                className="w-[250px] sm:w-[300px] h-auto rounded-xl shadow-md"
+                            />
+                            <span className="bg-yellow-400 text-white px-4 py-1 rounded-full text-sm font-medium">
+                                Sampah Anorganik
+                            </span>
+                            <p className="text-sm text-center">
+                                Lihat{" "}
+                                <span className="text-primary font-semibold underline cursor-pointer">
+                                    TrashGuide
+                                </span>{" "}
+                                untuk sampah jenis ini
+                            </p>
+                        </div>
+                    </div>
+                    <h3 className="text-primary fixed bottom-[70px] font-bold">+1 Poin Diperoleh</h3>
+                </div>
+            )}
         </MainLayout>
     );
 }
