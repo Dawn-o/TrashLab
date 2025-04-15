@@ -5,7 +5,7 @@ import Footer from "../components/Footer.jsx";
 import axios from "../api/AxiosInstance.jsx";
 
 const MainLayout = ({ children, notifSlug }) => {
-  const pageTab = ["/dashboard", "/exchange", "/dashboard/pindai", "/history"];
+  const pageTab = ["/dashboard", "/exchange", "/dashboard/pindai", "/history", "/profile"];
   const activeTab = pageTab.indexOf(window.location.pathname);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);

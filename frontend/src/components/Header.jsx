@@ -16,7 +16,7 @@ import Loading from "../components/Loading.jsx";
 const Header = ({ activeTab, isLoading }) => {
 
   const navItems = ["Beranda", "Penukaran", "Pindai Sampah", "Riwayat Pindai"];
-  const paths = ["/dashboard", "/exchange", "/dashboard/pindai", "/history"];
+  const paths = ["/dashboard", "/exchange", "/dashboard/pindai", "/history", "/profile"];
   const icons = [HomeIcon, ExchangeIcon, ScanIcon, HistoryIcon];
   const activeIcons = [
     HomeIconActive,
@@ -215,7 +215,8 @@ const Header = ({ activeTab, isLoading }) => {
               {/* Avatar Circle with Initial */}
               <div
                 onClick={toggleDropdown}
-                className="rounded-full md:w-[45px] md:h-[45px] w-[30px] h-[30px] cursor-pointer bg-secondary text-white flex items-center justify-center font-semibold text-base md:text-xl"
+                className={`rounded-full ${window.location.pathname === "/profile" ? "outline-2 outline-primary outline-dashed" : ""
+                  } md:w-[45px] md:h-[45px] w-[30px] h-[30px] cursor-pointer bg-secondary text-white flex items-center justify-center font-semibold text-base md:text-xl`}
               >
                 {getInitials()}
               </div>
