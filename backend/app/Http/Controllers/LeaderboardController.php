@@ -81,7 +81,7 @@ class LeaderboardController extends Controller
                         ->count();
 
                     $response['current_user'] = [
-                        'rank' => $higherRankedUsers + 1,
+                        'rank' => $higherRankedUsers,
                         'name' => $authUser->name,
                         'points' => $authUser->points,
                         'badge_url' => $this->getBadgeUrl($authUser)
