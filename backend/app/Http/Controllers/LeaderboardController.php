@@ -106,7 +106,7 @@ class LeaderboardController extends Controller
     protected function getBadgeUrl(User $user)
     {
         if ($user->active_badge === 'default_badge') {
-            return asset('storage/badges/default.png');
+            return asset('storage/badges/default.svg');
         }
 
         $badge = $user->rewards()
