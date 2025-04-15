@@ -62,24 +62,24 @@ function LandingPage() {
   return (
     <GuestLayout>
       <div className="">
-        <div className="bg-[#DAE9D8] h-screen flex justify-center items-center">
-          <div className="flex flex-col  md:flex-row items-center gap-10 text-center md:text-left">
-            <div className="mr-20">
+        <div className="bg-[#DAE9D8] h-screen flex justify-center items-center px-4">
+          <div className="flex flex-col  md:flex-row items-center gap-10 text-left">
+            <div className="">
               <p className="text-3xl text-primary font-semibold">
                 Identifikasi Sampah <br /> Dalam Sekejap
               </p>
               <br />
               <p className="text-lg font-medium leading-tight">
                 Cukup unggah foto, dan biarkan
-                <span className="text-primary font-bold"> TrashLab</span> <br />
+                <span className="text-primary max-md:text-16px] font-bold"> TrashLab</span> <br />
                 membantumu memisahkan sampah dengan benar
               </p>
-              <button className="text-white bg-primary px-5 py-3 rounded-[10px] mb-4 w-52 mt-5">
+              <button className="text-white bg-primary px-8 py-4 rounded-[10px] mb-4 w-52 mt-5 max-md:text-[12px]">
                 <a href="/pindai">Coba sekarang!</a>
               </button>
             </div>
 
-            <div className="hidden md:block">
+            <div className="max-md:hidden">
               <img src={LandingPageIcon} className="" alt="Landing Icon" />
             </div>
           </div>
@@ -87,14 +87,14 @@ function LandingPage() {
 
         <div
           id="about"
-          className="bg-white h-screen flex items-center justify-center"
+          className=" w-full h-screen px-4 flex items-center justify-center"
         >
-          <div className="flex flex-col md:flex-row gap-10 max-w-4xl">
+          <div className="flex max-w-7xl flex-col md:flex-row gap-10 ">
             <div className="max-w-xl">
-              <h2 className="text-3xl font-bold text-primary mb-2">
+              <h2 className="text-3xl max-md:text-[24px] font-bold text-primary mb-2">
                 Tentang TrashLab
               </h2>
-              <p className="text-black text-xl">
+              <p className="text-black text-xl max-md:text-[16px]">
                 TrashLab adalah platform berbasis AI yang membantu kamu
                 mengenali jenis sampah,
                 <span className="text-primary font-medium"> organik </span>
@@ -106,16 +106,16 @@ function LandingPage() {
               </p>
             </div>
 
-            <div className="space-y-4 mt-4">
+            <div className="md:space-y-4 mt-4 max-md:grid max-md:grid-cols-2 max-md:gap-4">
               {["Cepat dan Mudah", "Berbasis AI", "Edukatif", "Gratis"].map(
                 (item, idx) => (
                   <div className="flex items-center gap-2" key={idx}>
                     <img
                       src={Check}
                       alt="Check"
-                      className="w-[40px] h-[40px]"
+                      className="w-[40px] max-md:w-[20px] h-[40px] max-md:h-[20px]"
                     />
-                    <p className="text-black text-xl">{item}</p>
+                    <p className="text-black text-xl max-md:text-[16px] font-medium">{item}</p>
                   </div>
                 )
               )}
@@ -123,51 +123,51 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="bg-white h-screen flex flex-col items-center mx-auto">
-          <div>
-            <p className="text-3xl font-bold text-primary mb-2">Fitur Utama</p>
+        <div className=" min-h-screen w-full flex flex-col px-6 justify-start items-center mx-auto pb-6">
+          <div className="w-full max-w-7xl">
+            <p className="text-3xl w-full max-md:text-[24px] max-md:text-start font-semibold text-primary mb-2">Fitur Utama</p>
           </div>
-          <div className="flex gap-6 overflow-x-auto p-4 w-full justify-center">
+          <div className="grid max-w-7xl items-center justify-center grid-cols-4 max-md:grid-cols-2 max-xl:grid-cols-3 gap-6 px-4 py-2 w-full">
             {cardData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#DAE9D8] text-black w-64 p-7 py-14 rounded-[10px] shrink-0 flex flex-col items-start h-full"
+                className="bg-[#DAE9D8] text-black w-full max-w-[340px] p-7 py-14 rounded-[10px] gap-4 max-md:gap-2 shrink-0 flex flex-col items-center h-full"
               >
-                <img className="mx-auto mb-4" src={item.icon} alt="Icon" />
-                <div className="mb-5">
-                  <div className="mb-5 min-h-[72px] flex items-center">
-                    <p className="font-semibold text-xl text-center w-full items-center">
+                <img className="w-[100px] max-md:w-[50px] h-[100px] max-md:h-[50px]" src={item.icon} alt="Icon" />
+                <div className="">
+                  <div className=" min-h-[72px] max-md:min-h-[48px] flex items-center">
+                    <p className="font-semibold text-xl max-md:text-[12px] text-center w-full items-center">
                       {item.title}
                     </p>
                   </div>
                 </div>
-                <p className="text-md text-left">{item.desc}</p>
+                <p className="text-md text-center max-md:text-[10px]">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="pb-32 bg-white flex justify-center items-center gap-10 px-4 flex-col sm:flex-row">
+        <div className="pb-32  flex justify-center items-center gap-10 px-4 flex-col sm:flex-row">
           <div className="bg-[#DAE9D8] w-full max-w-[600px] p-7 py-14 rounded-[10px] flex flex-col items-start">
             <div className="mb-5 flex items-center w-full">
-              <p className="font-semibold text-primary text-2xl text-start w-full">
+              <p className="font-semibold text-primary text-2xl max-md:text-[24px] text-start w-full">
                 Coba Gratis Sebagai Tamu
               </p>
             </div>
-            <p className="text-lg text-left mb-4 text-black font-medium leading-tight">
+            <p className="text-lg text-left max-md:text-[16px] mb-4 text-black font-medium leading-tight">
               Belum punya akun? Gak masalah. Kamu bisa uji coba pindai sampah 1x
               sebagai tamu!
             </p>
-            <button className="text-white bg-primary px-8 py-4 rounded-[10px] mb-4 w-full">
+            <button className="text-white bg-primary px-8 py-4 max-md:text-[12px] rounded-[10px] mb-4 w-full">
               <a href="/pindai">Coba sekarang!</a>
             </button>
-            <p className="text-lg text-left text-black font-medium leading-tight">
+            <p className="text-lg text-left text-black font-medium leading-tight max-md:text-center max-md:text-[12px]">
               Setelah 1x percobaan, kamu perlu login/daftar untuk melanjutkan
               penggunaan.
             </p>
           </div>
 
           <div className="space-y-6 px-4 sm:px-6 md:px-8 w-full max-w-[600px]">
-            <h2 className="text-2xl font-bold text-[#4CAF50] text-center sm:text-left">
+            <h2 className="text-2xl max-md:text-[24px] font-semibold text-[#4CAF50] text-left">
               Kenapa Harus TrashLab?
             </h2>
             <div className="space-y-4">
@@ -184,15 +184,15 @@ function LandingPage() {
                 },
               ].map((item, idx) => (
                 <div
-                  className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-col sm:flex-row"
+                  className="flex items-center gap-3 sm:gap-4 md:gap-6  flex-row"
                   key={idx}
                 >
                   <img
                     src={item.icon}
                     alt="Icon"
-                    className="w-10 h-10 sm:w-10 sm:h-10 md:w-16 md:h-16"
+                    className="w-10 h-10 sm:w-10 sm:h-10 md:w-[30px] md:h-[30px]"
                   />
-                  <p className=" leading-tight text-black text-lg font-normal text-center sm:text-left">
+                  <p className=" leading-tight text-black text-lg  font-normal text-left">
                     {item.text}
                   </p>
                 </div>
