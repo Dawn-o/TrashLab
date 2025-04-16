@@ -48,7 +48,7 @@ const PanduanPage = () => {
     return (
         <GuestLayout>
             <div className="min-h-screen flex flex-col items-center w-full gap-8 p-6 pt-[250px]">
-                <div className="h-[65px] w-[450px] p-[1px] flex rounded-[10px] border border-[#EBEBEB] bg-white">
+                <div className="h-[65px] w-full max-w-7xl p-[1px] flex rounded-[10px] border border-[#EBEBEB] bg-white">
                     <TabButton
                         isActive={activeTab === 'organik'}
                         onClick={() => handleTabChange('organik')}
