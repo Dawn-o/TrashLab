@@ -79,21 +79,20 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-                setIsLoadingLeaderboard(true); // Set loading state to true
+        setIsLoadingLeaderboard(true); // Set loading state to true
         const response = await axios.get("/leaderboard");
         setLeaderboard(response.data.leaderboard);
         setCurrentUser(response.data.current_user);
       } catch (error) {
         console.error("Failed to fetch leaderboard:", error);
-            } finally {
-                setIsLoadingLeaderboard(false); // Set loading state to false
+      } finally {
+        setIsLoadingLeaderboard(false); // Set loading state to false
       }
     };
 
     fetchLeaderboard();
   }, []);
 
-  // Handle badge fetching
   useEffect(() => {
     const fetchBadge = async () => {
       try {
@@ -102,19 +101,23 @@ const HomePage = () => {
           (badge) => badge.is_active
         );
 
-        // Remove "Badge" word from name
+        // Remove "Badge" word from name and set default to "TrashLab Rookie"
         const formatBadgeName = (name) => {
-          return name?.replace(" Badge", "") || "Default";
+          if (!name) return "TrashLab Rookie";
+          return name.replace(" Badge", "");
         };
 
         setCurrentBadge({
           url: activeBadge?.image_url || response.data.default_badge.image_url,
-          name: formatBadgeName(
-            activeBadge?.name || response.data.default_badge.name
-          ),
+          name: formatBadgeName(activeBadge?.name) || "TrashLab Rookie",
         });
       } catch (error) {
         console.error("Failed to fetch badge:", error);
+        // Set default badge on error without referencing undefined response
+        setCurrentBadge({
+          url: "", // Set empty string or a default fallback URL
+          name: "TrashLab Rookie",
+        });
       }
     };
 

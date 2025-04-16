@@ -10,6 +10,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Add this line
 
   const [notifSlug, setNotifSlug] = useState(null);
 
@@ -35,6 +36,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Add this line
 
     try {
       const data = await loginUser(email, password);
@@ -57,6 +59,7 @@ function Login() {
       } else {
         setErrorMsg("Server mati apa gimana nih? 😅");
       }
+      setIsLoading(false); // Add this line
     }
   };
 
@@ -101,11 +104,13 @@ function Login() {
           {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
           <button
             type="submit"
-            className="bg-primary cursor-pointer text-white p-2.5 mt-6 rounded-xl"
+            disabled={isLoading}
+            className={`bg-primary cursor-pointer text-white p-2.5 mt-6 rounded-xl ${
+              isLoading ? "opacity-70" : ""
+            }`}
           >
-            Sign In
+            {isLoading ? "Signing in..." : "Sign In"}
           </button>
-
           <div className="flex gap-2 text-base font-medium items-center justify-center mt-4">
             <p>Haven't signed up yet?</p>
             <a
