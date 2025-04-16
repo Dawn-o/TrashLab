@@ -16,6 +16,7 @@ const HomePage = () => {
   const [quests, setQuests] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoadingLeaderboard, setIsLoadingLeaderboard] = useState(true); // State untuk loading leaderboard
   const [nameLocal, setNameLocal] = useState(null);
   const [currentBadge, setCurrentBadge] = useState(null);
 
@@ -78,11 +79,14 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
+                setIsLoadingLeaderboard(true); // Set loading state to true
         const response = await axios.get("/leaderboard");
         setLeaderboard(response.data.leaderboard);
         setCurrentUser(response.data.current_user);
       } catch (error) {
         console.error("Failed to fetch leaderboard:", error);
+            } finally {
+                setIsLoadingLeaderboard(false); // Set loading state to false
       }
     };
 
@@ -241,6 +245,7 @@ const HomePage = () => {
               <Leaderboard
                 leaderboard={leaderboard}
                 currentUser={currentUser}
+                isLoading={isLoadingLeaderboard}
               />
             </div>
           </container>

@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout';
 import CoinIcon from "../assets/svg/mingcute_copper-coin-line.svg";
 import QuestionIcon from "../assets/svg/question.svg";
 import axios from "../api/AxiosInstance";
+import Loading from '../components/Loading';
 
 const ExchangePage = () => {
     const [badges, setBadges] = useState([]);
@@ -96,7 +97,7 @@ const ExchangePage = () => {
                             <h3 className='max-md:text-[20px] text-[26px] font-semibold'>Badge Exchange</h3>
                             <p className='max-md:text-base text-[16px]'>Tukar poin yang anda miliki dengan berbagai badge keren!</p>
                             {loading ? (
-                                <div className="w-full text-center py-8">Loading...</div>
+                                <div className="w-full text-center py-8"><Loading/></div>
                             ) : error ? (
                                 <div className="w-full text-center py-8 text-red-500">{error}</div>
                             ) : (

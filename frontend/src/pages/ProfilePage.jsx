@@ -6,6 +6,7 @@ import MasterRecyclerBadge from "../assets/svg/master-recycler-badge.svg";
 import StastisticIcon from "../assets/svg/iconoir_organic-food.svg";
 import Arrow from "../assets/svg/arrow-right.svg";
 import axios from "../api/AxiosInstance";
+import Loading from "../components/Loading";
 
 const ProfilePage = () => {
   const [isOpenSelection, setIsOpenSelection] = useState(false);
@@ -76,7 +77,7 @@ const ProfilePage = () => {
     return (
       <MainLayout>
         <div className="flex items-center justify-center h-screen">
-          Loading...
+          <Loading/>
         </div>
       </MainLayout>
     );

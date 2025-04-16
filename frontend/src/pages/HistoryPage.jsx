@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import axios from "../api/AxiosInstance";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import Loading from "../components/Loading";
 
 const HistorySection = ({ title, items }) => (
   <div className="mb-8">
@@ -88,7 +89,7 @@ const HistoryPage = () => {
         
         {loading ? (
           <div className="text-center py-8">
-            <p className="text-gray-500">Memuat...</p>
+            <Loading/>
           </div>
         ) : error ? (
           <div className="text-center py-8">

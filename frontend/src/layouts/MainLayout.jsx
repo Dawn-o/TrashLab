@@ -5,10 +5,11 @@ import Footer from "../components/Footer.jsx";
 import axios from "../api/AxiosInstance.jsx";
 
 const MainLayout = ({ children, notifSlug }) => {
-  const pageTab = ["/dashboard", "/exchange", "/dashboard/pindai", "/history"];
+  const pageTab = ["/dashboard", "/exchange", "/dashboard/pindai", "/history", "/profile"];
   const activeTab = pageTab.indexOf(window.location.pathname);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Tambahkan state isLoading
 
   useEffect(() => {
     try {
@@ -22,10 +23,13 @@ const MainLayout = ({ children, notifSlug }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        setIsLoading(true); // Set loading state to true
         const response = await axios.get("/profile");
         setProfile(response.data.profile);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
+      } finally {
+        setIsLoading(false); // Set loading state to false
       }
     };
 
@@ -38,9 +42,8 @@ const MainLayout = ({ children, notifSlug }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header activeTab={activeTab} points={points} />
-      <main className="flex-grow pt-[70px]">
-        {children}</main>
+      <Header activeTab={activeTab} points={points} isLoading={isLoading} />
+      <main className="flex-grow pt-[70px]">{children}</main>
       <Notification notif={notifSlug} />
       <Footer />
     </div>
