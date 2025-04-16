@@ -237,19 +237,20 @@ const ScanPage = () => {
       <div className="flex justify-center mt-6 gap-4">
         {loading ? (
           <button
+            className="px-6 py-2 bg-[#A2A2A2] text-white rounded-lg opacity-50 cursor-not-allowed"
             disabled
-            className="w-[155px] text-white px-6 py-2 rounded-[30px] transition cursor-not-allowed bg-[#A2A2A2]"
           >
             Memindai...
           </button>
         ) : (
           <>
+            {/* Only show buttons if there are no predictions yet */}
             {!predictions.length && (
               <>
                 {images.length < 3 && (
                   <button
                     onClick={() => handleTriggerUpload("uploadInput")}
-                    className="w-[155px] text-white px-6 py-2 rounded-[30px] transition cursor-pointer bg-primary hover:bg-primary/90"
+                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
                   >
                     + Tambah Gambar
                   </button>
@@ -258,8 +259,7 @@ const ScanPage = () => {
                 {images.length > 0 && (
                   <button
                     onClick={handlePrediction}
-                    disabled={loading}
-                    className="w-[155px] text-white px-6 py-2 rounded-[30px] transition cursor-pointer bg-primary hover:bg-primary/90"
+                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
                   >
                     Pindai Semua
                   </button>
