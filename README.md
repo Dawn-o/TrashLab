@@ -123,4 +123,4 @@ POST /predict
 
 **Video Presentation:** [YouTube Link (Unlisted)](https://linknanti)
 
-**Presentation Slides:** [Canva Slides Link](https://link)
+**Presentation Slides:** [Canva Slides Link](https://www.canva.com/design/DAGkU5BoDXc/bYeSAFgOrexoY5eE3g1a0Q/edit?utm_content=DAGkU5BoDXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
