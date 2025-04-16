@@ -70,7 +70,9 @@ const Leaderboard = ({ leaderboard, currentUser, isLoading }) => {
           ))}
 
           {/* Current user position if not in top 5 */}
-          {currentUser && currentUser.rank > 5 && (
+          {currentUser && 
+           currentUser.rank > 5 && 
+           !leaderboard.some(user => user.name === currentUser.name) && (
             <>
               <div className="w-full text-center text-[#828282] text-sm py-2">
                 • • •
