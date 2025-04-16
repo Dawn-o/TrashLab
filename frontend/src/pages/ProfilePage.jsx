@@ -77,7 +77,7 @@ const ProfilePage = () => {
     return (
       <MainLayout>
         <div className="flex items-center justify-center h-screen">
-          <Loading/>
+          <Loading />
         </div>
       </MainLayout>
     );
@@ -121,21 +121,26 @@ const ProfilePage = () => {
                 className="flex w-full justify-between cursor-pointer items-center outline-1 outline-[#C9C9C9] rounded-[10px] bg-white hover:bg-grey-100 px-6 py-2"
               >
                 <div className="flex justify-start items-center gap-4 max-md:gap-2">
-                  <img
-                    src={`https://trashlab.rushel.my.id${
-                      currentBadge?.url ||
-                      badges.find((b) => b.is_active)?.image_url ||
-                      badges[0]?.image_url
-                    }`}
-                    className="w-[40px] h-[40px]"
-                    alt="Current Badge"
-                  />
-                  <h4>
-                    {currentBadge?.name ||
-                      badges.find((b) => b.is_active)?.name ||
-                      badges[0]?.name ||
-                      "Select Badge"}
-                  </h4>
+                  {(currentBadge?.name ||
+                    badges.find((b) => b.is_active)?.name) &&
+                    (currentBadge?.url ||
+                    badges.find((b) => b.is_active)?.image_url ? (
+                      <img
+                        src={`https://trashlab.rushel.my.id${
+                          currentBadge?.url ||
+                          badges.find((b) => b.is_active)?.image_url
+                        }`}
+                        className="w-[40px] h-[40px]"
+                        alt="Current Badge"
+                      />
+                    ) : null)}
+                  <div className="flex flex-col">
+                    <h4>
+                      {currentBadge?.name ||
+                        badges.find((b) => b.is_active)?.name ||
+                        "Select Badge"}
+                    </h4>
+                  </div>
                 </div>
                 <img
                   src={Arrow}
