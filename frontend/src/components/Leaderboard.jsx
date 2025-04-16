@@ -36,6 +36,12 @@ const Leaderboard = ({ leaderboard, currentUser }) => {
                 )}
                 <div className="flex items-center gap-2">
                   <p className="font-medium">{user.name}</p>
+                  {/* Add badge */}
+                  <img
+                    src={`https://trashlab.rushel.my.id${user.badge_url}`}
+                    alt="Badge"
+                    className="w-5 h-5 object-contain"
+                  />
                   {currentUser && user.name === currentUser.name && (
                     <span className="text-xs text-[#68A36F]">(You)</span>
                   )}
@@ -67,6 +73,12 @@ const Leaderboard = ({ leaderboard, currentUser }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="font-medium">{currentUser.name}</p>
+                    {/* Add badge for current user */}
+                    <img
+                      src={`https://trashlab.rushel.my.id${currentUser.badge_url}`}
+                      alt="Badge"
+                      className="w-5 h-5 object-contain"
+                    />
                     <span className="text-xs text-[#68A36F]">(You)</span>
                   </div>
                 </div>
