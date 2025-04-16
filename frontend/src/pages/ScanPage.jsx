@@ -99,15 +99,14 @@ const ScanPage = () => {
         onChange={handleImageUpload}
         className="hidden"
       />
-      {/* Modified grid to center 1-3 images */}
       <div className="grid grid-cols-1 gap-6 place-items-center">
         <div
-          className={`grid gap-6 w-full ${
+          className={`grid w-full gap-4 ${
             images.length === 1
               ? "grid-cols-1 max-w-md"
               : images.length === 2
-              ? "grid-cols-2 max-w-2xl"
-              : "grid-cols-3 max-w-6xl"
+              ? "grid-cols-1 md:grid-cols-2 max-w-2xl"
+              : "grid-cols-1 md:grid-cols-3 max-w-6xl"
           }`}
         >
           {images.map((image, index) => (
@@ -115,11 +114,15 @@ const ScanPage = () => {
               key={index}
               className="relative flex flex-col items-center bg-white p-4 rounded-lg shadow w-full"
             >
-              <div className="relative group">
+              <div className="relative group w-full">
                 <img
                   src={image.preview}
                   alt={`Preview ${index + 1}`}
-                  className="w-[358px] h-[548px] object-cover rounded-lg"
+                  className={`w-full ${
+                    images.length === 1
+                      ? "h-[548px]"
+                      : "h-[300px] md:h-[400px]"
+                  } object-cover rounded-lg`}
                 />
                 {/* Only show delete button if there are no predictions */}
                 {!predictions.length && (
@@ -199,7 +202,7 @@ const ScanPage = () => {
                     <span
                       onClick={() =>
                         navigate(
-                          `/panduan?sampah=${predictions[index].type
+                          `/dashboard/panduan/sampah_${predictions[index].type
                             .toLowerCase()
                             .replace("sampah ", "")}`
                         )
@@ -216,7 +219,7 @@ const ScanPage = () => {
                     +{predictions[index].points_added} Poin Diperoleh
                   </p>
                   {predictions[index].bonus_points > 0 && (
-                    <p className="text-xs text-green-600">
+                    <p className="text-sm text-green-600">
                       +{predictions[index].bonus_points} bonus poin
                     </p>
                   )}
@@ -329,7 +332,7 @@ const ScanPage = () => {
               {use === "camera" && (
                 <button
                   onClick={() => handleTriggerUpload("cameraInput")}
-                  className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                  className="w-full max-w-sm bg-primary text-white px-6 py-3 rounded-lg"
                 >
                   Ambil Photo
                 </button>
@@ -354,7 +357,7 @@ const ScanPage = () => {
                   </label>
                   <button
                     onClick={() => handleTriggerUpload("uploadInput")}
-                    className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                    className="w-full max-w-sm bg-primary text-white px-6 py-3 rounded-lg"
                   >
                     Unggah Photo
                   </button>
@@ -365,14 +368,14 @@ const ScanPage = () => {
                 <>
                   <button
                     onClick={() => handleTriggerUpload("cameraInput")}
-                    className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
+                    className="w-full max-w-sm bg-primary text-white px-6 py-3 rounded-lg"
                   >
                     Ambil Photo
                   </button>
                   <p className="text-sm text-gray-500">atau</p>
                   <button
                     onClick={() => handleTriggerUpload("uploadInput")}
-                    className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-2"
+                    className="w-full max-w-sm bg-primary text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-2"
                   >
                     <span>Unggah Photo</span>
                   </button>
