@@ -24,7 +24,7 @@ class LeaderboardController extends Controller
                 ->orderBy('points', 'desc')
                 ->orderBy('first_prediction_date', 'asc')
                 ->orderBy('created_at', 'asc')
-                ->limit(10)
+                ->limit(5)
                 ->get();
 
             $response = [

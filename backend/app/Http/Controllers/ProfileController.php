@@ -31,7 +31,7 @@ class ProfileController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'points' => $user->points,
-                'rank' => $rank,
+                'rank' => $rank + 1,
                 'stats' => $stats,
                 'quest_progress' => app(QuestController::class)->getQuestProgress($user),
                 'badge_url' => $user->badge_url

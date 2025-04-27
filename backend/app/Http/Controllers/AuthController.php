@@ -14,26 +14,34 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            $messages = [
+                'email.required' => 'Email wajib diisi',
+                'email.email' => 'Format email tidak valid',
+                'email.max' => 'Email maksimal 255 karakter',
+                'password.required' => 'Password wajib diisi',
+                'password.string' => 'Password harus berupa teks'
+            ];
+
             $request->validate([
                 'email' => 'required|email|max:255',
                 'password' => 'required|string'
-            ]);
+            ], $messages);
 
             $key = Str::lower($request->email) . '|' . request()->ip();
 
             if (RateLimiter::tooManyAttempts($key, 3)) {
-                throw ValidationException::withMessages([
-                    'email' => ['Too many login attempts. Please try again in ' . RateLimiter::availableIn($key) . ' seconds.'],
-                ]);
+                return response()->json([
+                    'message' => 'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . RateLimiter::availableIn($key) . ' detik.'
+                ], 422);
             }
 
             $user = User::where('email', $request->email)->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
                 RateLimiter::hit($key);
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
+                return response()->json([
+                    'message' => 'Email atau password salah'
+                ], 422);
             }
 
             RateLimiter::clear($key);
@@ -46,12 +54,11 @@ class AuthController extends Controller
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
+                'message' => $e->errors()[array_key_first($e->errors())][0]
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'An error occurred during login'
+                'message' => 'Terjadi kesalahan pada server'
             ], 500);
         }
     }
@@ -59,6 +66,20 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
+            $messages = [
+                'name.required' => 'Nama wajib diisi',
+                'name.string' => 'Nama harus berupa teks',
+                'name.max' => 'Nama maksimal 255 karakter',
+                'email.required' => 'Email wajib diisi',
+                'email.email' => 'Format email tidak valid',
+                'email.max' => 'Email maksimal 255 karakter',
+                'email.unique' => 'Email sudah terdaftar',
+                'password.required' => 'Password wajib diisi',
+                'password.string' => 'Password harus berupa teks',
+                'password.min' => 'Password minimal 8 karakter',
+                'password.confirmed' => 'Konfirmasi password tidak cocok'
+            ];
+
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:users,email',
@@ -66,13 +87,9 @@ class AuthController extends Controller
                     'required',
                     'string',
                     'min:8',
-                    'regex:/[a-z]/',
-                    'regex:/[A-Z]/',
-                    'regex:/[0-9]/',
-                    'regex:/[@$!%*#?&]/',
                     'confirmed'
                 ],
-            ]);
+            ], $messages);
 
             $user = User::create([
                 'name' => $request->name,
@@ -88,12 +105,11 @@ class AuthController extends Controller
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
+                'message' => $e->errors()[array_key_first($e->errors())][0]
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'An error occurred during registration'
+                'message' => 'Terjadi kesalahan pada server'
             ], 500);
         }
     }

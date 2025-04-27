@@ -1,2 +1,5 @@
 *
 !.gitignore
+!rewards/
+!rewards/badges/
+!rewards/badges/*
